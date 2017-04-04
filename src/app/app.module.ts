@@ -6,11 +6,15 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { DominionComponent } from './dominion/dominion.component';
+import { CardlistComponent } from './dominion/cardlist/cardlist.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DominionComponent
+    DominionComponent,
+    CardlistComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -18,9 +22,22 @@ import { DominionComponent } from './dominion/dominion.component';
     HttpModule,
     RouterModule.forRoot( [
       {
-        path: 'dominion',
-        component: DominionComponent
+        path: 'home',
+        component: HomeComponent,
       },
+      {
+        path: '',
+        redirectTo: '/home',
+        pathMatch: 'full' ,
+      },
+      {
+        path: 'dominion',
+        component: DominionComponent,
+      },
+      {
+        path: 'dominion/cardlist',
+        component: CardlistComponent,
+      }
     ]),
   ],
   providers: [],

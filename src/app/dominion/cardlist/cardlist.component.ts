@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 // import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-dominion',
-  templateUrl: './dominion.component.html',
-  styleUrls: ['./dominion.component.css']
+  selector: 'app-cardlist',
+  templateUrl: './cardlist.component.html',
+  styleUrls: ['./cardlist.component.css']
 })
-export class DominionComponent implements OnInit {
+export class CardlistComponent implements OnInit {
 
   constructor(
     // private location: Location
