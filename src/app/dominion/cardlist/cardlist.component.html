@@ -2,4 +2,8 @@
   cardlist works!
 </p>
 
-<!--<button (click)="goBack()" >Back</button>-->
+<ul>
+  <li *ngFor="let cardinfo of CardInfoList" >{{cardinfo.id}} : {{cardinfo.name}}</li>
+</ul>
+
+<button (click)="EditCardInfo()">Edit Card Info</button>
