@@ -1,0 +1,21 @@
+
+.card {
+	width:75px;
+	height:115px;
+	margin: 2px;
+	border-radius: 6px;
+	z-index: 5;
+
+	padding : 0;
+	border: 0px;
+	background-size: cover;
+	background-color: black;
+	display: block;
+	/*float: left;*/
+	position: relative;
+	background-position:left top;
+	background-repeat: no-repeat;
+	/*background-image : url(./s_Copper.png);*/
+}
+
+

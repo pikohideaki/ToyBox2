@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable, Inject } from '@angular/core';
 // import { Location } from '@angular/common';
 import { HttpModule, Http, Headers } from '@angular/http';
 
@@ -14,10 +14,11 @@ import { CardInfo } from "../../card-info";
 })
 export class CardlistComponent implements OnInit {
 
-  CardInfoList: CardInfo[];
+  CardInfoList: CardInfo[] = [];
 
   constructor(
-    private http: Http
+    private http: Http,
+    @Inject('HOST_NAME') private HOST_NAME: string
   ) {}
 
   ngOnInit() {
@@ -26,8 +27,8 @@ export class CardlistComponent implements OnInit {
   }
 
 
-  private CardInfoUrl = 'http://192.168.33.10/api/cardinfo.php';
-  // private CardInfoUrl = 'api/cardinfo';
+  private CardInfoUrl = `${this.HOST_NAME}/api/cardinfo.php`;
+  // private CardInfoUrl = './api/cardinfo.php';
 
   private handleError( error: any ): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
@@ -37,11 +38,12 @@ export class CardlistComponent implements OnInit {
 
   // get CardInfo
   GetCardInfo(): Promise< CardInfo[] > {
+  // GetCardInfo() {
     console.log( this.CardInfoUrl );
     return this.http
       .get( this.CardInfoUrl )
       .toPromise()
-      // .then( response => console.log( response.json().data ) )
+      // .then( response => console.log( response.json().data ) );
       .then( response => response.json().data as CardInfo[] )
       .catch( this.handleError );
   }
@@ -49,27 +51,27 @@ export class CardlistComponent implements OnInit {
 
 
   // add CardInfo
-  EditCardInfo(): void {
-    let cardinfo = new CardInfo( 14, 'new card' );
-    this.CardInfoList.push( cardinfo );
-    this.AddCardInfo( cardinfo );
-  }
+  // EditCardInfo(): void {
+  //   let cardinfo = new CardInfo( 14, 'new card' );
+  //   this.CardInfoList.push( cardinfo );
+  //   this.AddCardInfo( cardinfo );
+  // }
 
 
   private headers = new Headers({'Content-Type': 'application/json'});
 
 
 
-  AddCardInfo( cardinfo: CardInfo ): Promise<CardInfo> {
-    const url = `${this.CardInfoUrl}/${cardinfo.id}`;
+  // AddCardInfo( cardinfo: CardInfo ): Promise<CardInfo> {
+  //   const url = `${this.CardInfoUrl}/${cardinfo.id}`;
 
-    console.log( JSON.stringify( cardinfo ), url );
-    return this.http
-      .put( url, JSON.stringify( cardinfo ), { headers: this.headers } )
-      .toPromise()
-      .then( () => cardinfo )
-      .catch( this.handleError );
-  }
+  //   console.log( JSON.stringify( cardinfo ), url );
+  //   return this.http
+  //     .put( url, JSON.stringify( cardinfo ), { headers: this.headers } )
+  //     .toPromise()
+  //     .then( () => cardinfo )
+  //     .catch( this.handleError );
+  // }
 
 
   // update( cardinfo: CardInfo ): Promise<CardInfo> {

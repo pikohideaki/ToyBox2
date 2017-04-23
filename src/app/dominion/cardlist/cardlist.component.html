@@ -1,9 +1,31 @@
 <p>
-  cardlist works!
+  cardlist works!!!
 </p>
 
 <ul>
-  <li *ngFor="let cardinfo of CardInfoList" >{{cardinfo.id}} : {{cardinfo.name}}</li>
+  <li *ngFor="let cardinfo of CardInfoList" >
+    {{cardinfo.name_jp       }},
+    {{cardinfo.name_jp_yomi  }},
+    {{cardinfo.name_eng      }},
+    {{cardinfo.set_name      }},
+    {{cardinfo.cost_str      }},
+    {{cardinfo.cost_coin     }},
+    {{cardinfo.cost_potion   }},
+    {{cardinfo.cost_debt     }},
+    {{cardinfo.category      }},
+    {{cardinfo.card_type     }},
+    {{cardinfo.VP            }},
+    {{cardinfo.draw_card     }},
+    {{cardinfo.action        }},
+    {{cardinfo.buy           }},
+    {{cardinfo.coin          }},
+    {{cardinfo.VPtoken       }},
+    {{cardinfo.effect1       }},
+    {{cardinfo.effect2       }},
+    {{cardinfo.effect3       }},
+    {{cardinfo.effect4       }},
+    {{cardinfo.implemented   }},
+  </li>
 </ul>
 
-<button (click)="EditCardInfo()">Edit Card Info</button>
+<!--<button (click)="EditCardInfo()">Edit Card Info</button>-->
