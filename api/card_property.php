@@ -18,33 +18,37 @@ function ReadCardList( $dir ) {
   $file->setCsvControl("\t");
 
   $CardList = array();
+  $line_no = 0;
   foreach ( $file as $line ) {
     if ( $file->key() == 0 ) continue;  // discard the first line
 
     $it = 0;
+    $line_no++;
     $CardList[] = array(
+      'no'                      => $line_no,
       'card_ID'                 => $line[$it++],
       'name_jp'                 => $line[$it++],
       'name_jp_yomi'            => $line[$it++],
       'name_eng'                => $line[$it++],
       'set_name'                => $line[$it++],
-      'cost_str'                => $line[$it++],
-      'cost_coin'               => $line[$it++],
-      'cost_potion'             => $line[$it++],
-      'cost_debt'               => $line[$it++],
+      'cost' => array(
+        'coin'   => (integer)( $line[$it++] ),
+        'potion' => (integer)( $line[$it++] ),
+        'debt'   => (integer)( $line[$it++] ),
+      ),
       'category'                => $line[$it++],
       'card_type'               => $line[$it++],
-      'VP'                      => $line[$it++],
-      'draw_card'               => $line[$it++],
-      'action'                  => $line[$it++],
-      'buy'                     => $line[$it++],
-      'coin'                    => $line[$it++],
-      'VPtoken'                 => $line[$it++],
+      'VP'                      => (integer)( $line[$it++] ),
+      'draw_card'               => (integer)( $line[$it++] ),
+      'action'                  => (integer)( $line[$it++] ),
+      'buy'                     => (integer)( $line[$it++] ),
+      'coin'                    => (integer)( $line[$it++] ),
+      'VPtoken'                 => (integer)( $line[$it++] ),
       'effect'                  => $line[$it++],
       'description'             => $line[$it++],
       'recommended_combination' => $line[$it++],
       'memo'                    => $line[$it++],
-      'implemented'             => $line[$it++],
+      'implemented'             => ( $line[$it++] == 'true' ),
     );
   }
 
