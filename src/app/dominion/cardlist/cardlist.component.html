@@ -1,31 +1,49 @@
-<p>
-  cardlist works!!!
-</p>
 
-<ul>
-  <li *ngFor="let cardinfo of CardInfoList" >
-    {{cardinfo.name_jp       }},
-    {{cardinfo.name_jp_yomi  }},
-    {{cardinfo.name_eng      }},
-    {{cardinfo.set_name      }},
-    {{cardinfo.cost_str      }},
-    {{cardinfo.cost_coin     }},
-    {{cardinfo.cost_potion   }},
-    {{cardinfo.cost_debt     }},
-    {{cardinfo.category      }},
-    {{cardinfo.card_type     }},
-    {{cardinfo.VP            }},
-    {{cardinfo.draw_card     }},
-    {{cardinfo.action        }},
-    {{cardinfo.buy           }},
-    {{cardinfo.coin          }},
-    {{cardinfo.VPtoken       }},
-    {{cardinfo.effect1       }},
-    {{cardinfo.effect2       }},
-    {{cardinfo.effect3       }},
-    {{cardinfo.effect4       }},
-    {{cardinfo.implemented   }},
-  </li>
-</ul>
+<div class='noshiro-data-table--box'>
 
-<!--<button (click)="EditCardInfo()">Edit Card Info</button>-->
+  <noshiro-data-table--items-per-page
+      [itemsPerPageOptions]='itemsPerPageOptions'
+      [itemsPerPageDefault]='itemsPerPage'
+      (submitItemsPerPage)='setItemsPerPage($event); setSelectedPageIndex(0)'
+    >
+  </noshiro-data-table--items-per-page>
+
+  <noshiro-data-table--pagenation
+      [selectedPageIndex]='selectedPageIndex'
+      [itemsPerPage]='itemsPerPage'
+      [dataSize]='CardPropertyListFiltered.length'
+      (changeSelectedPageIndex)='setSelectedPageIndex($event)'
+    >
+  </noshiro-data-table--pagenation>
+
+  
+  <noshiro-data-table--reset-buttons (click)='reset()' >
+  </noshiro-data-table--reset-buttons>
+
+  <span>{{this.CardPropertyListFiltered.length}} items</span>
+
+  <div class='clear'></div>
+
+  <table class='noshiro-data-table noshiro-data-table--shadow3px noshiro-data-table--vertical-line'>
+    <thead>
+      <tr>
+        <noshiro-data-table--table-header
+            (onChange)="updateView()"
+            [(columnSettings)]="columnSettings"
+            [selectorOptions]="selectorOptions" >
+        </noshiro-data-table--table-header>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor='let line of this.getDataAtPage( this.selectedPageIndex )'>
+        <td *ngFor='let column of columnSettings'
+            [class.noshiro-data-table--cell-alignLeft]  ="column.align=='l'"
+            [class.noshiro-data-table--cell-alignCenter]="column.align=='c'"
+            [class.noshiro-data-table--cell-alignRight] ="column.align=='r'" >
+          {{ line[column.columnName] | cardPropertyForView :column.columnName }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

@@ -1,0 +1,58 @@
+
+<noshiro-data-table--items-per-page
+    (submitItemsPerPage)='setItemsPerPage($event); setSelectedPageIndex(0)'
+    [itemsPerPageOptions]='itemsPerPageOptions'
+    [itemsPerPageDefault]='itemsPerPage'
+  >
+</noshiro-data-table--items-per-page>
+
+<noshiro-data-table--pagenation
+    [selectedPageIndex]='selectedPageIndex'
+    [itemsPerPage]='itemsPerPage'
+    [dataSize]='GameResultList.length'
+    (changeSelectedPageIndex)='setSelectedPageIndex($event)'
+  >
+</noshiro-data-table--pagenation>
+
+<table class='noshiro-data-table  noshiro-data-table--shadow3px'>
+  <thead>
+    <tr>
+      <th>No.</th>
+      <th>日付</th>
+      <th>場所</th>
+      <th>スコア</th>
+      <th>メモ</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor='let line of getDataForView()'>
+      <td class='noshiro-data-table--cell-numeric'>{{line.no}}</td>
+      <td> {{line.date   }}</td>
+      <td> {{line.place  }}</td>
+      <td>
+        <table class='noshiro-data-table  sub-table' ><!--style='box-shadow: none'-->
+          <tbody>
+            <tr *ngFor='let playerResult of line.players'>
+              <td class='noshiro-data-table--cell-numeric  sub-table--narrow-cell'>
+                {{playerResult.rank  }}</td>
+              <td class='                                      sub-table--normal-cell'>
+                {{playerResult.name  }}</td>
+              <td class='noshiro-data-table--cell-numeric  sub-table--narrow-cell'>
+                {{playerResult.VP}}{{(playerResult.less_turns == 'true' ? '*' : '')}}</td>
+              <td class='noshiro-data-table--cell-numeric  sub-table--narrow-cell'>
+                {{playerResult.score }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+      <td> {{line.memo   }}</td>
+      <td>
+        <button md-raised-button color='accent' (click)='getDetail()'>Detail</button>
+        <button md-raised-button color='primary' (click)='editGameResult()'>Edit</button>
+        <!--<button md-raised-button color='warn' (click)='deleteGameResult()'>Delete</button>-->
+        <!--<md-icon style='fill:red'>delete</md-icon>-->
+      </td>
+    </tr>
+  </tbody>
+</table>

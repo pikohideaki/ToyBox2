@@ -1,0 +1,53 @@
+
+<noshiro-data-table--items-per-page
+    (submitItemsPerPage)="setItemsPerPage($event); setSelectedPageIndex(0)"
+    [itemsPerPageOptions]="itemsPerPageOptions"
+    [itemsPerPageDefault]="itemsPerPage"
+  >
+</noshiro-data-table--items-per-page>
+
+<noshiro-data-table--pagenation
+    [selectedPageIndex]="selectedPageIndex"
+    [itemsPerPage]="itemsPerPage"
+    [dataSize]="data.length"
+    (changeSelectedPageIndex)="setSelectedPageIndex($event)"
+  >
+</noshiro-data-table--pagenation>
+
+
+<table class="noshiro-data-table">
+  <thead>
+    <tr>
+      <th>title</th>
+      <th>title</th>
+      <th>title</th>
+      <th>title</th>
+      <th>title</th>
+      <th>title</th>
+      <th>title</th>
+      <th>title</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor='let line of getDataForView()'>
+        <td class='noshiro-data-table--numeric-cell'> {{line.title}} </td>
+        <td class='noshiro-data-table--numeric-cell'> {{line.title}} </td>
+        <td class='noshiro-data-table--numeric-cell'> {{line.title}} </td>
+        <td class='noshiro-data-table--numeric-cell'> {{line.title}} </td>
+        <td class='noshiro-data-table--numeric-cell'> {{line.title}} </td>
+        <td>
+          <tbody>
+              <tr *ngFor='let subline of getDataForView().slice(0,3)'>
+                <td class='noshiro-data-table--numeric-cell'> {{subline.title}} </td>
+                <td class='noshiro-data-table--numeric-cell'> {{subline.title}} </td>
+                <td class='noshiro-data-table--numeric-cell'> {{subline.title}} </td>
+              </tr>
+          </tbody>
+        </td>
+        <td class='noshiro-data-table--numeric-cell'> {{line.title}} </td>
+        <td class='noshiro-data-table--numeric-cell'> {{line.title}} </td>
+        <td class='noshiro-data-table--numeric-cell'> {{line.title}} </td>
+      </tr>
+  </tbody>
+</table>
+

@@ -1,15 +1,18 @@
-<md-toolbar color='secondary' class='header'>
-<!--class='home-btn'-->
-<!---->
+<md-toolbar color='primary' class='header'>
   <a md-icon-button routerLink='/'> <md-icon>home</md-icon> </a>
-  <a md-button routerLink='/dominion' class="toolbar-button" > Dominion </a>
+  <a md-button routerLink='/dominion' class='toolbar-button' > Dominion </a>
 </md-toolbar>
 
-<md-sidenav-container>
-  <md-sidenav>
+<div class='main'>
+  <!--<md-sidenav-container>
+    <md-sidenav>
 
-  </md-sidenav>
-</md-sidenav-container>
+    </md-sidenav>
+  </md-sidenav-container>-->
 
-<router-outlet></router-outlet>
-<!--<button (click)="goBack()" >Back</button>-->
+  <div class='body-with-margin'>
+    <router-outlet></router-outlet>
+    <!--<noshiro-data-table [data]='testdata'></noshiro-data-table>-->
+  </div>
+</div>
+

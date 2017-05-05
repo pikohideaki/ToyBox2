@@ -1,10 +1,8 @@
-
-<a *ngFor="let rulebook of RuleBooks"
-    [href]='rulebook.pdfsrc'
-    class='rulebook-box'>
-  <md-card class='rulebook' >
-    <img md-card-image [src]='rulebook.imgsrc'>
-    <md-card-content>{{rulebook.title}}</md-card-content>
-  </md-card>
-</a>
-
+<div *ngFor="let rulebook of RuleBooks" class='rulebook-box'>
+  <a [href]='rulebook.pdfsrc'>
+    <md-card class='rulebook-cover' >
+      <img md-card-image [src]='rulebook.imgsrc'>
+      <md-card-content>{{rulebook.title}}</md-card-content>
+    </md-card>
+  </a>
+</div>

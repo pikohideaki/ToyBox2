@@ -1,0 +1,13 @@
+<div class='itemsPerPage'>
+  <md-select
+      placeholder="items per page"
+      [(ngModel)]="itemsPerPage"
+    >
+    <md-option
+        *ngFor="let itemsPerPage of itemsPerPageOptions"
+        [value]="itemsPerPage"
+        (click)="setItemsPerPage( itemsPerPage )"
+      >{{ itemsPerPage }}
+    </md-option>
+  </md-select>
+</div>

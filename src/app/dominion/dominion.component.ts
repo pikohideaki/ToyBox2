@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 // import { Location } from '@angular/common';
 
+
 @Component({
   selector: 'app-dominion',
   templateUrl: './dominion.component.html',
@@ -15,7 +16,5 @@ export class DominionComponent implements OnInit {
   ngOnInit() {
   }
 
-  // goBack(): void {
-  //   this.location.back();
-  // }
+
 }

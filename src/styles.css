@@ -1,16 +1,102 @@
 /* You can add global styles to this file, and also import other style files */
 
 /*@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';*/
-/*@import '~@angular/material/prebuilt-themes/indigo-pink.css';*/
-@import '~@angular/material/prebuilt-themes/pink-bluegrey.css';
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+/*@import '~@angular/material/prebuilt-themes/pink-bluegrey.css';*/
 /*@import '~@angular/material/prebuilt-themes/purple-green.css';*/
 
+/*@import "https://fonts.googleapis.com/icon?family=Material+Icons";*/
+
+/*self hosting material icon*/
+/*@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://example.com/MaterialIcons-Regular.eot); /* For IE6-8 *
+  src: local('Material Icons'),
+    local('MaterialIcons-Regular'),
+    url(https://example.com/MaterialIcons-Regular.woff2) format('woff2'),
+    url(https://example.com/MaterialIcons-Regular.woff) format('woff'),
+    url(https://example.com/MaterialIcons-Regular.ttf) format('truetype');
+}*/
 
 
+* {
+  font-family: "Helvetica","Arial",sans-serif;  
+}
 
+
+a {
+  text-decoration: none;
+}
 
 body {
 	margin: 0;
 	background-color: #F3EBAA;
 }
 
+.clear {
+  clear: left;
+  clear: right;
+}
+.body-with-margin {
+  margin: 20px;
+}
+
+.no-styled-list {
+  list-style: none;
+}
+
+.no-padding {
+  padding: 0;
+}
+
+.fontsize16px {
+  font-size: 16px;
+}
+
+
+
+
+
+/*
+.piko-data-table {
+  position: relative;
+  border: 1px solid rgba(0,0,0,.12);
+  white-space: nowrap;
+  background-color: white;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.piko-data-table.shadow-3dp {
+  box-shadow : 
+    0 3px 4px 0 rgba(0,0,0,.14),
+    0 3px 3px -2px rgba(0,0,0,.2),
+    0 1px 8px 0 rgba(0,0,0,.12)
+}
+.piko-data-table th,.piko-data-table td {
+  position: relative;
+  height: 48px;
+  border: 1px solid rgba(0,0,0,.06);
+  box-sizing: border-box;
+  padding: 12px 18px;
+}
+.piko-data-table th {
+  vertical-align: bottom;
+  text-overflow: ellipsis;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: 0;
+  font-size: 12px;
+  color: rgba(0,0,0,.54);
+  padding: 0 18px 12px 18px;  
+}
+.piko-data-table td {
+  vertical-align: middle;
+}
+.piko-data-table .piko-data-table__cell--numeric {
+  text-align: right;
+}
+.piko-data-table tbody tr:hover {
+  background: rgba(0,0,0,0.06);
+}*/

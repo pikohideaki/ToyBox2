@@ -4,17 +4,19 @@ import { Location } from '@angular/common';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'ToyBox';
+  title: string = 'ToyBox';
+
+  testdata: any[] = [];
 
   constructor(
     private location: Location
-  ) { }
-
-
-  goBack(): void {
-    this.location.back();
+  ) {
+    for ( let i = 0; i < 1150; ++i ) {
+      this.testdata.push( { title: i } );
+    }
   }
+
 }

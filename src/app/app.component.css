@@ -15,11 +15,20 @@
   /*height: 100%;*/
   /*font-size: 65px;*/
 /*}*/
-.home-btn:hover {
+/*.home-btn:hover {
   cursor: pointer;
-}
+}*/
 
 .toolbar-button {
   height: 100%;
   line-height: 64px;
+}
+
+md-toolbar {
+  position: fixed;
+  z-index: 100;
+}
+
+.main {
+  padding-top: 64px;
 }
