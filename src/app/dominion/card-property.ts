@@ -1,4 +1,6 @@
 
+import { CardCost } from './card-cost';
+
 export class CardProperty {
   no                      : number;
   card_ID                 : string;
@@ -6,10 +8,7 @@ export class CardProperty {
   name_jp_yomi            : string;
   name_eng                : string;
   set_name                : string;
-  cost_str                : string;
-  cost_coin               : number;
-  cost_potion             : number;
-  cost_debt               : number;
+  cost                    : CardCost;
   category                : string;
   card_type               : string;
   VP                      : number;
@@ -31,7 +30,6 @@ export class CardProperty {
     name_jp_yomi            : string,
     name_eng                : string,
     set_name                : string,
-    cost_str                : string,
     cost_coin               : number,
     cost_potion             : number,
     cost_debt               : number,
@@ -55,10 +53,7 @@ export class CardProperty {
     this.name_jp_yomi            = name_jp_yomi;
     this.name_eng                = name_eng;
     this.set_name                = set_name;
-    this.cost_str                = cost_str;
-    this.cost_coin               = cost_coin;
-    this.cost_potion             = cost_potion;
-    this.cost_debt               = cost_debt;
+    this.cost                    = new CardCost( cost_coin, cost_potion, cost_debt );
     this.category                = category;
     this.card_type               = card_type;
     this.VP                      = VP;
@@ -75,29 +70,3 @@ export class CardProperty {
 	}
 }
 
-
-// sample
-// {
-//   card_ID : 'name',
-//   name_jp : 'aaa',
-//   name_jp_yomi : 'aaa',
-//   name_eng : 'aaa',
-//   set_name : 'aaa',
-//   cost_str : 'aaa',
-//   cost_coin : 12,
-//   cost_potion : 12,
-//   cost_debt : 12,
-//   category : 'aaa',
-//   card_type : 'aaa',
-//   VP : 45,
-//   draw_card : 45,
-//   action : 45,
-//   buy : 45,
-//   coin : 45,
-//   VPtoken : 45,
-//   effect1 : 'aaa',
-//   effect2 : 'aaa',
-//   effect3 : 'aaa',
-//   effect4 : 'aaa',
-//   implemented : 'aaa',
-// }

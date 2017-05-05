@@ -1,17 +1,18 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'noshiro-data-table--pagenation',
+  selector: 'my-data-table--pagenation',
   templateUrl: './pagenation.component.html',
   styleUrls: ['./pagenation.component.css']
 })
 export class PagenationComponent implements OnInit {
 
-  @Input() selectedPageIndex: number = 0;
+  @Input()  selectedPageIndex: number = 0;
+  @Output() selectedPageIndexChange = new EventEmitter<number>();
+
   @Input() itemsPerPage: number = 25;
   @Input() dataSize: number = 0;
 
-  @Output() changeSelectedPageIndex = new EventEmitter<number>();
 
   constructor() { }
 
@@ -27,8 +28,7 @@ export class PagenationComponent implements OnInit {
   }
 
   setSelectedPageIndex( idx: number ): void {
-    this.selectedPageIndex = idx;
-    this.changeSelectedPageIndex.emit( this.selectedPageIndex );
+    this.selectedPageIndexChange.emit( idx );
   }
   goToFirstPage()   : void { this.setSelectedPageIndex( 0                          ); }
   goToPreviousPage(): void { this.setSelectedPageIndex( this.selectedPageIndex - 1 ); }

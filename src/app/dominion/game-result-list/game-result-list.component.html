@@ -1,20 +1,20 @@
 
-<noshiro-data-table--items-per-page
+<my-data-table--items-per-page
     (submitItemsPerPage)='setItemsPerPage($event); setSelectedPageIndex(0)'
     [itemsPerPageOptions]='itemsPerPageOptions'
     [itemsPerPageDefault]='itemsPerPage'
   >
-</noshiro-data-table--items-per-page>
+</my-data-table--items-per-page>
 
-<noshiro-data-table--pagenation
+<my-data-table--pagenation
     [selectedPageIndex]='selectedPageIndex'
     [itemsPerPage]='itemsPerPage'
     [dataSize]='GameResultList.length'
     (changeSelectedPageIndex)='setSelectedPageIndex($event)'
   >
-</noshiro-data-table--pagenation>
+</my-data-table--pagenation>
 
-<table class='noshiro-data-table  noshiro-data-table--shadow3px'>
+<table class='my-data-table  my-data-table--shadow3px'>
   <thead>
     <tr>
       <th>No.</th>
@@ -27,20 +27,20 @@
   </thead>
   <tbody>
     <tr *ngFor='let line of getDataForView()'>
-      <td class='noshiro-data-table--cell-numeric'>{{line.no}}</td>
+      <td class='my-data-table--cell-numeric'>{{line.no}}</td>
       <td> {{line.date   }}</td>
       <td> {{line.place  }}</td>
       <td>
-        <table class='noshiro-data-table  sub-table' ><!--style='box-shadow: none'-->
+        <table class='my-data-table  sub-table' ><!--style='box-shadow: none'-->
           <tbody>
             <tr *ngFor='let playerResult of line.players'>
-              <td class='noshiro-data-table--cell-numeric  sub-table--narrow-cell'>
+              <td class='my-data-table--cell-numeric  sub-table--narrow-cell'>
                 {{playerResult.rank  }}</td>
               <td class='                                      sub-table--normal-cell'>
                 {{playerResult.name  }}</td>
-              <td class='noshiro-data-table--cell-numeric  sub-table--narrow-cell'>
+              <td class='my-data-table--cell-numeric  sub-table--narrow-cell'>
                 {{playerResult.VP}}{{(playerResult.less_turns == 'true' ? '*' : '')}}</td>
-              <td class='noshiro-data-table--cell-numeric  sub-table--narrow-cell'>
+              <td class='my-data-table--cell-numeric  sub-table--narrow-cell'>
                 {{playerResult.score }}</td>
             </tr>
           </tbody>

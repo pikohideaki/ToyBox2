@@ -1,0 +1,15 @@
+
+.actionButton {
+  margin: auto;
+}
+
+.description {
+  float: left;
+  width: 60%;
+ 	padding : 10px;
+  box-sizing: border-box;
+}
+.image {
+  float: left;
+  width: 40%;
+}

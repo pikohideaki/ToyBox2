@@ -3,8 +3,8 @@ import { Component, OnInit, Pipe } from '@angular/core';
 import { GameResult } from "../game-result";
 import { GetGameResultService } from '../get-game-result.service';
 
-import { ItemsPerPageComponent, initializeItemsPerPageOption } from '../../noshiro-data-table/items-per-page/items-per-page.component';
-import { PagenationComponent, getPagenatedData } from '../../noshiro-data-table/pagenation/pagenation.component';
+import { ItemsPerPageComponent, initializeItemsPerPageOption } from '../../my-data-table/items-per-page/items-per-page.component';
+import { PagenationComponent, getPagenatedData } from '../../my-data-table/pagenation/pagenation.component';
 
 
 @Component({
@@ -12,7 +12,7 @@ import { PagenationComponent, getPagenatedData } from '../../noshiro-data-table/
   selector: 'app-game-result-list',
   templateUrl: './game-result-list.component.html',
   styleUrls: [
-    '../../noshiro-data-table/noshiro-data-table.component.css',
+    '../../my-data-table/my-data-table.component.css',
     './game-result-list.component.css'
   ]
 })

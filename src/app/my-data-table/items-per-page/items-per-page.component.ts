@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'noshiro-data-table--items-per-page',
+  selector: 'my-data-table--items-per-page',
   templateUrl: './items-per-page.component.html',
   styleUrls: ['./items-per-page.component.css']
 })
@@ -9,9 +9,11 @@ export class ItemsPerPageComponent implements OnInit {
 
   @Input() itemsPerPageOptions: number[] = [];  //[ 25, 50, 100, 200 ];
   @Input() itemsPerPageDefault: number = 0;  //50;
-  itemsPerPage: number = 0;
 
-  @Output() submitItemsPerPage = new EventEmitter<number>();
+  @Input()  itemsPerPage: number = 0;
+  @Output() itemsPerPageChange = new EventEmitter<number>();
+
+
 
   constructor() {
   }
@@ -21,8 +23,7 @@ export class ItemsPerPageComponent implements OnInit {
   }
 
   setItemsPerPage( size: number ): void {
-    this.itemsPerPage = size;
-    this.submitItemsPerPage.emit( this.itemsPerPage );
+    this.itemsPerPageChange.emit( size );
   }
 
 

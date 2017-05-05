@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NoshiroDataTableComponent } from './noshiro-data-table.component';
+import { CardImageComponent } from './card-image.component';
 
-describe('NoshiroDataTableComponent', () => {
-  let component: NoshiroDataTableComponent;
-  let fixture: ComponentFixture<NoshiroDataTableComponent>;
+describe('CardImageComponent', () => {
+  let component: CardImageComponent;
+  let fixture: ComponentFixture<CardImageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NoshiroDataTableComponent ]
+      declarations: [ CardImageComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NoshiroDataTableComponent);
+    fixture = TestBed.createComponent(CardImageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

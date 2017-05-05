@@ -1,164 +1,138 @@
-// import { Component, OnInit, Inject } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, Inject, ViewChild } from '@angular/core';
+
+import { MdDialog } from '@angular/material';
+
 
 import { MyLibraryService } from '../../my-library.service';
+import { MyDataTableComponent } from '../../my-data-table/my-data-table.component';
 
+import { CardCost } from '../card-cost';
 import { CardProperty } from "../card-property";
 import { GetCardPropertyService } from '../get-card-property.service';
-import { CardListPipe } from './card-list.pipe';
+// import { CardListPipe } from './card-list.pipe';
+import { CardPropertyDialogComponent } from '../card-property-dialog/card-property-dialog.component';
 
-import { ResetButtonComponent } from '../../noshiro-data-table/reset-button/reset-button.component';
-
-import { TableHeaderComponent } from '../../noshiro-data-table/table-header/table-header.component';
-import { ItemsPerPageComponent, initializeItemsPerPageOption } from '../../noshiro-data-table/items-per-page/items-per-page.component';
-import { PagenationComponent, getPagenatedData } from '../../noshiro-data-table/pagenation/pagenation.component';
 
 
 @Component({
-  providers: [GetCardPropertyService, ResetButtonComponent],
-  // providers: [MyLibraryService, GetCardPropertyService],
+  providers: [GetCardPropertyService],
   selector: 'app-cardlist',
   templateUrl: './cardlist.component.html',
   styleUrls: [
-    '../../noshiro-data-table/noshiro-data-table.component.css',
+    '../../my-data-table/my-data-table.component.css',
     './cardlist.component.css'
-  ]
+  ],
 })
 export class CardlistComponent implements OnInit {
 
-  constructor(
-    private mylib: MyLibraryService,
-    private httpService: GetCardPropertyService,
-    private resetButton: ResetButtonComponent
-  ) {
-  }
-
-  ngOnInit() {
-    this.itemsPerPage = this.itemsPerPageDefault;
-    this.httpService.GetCardProperty()
-     .then( data => {
-       this.CardPropertyList = data;
-       this.CardPropertyListFiltered = this.CardPropertyList.filter( x => this.filterFunction(x) );
-       this.selectorOptions = this.generateSelectorOptions( this.CardPropertyListFiltered );
-     });
-    //  .then( () => console.log( this.selectorOptions, this.CardPropertyList ) );
-  }
-
-
-
   CardPropertyList: CardProperty[] = [];
-  CardPropertyListFiltered: CardProperty[] = [];
+  CardPropertyListForView: any[] = [];
 
-  // pagenation
-  selectedPageIndex: number = 0;
+  // pagenation settings
   itemsPerPageOptions: number[] = [ 25, 50, 100, 200 ];
   itemsPerPageDefault: number = 50;
-  itemsPerPage: number;
-  setSelectedPageIndex( idx: number ): void { this.selectedPageIndex = idx; }
-  setItemsPerPage( size: number ): void { this.itemsPerPage = size; }
-  selectorOptions: any = {};
+
 
   columnSettings
     : {
-        columnName: string,
-        align: string,
-        manip: string,
-        manipState: any,
-        headerTitle: string,
+        name        : string,
+        align       : string,
+        manip       : string,
+        manipState  : any,
+        button      : boolean,
+        headerTitle : string,
       }[]
    = [
-    { columnName: 'no'         , align: 'c', manip: 'sort'             , manipState: undefined,  headerTitle: 'No.' },
-    { columnName: 'name_jp'    , align: 'l', manip: 'incrementalSearch', manipState: undefined,  headerTitle: '名前' },
-    { columnName: 'name_eng'   , align: 'l', manip: 'incrementalSearch', manipState: undefined,  headerTitle: 'Name' },
-    { columnName: 'set_name'   , align: 'c', manip: 'filterBySelecter' , manipState: undefined,  headerTitle: 'セット名' },
-    { columnName: 'category'   , align: 'c', manip: 'filterBySelecter' , manipState: undefined,  headerTitle: '分類' },
-    { columnName: 'card_type'  , align: 'c', manip: 'incrementalSearch', manipState: undefined,  headerTitle: '種別' },
-    { columnName: 'cost_str'   , align: 'c', manip: 'sort'             , manipState: undefined,  headerTitle: 'コスト' },
-    { columnName: 'VP'         , align: 'c', manip: 'sort'             , manipState: undefined,  headerTitle: 'VP' },
-    { columnName: 'draw_card'  , align: 'c', manip: 'sort'             , manipState: undefined,  headerTitle: '+card' },
-    { columnName: 'action'     , align: 'c', manip: 'sort'             , manipState: undefined,  headerTitle: '+action' },
-    { columnName: 'buy'        , align: 'c', manip: 'sort'             , manipState: undefined,  headerTitle: '+buy' },
-    { columnName: 'coin'       , align: 'c', manip: 'sort'             , manipState: undefined,  headerTitle: '+coin' },
-    { columnName: 'VPtoken'    , align: 'c', manip: 'sort'             , manipState: undefined,  headerTitle: '+VPtoken' },
-    { columnName: 'implemented', align: 'c', manip: 'filterBySelecter' , manipState: undefined,  headerTitle: 'ゲーム実装状況' },
+    { name: 'no'         , align: 'c', manip: 'none'             , manipState: undefined, button: false, headerTitle: 'No.' },
+    { name: 'name_jp'    , align: 'c', manip: 'incrementalSearch', manipState: undefined, button: true , headerTitle: '名前' },
+    { name: 'name_eng'   , align: 'c', manip: 'incrementalSearch', manipState: undefined, button: false, headerTitle: 'Name' },
+    { name: 'set_name'   , align: 'c', manip: 'filterBySelecter' , manipState: undefined, button: false, headerTitle: 'セット名' },
+    { name: 'category'   , align: 'c', manip: 'filterBySelecter' , manipState: undefined, button: false, headerTitle: '分類' },
+    { name: 'card_type'  , align: 'c', manip: 'incrementalSearch', manipState: undefined, button: false, headerTitle: '種別' },
+    { name: 'cost_str'   , align: 'c', manip: 'none'             , manipState: undefined, button: false, headerTitle: 'コスト' },
+    { name: 'VP'         , align: 'c', manip: 'none'             , manipState: undefined, button: false, headerTitle: 'VP' },
+    { name: 'draw_card'  , align: 'c', manip: 'none'             , manipState: undefined, button: false, headerTitle: '+card' },
+    { name: 'action'     , align: 'c', manip: 'none'             , manipState: undefined, button: false, headerTitle: '+action' },
+    { name: 'buy'        , align: 'c', manip: 'none'             , manipState: undefined, button: false, headerTitle: '+buy' },
+    { name: 'coin'       , align: 'c', manip: 'none'             , manipState: undefined, button: false, headerTitle: '+coin' },
+    { name: 'VPtoken'    , align: 'c', manip: 'none'             , manipState: undefined, button: false, headerTitle: '+VPtoken' },
+    { name: 'implemented', align: 'c', manip: 'filterBySelecter' , manipState: undefined, button: false, headerTitle: 'ゲーム実装状況' },
   ];
 
 
 
 
-  /*
-  select押すときにはその時点でのselect optionは作成してある状態に
-  選択肢が変わったらfilter後のデータを作成しoptionもすべて更新
-  advanced : 差分で計算
-  */
+  constructor(
+    private mylib: MyLibraryService,
+    private httpService: GetCardPropertyService,
+    public dialog: MdDialog,
+  ) {}
 
-  updateView() {
-    // console.log( this.columnSettings.map( e => e.inputValue ) );
-    this.CardPropertyListFiltered = this.CardPropertyList.filter( x => this.filterFunction(x) );
-    this.selectorOptions = this.generateSelectorOptions( this.CardPropertyListFiltered );
-    // this.CardPropertyListFiltered = this.CardPropertyList.filter( x => this.sortFunction(x) );
+  ngOnInit() {
+    this.httpService.GetCardProperty()
+    .then( data => {
+      this.CardPropertyList = data;
+      this.CardPropertyListForView = this.CardPropertyList.map( x => this.transform(x) );
+      // console.log(this.CardPropertyListForView);
+    });
   }
 
-  reset( columnName?: string ): void {
-    this.resetButton.resetSelector( this.columnSettings, columnName );
-    this.updateView();
+
+  showDetail( cardNo: number ) {
+    const selectedCard = this.transform( this.CardPropertyList.find( x => x.no == cardNo ) );
+
+    let dialogRef = this.dialog.open( CardPropertyDialogComponent, {
+      height: '80%',
+      width : '80%',
+    });
+    dialogRef.componentInstance.card = selectedCard;
+    // dialogRef.afterClosed().subscribe( result => {} );
   }
 
-  // sortColumn( order, columnName ): void {
-  //   let newOrder;
-  //   if ( order == undefined    ) newOrder = 'accending';
-  //   if ( order == 'accending'  ) newOrder = 'descending';
-  //   if ( order == 'descending' ) newOrder = undefined;
-  //   this.columnSettings.find( e => e.propertyName == columnName ).manipState = newOrder;
-  // }
 
-  filterFunction( data: CardProperty ): boolean {
-    let validSettings = this.columnSettings.filter( column => column.manipState != undefined );
 
-    for ( let column of validSettings ) {
-      switch ( column.manip ) {
-        case 'filterBySelecter' :
-          if ( data[ column.columnName ] != column.manipState ) return false;
+  transform( cardProperty: CardProperty ) {
+    // console.log( cardProperty.cost );
 
-        case 'incrementalSearch' :
-          let regexp = new RegExp( column.manipState, "gi" );
-          if ( !regexp.test( data[ column.columnName ] ) ) return false;
-
-        default :
-          break;
-      }
+    let cost = cardProperty.cost;
+    let costStr = '';
+    if ( cost.coin > 0 || ( cost.potion == 0 && cost.debt == 0 ) ) {
+      costStr += cost.coin.toString();
     }
-    return true;
-  }
-
-  // sortFunction( data: CardProperty ) {
-
-  // }
-
-
-  /* データから指定列を取り出す */
-  getColumn( data: CardProperty[], columnName: string ): any[] {
-    return data.map( e => e[ columnName ] );
-  }
-
-  generateSelectorOptions( data: CardProperty[] ): any {
-    let selectorOptions = {};
-    for ( let e of this.columnSettings ) {
-      if ( e.manip != 'filterBySelecter' ) continue;
-      selectorOptions[ e.columnName ]
-       = this.mylib.uniq( this.getColumn( data, e.columnName ) );
+    if ( cost.potion > 0 ) {
+      for ( let i = 0; i < cost.potion; ++i ) costStr += 'P';
     }
-    return selectorOptions;
+    if ( cost.debt   > 0 ) {
+      costStr += `<${cost.debt.toString()}>`;
+    }
+
+    return {
+      no                      : cardProperty.no                      ,
+      card_ID                 : cardProperty.card_ID                 ,
+      name_jp                 : cardProperty.name_jp                 ,
+      name_jp_yomi            : cardProperty.name_jp_yomi            ,
+      name_eng                : cardProperty.name_eng                ,
+      set_name                : cardProperty.set_name                ,
+      cost_coin               : cardProperty.cost.coin               ,
+      cost_potion             : cardProperty.cost.potion             ,
+      cost_debt               : cardProperty.cost.debt               ,
+      cost_str                : costStr                              ,
+      category                : cardProperty.category                ,
+      card_type               : cardProperty.card_type               ,
+      VP                      : cardProperty.VP                      ,
+      draw_card               : cardProperty.draw_card               ,
+      action                  : cardProperty.action                  ,
+      buy                     : cardProperty.buy                     ,
+      coin                    : cardProperty.coin                    ,
+      VPtoken                 : cardProperty.VPtoken                 ,
+      effect                  : cardProperty.effect                  ,
+      description             : cardProperty.description             ,
+      recommended_combination : cardProperty.recommended_combination ,
+      memo                    : cardProperty.memo                    ,
+      implemented             : ( cardProperty.implemented ?  '実装済み' : '未実装' ),
+    };
   }
 
-
-
-  /* フィルタ済みの表示直前データから指定ページ範囲分のみ取り出す */
-  getDataAtPage( selectedPageIndex: number ): CardProperty[] {
-    return getPagenatedData(
-          this.CardPropertyListFiltered,
-          this.itemsPerPage,
-          selectedPageIndex );
-  }
 
 }
+

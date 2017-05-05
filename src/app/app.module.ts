@@ -19,13 +19,14 @@ import { RuleBooksComponent           } from './dominion/rule-books/rule-books.c
 import { RandomizerComponent          } from './dominion/randomizer/randomizer.component';
 import { GameResultListComponent      } from './dominion/game-result-list/game-result-list.component';
 import { PlayersComponent             } from './dominion/players/players.component';
-import { NoshiroDataTableComponent } from './noshiro-data-table/noshiro-data-table.component';
-import { PagenationComponent          } from './noshiro-data-table/pagenation/pagenation.component';
-import { ItemsPerPageComponent        } from './noshiro-data-table/items-per-page/items-per-page.component';
+import { MyDataTableComponent } from './my-data-table/my-data-table.component';
+import { PagenationComponent          } from './my-data-table/pagenation/pagenation.component';
+import { ItemsPerPageComponent        } from './my-data-table/items-per-page/items-per-page.component';
 import { MyLibraryService             } from './my-library.service';
 import { CardListPipe                 } from './dominion/cardlist/card-list.pipe';
-import { ResetButtonComponent } from './noshiro-data-table/reset-button/reset-button.component';
-import { TableHeaderComponent } from './noshiro-data-table/table-header/table-header.component';
+import { ResetButtonComponent } from './my-data-table/reset-button/reset-button.component';
+import { CardPropertyDialogComponent } from './dominion/card-property-dialog/card-property-dialog.component';
+import { CardImageComponent } from './dominion/card-image/card-image.component';
 
 
 @NgModule({
@@ -38,12 +39,13 @@ import { TableHeaderComponent } from './noshiro-data-table/table-header/table-he
     RandomizerComponent,
     GameResultListComponent,
     PlayersComponent,
-    NoshiroDataTableComponent,
+    MyDataTableComponent,
     PagenationComponent,
     ItemsPerPageComponent,
     CardListPipe,
     ResetButtonComponent,
-    TableHeaderComponent,
+    CardPropertyDialogComponent,
+    CardImageComponent,
   ],
   imports: [
     BrowserModule,
@@ -91,8 +93,11 @@ import { TableHeaderComponent } from './noshiro-data-table/table-header/table-he
     { provide: 'HOST_NAME', useValue: 'http://192.168.33.10' },
     // { provide: 'HOST_NAME', useValue: 'http://192.168.33.1' },
     // { provide: 'HOST_NAME', useValue: 'http://localhost:8000' },
-    // { provide: 'mylib', useValue: MyLibraryService },
-    MyLibraryService
+    MyLibraryService,
+  ],
+  /* for dialog */
+  entryComponents: [
+    CardPropertyDialogComponent
   ],
   bootstrap: [AppComponent]
 })

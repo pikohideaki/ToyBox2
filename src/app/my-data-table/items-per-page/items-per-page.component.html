@@ -4,10 +4,10 @@
       [(ngModel)]="itemsPerPage"
     >
     <md-option
-        *ngFor="let itemsPerPage of itemsPerPageOptions"
-        [value]="itemsPerPage"
-        (click)="setItemsPerPage( itemsPerPage )"
-      >{{ itemsPerPage }}
+        *ngFor="let option of itemsPerPageOptions"
+        [value]="option"
+        (click)="setItemsPerPage( option )"
+      >{{ option }}
     </md-option>
   </md-select>
 </div>
