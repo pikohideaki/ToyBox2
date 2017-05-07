@@ -5,6 +5,8 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { MaterialModule, MdIconModule, MdIconRegistry } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';  // md-tab
+import 'hammerjs';
+
 
 // import { dataGrid } from 'material-design-lite';
 // import { MdDataTableModule } from 'ng2-md-datatable';
@@ -12,21 +14,22 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
 // import { MyDatePickerModule } from 'mydatepicker';
 
 import { AppComponent                 } from './app.component';
+import { MyLibraryService             } from './my-library.service';
+import { MyDataTableComponent         } from './my-data-table/my-data-table.component';
+import { PagenationComponent          } from './my-data-table/pagenation/pagenation.component';
+import { ItemsPerPageComponent        } from './my-data-table/items-per-page/items-per-page.component';
+import { ResetButtonComponent         } from './my-data-table/reset-button/reset-button.component';
+
 import { HomeComponent                } from './home/home.component';
 import { DominionComponent            } from './dominion/dominion.component';
-import { CardlistComponent            } from './dominion/cardlist/cardlist.component';
 import { RuleBooksComponent           } from './dominion/rule-books/rule-books.component';
 import { RandomizerComponent          } from './dominion/randomizer/randomizer.component';
 import { GameResultListComponent      } from './dominion/game-result-list/game-result-list.component';
 import { PlayersComponent             } from './dominion/players/players.component';
-import { MyDataTableComponent } from './my-data-table/my-data-table.component';
-import { PagenationComponent          } from './my-data-table/pagenation/pagenation.component';
-import { ItemsPerPageComponent        } from './my-data-table/items-per-page/items-per-page.component';
-import { MyLibraryService             } from './my-library.service';
+import { CardlistComponent            } from './dominion/cardlist/cardlist.component';
 import { CardListPipe                 } from './dominion/cardlist/card-list.pipe';
-import { ResetButtonComponent } from './my-data-table/reset-button/reset-button.component';
-import { CardPropertyDialogComponent } from './dominion/card-property-dialog/card-property-dialog.component';
-import { CardImageComponent } from './dominion/card-image/card-image.component';
+import { CardPropertyDialogComponent  } from './dominion/card-property-dialog/card-property-dialog.component';
+import { CardImageComponent           } from './dominion/card-image/card-image.component';
 
 
 @NgModule({
@@ -90,7 +93,8 @@ import { CardImageComponent } from './dominion/card-image/card-image.component';
     { provide: 'DATA_DIR', useValue: './data' },
     { provide: 'DOMINION_DATA_DIR', useValue: './data/dominion' },
     // { provide: 'HOST_NAME', useValue: 'http://sv2.php.xdomain.ne.jp' },
-    { provide: 'HOST_NAME', useValue: 'http://192.168.33.10' },
+    { provide: 'HOST_NAME', useValue: 'http://dominion.piko-apps.info/' },
+    // { provide: 'HOST_NAME', useValue: 'http://192.168.33.10' },
     // { provide: 'HOST_NAME', useValue: 'http://192.168.33.1' },
     // { provide: 'HOST_NAME', useValue: 'http://localhost:8000' },
     MyLibraryService,

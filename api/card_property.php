@@ -1,16 +1,15 @@
 <?php
 
-define( INPUT_FILE_NAME, '/data/dominion/CardList.tsv' );
+define( INPUT_FILE_PATH, '../data/dominion/CardList.tsv' );
 
 setlocale( LC_ALL, 'ja_JP.UTF-8' );
 
-// if (Request::is("api/*")) {
-//     header("Access-Control-Allow-Origin: *");
-//     header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization, If-Modified-Since, Cache-Control, Pragma");
-// }
+include './returnJson.php';
 
-function ReadCardList( $dir ) {
-  $filePath = $_SERVER['DOCUMENT_ROOT'] . $dir;
+
+
+function ReadCardList( $filePath ) {
+  // $filePath = $_SERVER['DOCUMENT_ROOT'] . $dir;
   if ( !is_readable( $filePath ) ) { echo $filePath . ' is not readable'; exit; }
 
   $file = new SplFileObject( $filePath );
@@ -57,27 +56,12 @@ function ReadCardList( $dir ) {
 
 
 
-function returnJson( $resultArray ) {
-  if ( array_key_exists( 'callback', $_GET ) ) {
-    $json = $_GET['callback'] . "(" . json_encode( $resultArray ) . ");";
-  } else {
-    $json = json_encode( $resultArray );
-  }
-
-  header('Access-Control-Allow-Origin: http://localhost:4200');
-  header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
-  header('Content-Type: application/json; charset=UTF-8');
-  // header('Content-Type: text/html; charset=utf-8');
-  echo  $json;
-  exit(0);
-}
-
 
 //  値の取得（リクエストの受付）
 // $type = $_REQUEST['user_type'];
 
 try {
-  $CardInfoList = ReadCardList( INPUT_FILE_NAME );
+  $CardInfoList = ReadCardList( INPUT_FILE_PATH );
 
   if ( empty( $CardInfoList ) ) {
     header("HTTP/1.1 404 Not Found");

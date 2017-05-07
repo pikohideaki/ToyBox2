@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, Inject, ViewChild } from '@angular/core';
+import { Component, OnInit, Input  } from '@angular/core';
 
 import { MdDialog } from '@angular/material';
 
@@ -91,7 +91,7 @@ export class CardlistComponent implements OnInit {
 
 
 
-  transform( cardProperty: CardProperty ) {
+  transform( cardProperty: CardProperty ): any {
     // console.log( cardProperty.cost );
 
     let cost = cardProperty.cost;

@@ -1,9 +1,10 @@
 <?php
 
-define( INPUT_FILE_NAME, '/data/dominion/GameResult.tsv' );
+define( INPUT_FILE_PATH, '../data/dominion/GameResult.tsv' );
 
 setlocale( LC_ALL, 'ja_JP.UTF-8' );
 
+include './returnJson.php';
 
 
 
@@ -62,8 +63,8 @@ function ReformLine( $line, $line_no ) {
 }
 
 
-function ReadGameResult( $dir ) {
-  $filePath = $_SERVER['DOCUMENT_ROOT'] . $dir;
+function ReadGameResult( $filePath ) {
+  // $filePath = $_SERVER['DOCUMENT_ROOT'] . $dir;
   if ( !is_readable( $filePath ) ) { echo $filePath . ' is not readable'; exit; }
 
   $file = new SplFileObject( $filePath );
@@ -84,27 +85,11 @@ function ReadGameResult( $dir ) {
 
 
 
-function returnJson( $resultArray ) {
-  if ( array_key_exists( 'callback', $_GET ) ) {
-    $json = $_GET['callback'] . "(" . json_encode( $resultArray, JSON_PRETTY_PRINT ) . ");";
-  } else {
-    $json = json_encode( $resultArray, JSON_PRETTY_PRINT );
-  }
-
-  header('Access-Control-Allow-Origin: http://localhost:4200');
-  header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
-  header('Content-Type: application/json; charset=UTF-8');
-  // header('Content-Type: text/html; charset=utf-8');
-  echo  $json;
-  exit(0);
-}
-
-
 //  値の取得（リクエストの受付）
 // $type = $_REQUEST['user_type'];
 
 try {
-  $GameResult = ReadGameResult( INPUT_FILE_NAME );
+  $GameResult = ReadGameResult( INPUT_FILE_PATH );
 
   if ( empty( $GameResult ) ) {
     header("HTTP/1.1 404 Not Found");

@@ -48,7 +48,7 @@ export class MyDataTableComponent implements OnInit, OnChanges  {
   }
 
   ngOnChanges( changes: SimpleChanges ) {
-    console.log( changes );
+    // console.log( changes );
     if ( changes.data != undefined ) {  // at http-get done
       this.updateView();
     }

@@ -1,18 +1,29 @@
 
-<my-data-table--items-per-page
-    (submitItemsPerPage)='setItemsPerPage($event); setSelectedPageIndex(0)'
+<!--
+<my-data-table
+    [data]='CardPropertyListForView'
+    [columnSettings]='columnSettings'
     [itemsPerPageOptions]='itemsPerPageOptions'
-    [itemsPerPageDefault]='itemsPerPage'
-  >
+    [itemsPerPageDefault]='itemsPerPageDefault'
+    (onClick)='showDetail( $event )'
+>
+</my-data-table>-->
+
+
+
+<my-data-table--items-per-page
+    [itemsPerPageDefault]='itemsPerPageDefault'
+    [itemsPerPageOptions]='itemsPerPageOptions'
+    [(itemsPerPage)]='itemsPerPage' >
 </my-data-table--items-per-page>
 
 <my-data-table--pagenation
-    [selectedPageIndex]='selectedPageIndex'
+    [(selectedPageIndex)]='selectedPageIndex'
     [itemsPerPage]='itemsPerPage'
-    [dataSize]='GameResultList.length'
-    (changeSelectedPageIndex)='setSelectedPageIndex($event)'
-  >
+    [dataSize]='GameResultList.length' >
 </my-data-table--pagenation>
+
+
 
 <table class='my-data-table  my-data-table--shadow3px'>
   <thead>

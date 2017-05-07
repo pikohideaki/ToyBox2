@@ -1,7 +1,15 @@
 import { Component, OnInit, Pipe } from '@angular/core';
 
+import { MdDialog } from '@angular/material';
+
+
+import { MyLibraryService } from '../../my-library.service';
+import { MyDataTableComponent } from '../../my-data-table/my-data-table.component';
+
 import { GameResult } from "../game-result";
 import { GetGameResultService } from '../get-game-result.service';
+
+
 
 import { ItemsPerPageComponent, initializeItemsPerPageOption } from '../../my-data-table/items-per-page/items-per-page.component';
 import { PagenationComponent, getPagenatedData } from '../../my-data-table/pagenation/pagenation.component';
@@ -19,6 +27,7 @@ import { PagenationComponent, getPagenatedData } from '../../my-data-table/pagen
 export class GameResultListComponent implements OnInit {
 
   GameResultList: GameResult[] = [];
+  GameResultListForView: any[] = [];
 
   // pagenation
   selectedPageIndex: number = 0;
@@ -36,14 +45,17 @@ export class GameResultListComponent implements OnInit {
 
 
   constructor(
-    private service: GetGameResultService
+    private httpService: GetGameResultService,
+    public dialog: MdDialog,
   ) {}
 
   ngOnInit() {
     this.itemsPerPage = this.itemsPerPageDefault;
-    this.service.GetGameResult()
-    .then( x => this.GameResultList = x )
-    .then( () => console.log("http get done"))
+    this.httpService.GetGameResult()
+    .then( data => {
+      this.GameResultList = data;
+      this.GameResultListForView = this.GameResultList.map( x => this.transform(x) );
+    });
   }
 
   getDetail(): void {
@@ -52,6 +64,25 @@ export class GameResultListComponent implements OnInit {
   editGameResult(): void {
     console.log("editGameResult");
   }
+
+
+
+  showDetail( cardNo: number ) {
+    const selectedData = this.transform( this.GameResultList.find( x => x.no == cardNo ) );
+    console.log( selectedData );
+    // let dialogRef = this.dialog.open( CardPropertyDialogComponent, {
+    //   height: '80%',
+    //   width : '80%',
+    // });
+    // dialogRef.componentInstance.card = selectedCard;
+    // dialogRef.afterClosed().subscribe( result => {} );
+  }
+
+
+  transform( cardProperty: GameResult ): any {
+    return cardProperty;
+  }
+
 
 }
 
