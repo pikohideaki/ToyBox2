@@ -61,13 +61,8 @@
         {{card.memo                    }}
       </li>
       <li> 【オンラインゲーム実装状況】
-        {{card.implemented ?  '実装済み' : '未実装'}}
+        {{card.implemented}}
       </li>
-<!--
-      <li> 【効果】 {{card.effect}} </li>
-      <li> 【説明】 {{card.description}} </li>
-      <li> 【推奨の組み合わせ】 {{card.recommended_combination}} </li>
-      <li> 【メモ】 {{card.memo}} </li> -->
     </ul>
   </div>
   <div class="image">
@@ -76,9 +71,8 @@
         [faceUp]='faceUp'
         [width]='width'
     ></card-image>
-        <!--[fileSize]='fileSize'-->
   </div>
 </div>
 <div md-dialog-actions class='actionButtons'>
-  <button md-raised-button class='actionButton' (click)="dialogRef.close()">OK</button>
+  <button md-raised-button color='primary' class='actionButton' (click)="dialogRef.close()">OK</button>
 </div>

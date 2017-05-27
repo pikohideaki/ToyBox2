@@ -79,13 +79,13 @@ export class CardlistComponent implements OnInit {
 
 
   showDetail( cardNo: number ) {
-    const selectedCard = this.transform( this.CardPropertyList.find( x => x.no == cardNo ) );
+    const selectedCardForView = this.transform( this.CardPropertyList.find( x => x.no == cardNo ) );
 
     let dialogRef = this.dialog.open( CardPropertyDialogComponent, {
       height: '80%',
       width : '80%',
     });
-    dialogRef.componentInstance.card = selectedCard;
+    dialogRef.componentInstance.card = selectedCardForView;
     // dialogRef.afterClosed().subscribe( result => {} );
   }
 
