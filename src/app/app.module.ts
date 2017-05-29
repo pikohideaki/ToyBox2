@@ -7,10 +7,8 @@ import { MaterialModule, MdIconModule, MdIconRegistry } from '@angular/material'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';  // md-tab
 import 'hammerjs';
 
+import { UiSwitchModule } from 'angular2-ui-switch';
 
-// import { dataGrid } from 'material-design-lite';
-// import { MdDataTableModule } from 'ng2-md-datatable';
-// import { Ng2SmartTableModule } from 'ng2-smart-table';
 // import { MyDatePickerModule } from 'mydatepicker';
 
 import { AppComponent                 } from './app.component';
@@ -33,76 +31,77 @@ import { CardImageComponent           } from './dominion/card-image/card-image.c
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    DominionComponent,
-    CardlistComponent,
-    RuleBooksComponent,
-    RandomizerComponent,
-    GameResultListComponent,
-    PlayersComponent,
-    MyDataTableComponent,
-    PagenationComponent,
-    ItemsPerPageComponent,
-    CardListPipe,
-    ResetButtonComponent,
-    CardPropertyDialogComponent,
-    CardImageComponent,
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    HttpModule,
-    MaterialModule.forRoot(),
-    // StickyModule,
-    // MyDatePickerModule,
-    RouterModule.forRoot( [
-      {
-        path: '',
-        component: HomeComponent,
-      },
-      {
-        path: 'dominion',
-        component: DominionComponent,
-      },
-      {
-        path: 'dominion/cardlist',
-        component: CardlistComponent,
-      },
-      {
-        path: 'dominion/rulebooks',
-        component: RuleBooksComponent,
-      },
-      {
-        path: 'dominion/randomizer',
-        component: RandomizerComponent,
-      },
-      {
-        path: 'dominion/gameresultlist',
-        component: GameResultListComponent,
-      },
-      {
-        path: 'dominion/players',
-        component: PlayersComponent,
-      }
-    ], { useHash: true } ),
-  ],
-  providers: [
-    { provide: 'DATA_DIR', useValue: './data' },
-    { provide: 'DOMINION_DATA_DIR', useValue: './data/dominion' },
-    // { provide: 'HOST_NAME', useValue: 'http://sv2.php.xdomain.ne.jp' },
-    { provide: 'HOST_NAME', useValue: 'http://dominion.piko-apps.info/' },
-    // { provide: 'HOST_NAME', useValue: 'http://192.168.33.10' },
-    // { provide: 'HOST_NAME', useValue: 'http://192.168.33.1' },
-    // { provide: 'HOST_NAME', useValue: 'http://localhost:8000' },
-    MyLibraryService,
-  ],
-  /* for dialog */
-  entryComponents: [
-    CardPropertyDialogComponent
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        HomeComponent,
+        DominionComponent,
+        CardlistComponent,
+        RuleBooksComponent,
+        RandomizerComponent,
+        GameResultListComponent,
+        PlayersComponent,
+        MyDataTableComponent,
+        PagenationComponent,
+        ItemsPerPageComponent,
+        CardListPipe,
+        ResetButtonComponent,
+        CardPropertyDialogComponent,
+        CardImageComponent,
+    ],
+    imports: [
+        UiSwitchModule,
+        BrowserModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        HttpModule,
+        MaterialModule.forRoot(),
+        // StickyModule,
+        // MyDatePickerModule,
+        RouterModule.forRoot( [
+            {
+                path: '',
+                component: HomeComponent,
+            },
+            {
+                path: 'dominion',
+                component: DominionComponent,
+            },
+            {
+                path: 'dominion/cardlist',
+                component: CardlistComponent,
+            },
+            {
+                path: 'dominion/rulebooks',
+                component: RuleBooksComponent,
+            },
+            {
+                path: 'dominion/randomizer',
+                component: RandomizerComponent,
+            },
+            {
+                path: 'dominion/gameresultlist',
+                component: GameResultListComponent,
+            },
+            {
+                path: 'dominion/players',
+                component: PlayersComponent,
+            }
+        ], { useHash: true } ),
+    ],
+    providers: [
+        { provide: 'DATA_DIR', useValue: './data' },
+        { provide: 'DOMINION_DATA_DIR', useValue: './data/dominion' },
+        // { provide: 'HOST_NAME', useValue: 'http://sv2.php.xdomain.ne.jp' },
+        { provide: 'HOST_NAME', useValue: 'http://dominion.piko-apps.info/' },
+        // { provide: 'HOST_NAME', useValue: 'http://192.168.33.10' },
+        // { provide: 'HOST_NAME', useValue: 'http://192.168.33.1' },
+        // { provide: 'HOST_NAME', useValue: 'http://localhost:8000' },
+        MyLibraryService,
+    ],
+    /* for dialog */
+    entryComponents: [
+        CardPropertyDialogComponent
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

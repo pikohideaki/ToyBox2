@@ -1,1 +1,55 @@
-randomizer
+
+<!--使用する拡張セットにチェック-->
+
+<table>
+    <thead>
+        <tr>
+            <th>全選択</th>
+            <th><ui-switch (change)="selectAllToggle( $event )"></ui-switch></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let DominionSet of DominionSetList" >
+            <td>
+                {{DominionSet.name}}
+            </td>
+            <td>
+                <ui-switch [(ngModel)]="DominionSet.selected"></ui-switch>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+<button md-button color='primary' (click)='randomizer()'>Randomizer</button>
+
+<table class='my-data-table my-data-table--shadow3px my-data-table--vertical-line'>
+    <tr>
+        <td>a</td>
+        <td>b</td>
+        <td>c</td>
+    </tr>
+    <tr>
+        <td>a</td>
+        <td>b</td>
+        <td>c</td>
+    </tr>
+</table>
+
+<!--
+<my-data-table
+    [data]='CardPropertyListForView'
+    [columnSettings]='columnSettings'
+    [itemsPerPageOptions]='itemsPerPageOptions'
+    [itemsPerPageDefault]='itemsPerPageDefault'
+    (onClick)='showDetail( $event )'
+>
+</my-data-table>-->
+
+<!--
+<md-list *ngFor="let DominionSet of DominionSetList" >
+    <md-list-item>
+        <md-checkbox [(ngModel)]="DominionSet.useThis">{{DominionSet.name}}</md-checkbox>
+    </md-list-item>
+</md-list>-->
+

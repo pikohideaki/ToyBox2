@@ -6,7 +6,7 @@ import { MdDialog } from '@angular/material';
 import { MyLibraryService } from '../../my-library.service';
 import { MyDataTableComponent } from '../../my-data-table/my-data-table.component';
 
-import { CardCost } from '../card-cost';
+// import { CardCost } from '../card-cost';
 import { CardProperty } from "../card-property";
 import { GetCardPropertyService } from '../get-card-property.service';
 // import { CardListPipe } from './card-list.pipe';
