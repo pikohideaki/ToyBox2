@@ -7,7 +7,7 @@ import { MaterialModule, MdIconModule, MdIconRegistry } from '@angular/material'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';  // md-tab
 import 'hammerjs';
 
-import { UiSwitchModule } from 'angular2-ui-switch';
+// import { UiSwitchModule } from 'angular2-ui-switch';
 
 // import { MyDatePickerModule } from 'mydatepicker';
 
@@ -49,7 +49,7 @@ import { CardImageComponent           } from './dominion/card-image/card-image.c
         CardImageComponent,
     ],
     imports: [
-        UiSwitchModule,
+        // UiSwitchModule,
         BrowserModule,
         BrowserAnimationsModule,
         FormsModule,

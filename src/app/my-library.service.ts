@@ -17,9 +17,12 @@ export class MyLibraryService {
         return ar[ ar.length - 1 ];
     };
 
+    removeIf<T>( ar: Array<T>, f: (T) => boolean ): T {
+        return this.removeAt( ar, ar.findIndex(f) );
+    }
 
-    removeAt<T>( ar: Array<T>, index: number ): Array<T> {
-        return ar.splice( index, 1 );
+    removeAt<T>( ar: Array<T>, index: number ): T {
+        return ar.splice( index, 1 )[0];
     };
 
     removeValue<T>( ar: Array<T>, target: T ): Array<T> {
@@ -29,7 +32,6 @@ export class MyLibraryService {
     append( ar1: any[], ar2: any[] ): any[] {
         return [].concat( ar1, ar2 );
     }
-
 
 
     // let a = [ 1,2,3,[1,2,3],5 ];

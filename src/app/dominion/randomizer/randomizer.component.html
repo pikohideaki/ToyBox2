@@ -1,27 +1,16 @@
 
 <!--使用する拡張セットにチェック-->
-
-<table>
-    <thead>
-        <tr>
-            <th>全選択</th>
-            <th><ui-switch (change)="selectAllToggle( $event )"></ui-switch></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let DominionSet of DominionSetList" >
-            <td>
-                {{DominionSet.name}}
-            </td>
-            <td>
-                <ui-switch [(ngModel)]="DominionSet.selected"></ui-switch>
-            </td>
-        </tr>
-    </tbody>
-</table>
+<div>
+    <md-slide-toggle [(ngModel)]="AllSetsSelected"  (change)="selectAllToggle( $event )"><b>全選択</b></md-slide-toggle>
+</div>
+<div *ngFor="let DominionSet of DominionSetList" >
+    <md-slide-toggle [(ngModel)]="DominionSet.selected">{{DominionSet.name}}</md-slide-toggle>
+</div>
 
 
-<button md-button color='primary' (click)='randomizer()'>Randomizer</button>
+
+<button md-button color='primary' (click)='randomizerClicked()'>Randomizer</button>
+
 
 <table class='my-data-table my-data-table--shadow3px my-data-table--vertical-line'>
     <tr>

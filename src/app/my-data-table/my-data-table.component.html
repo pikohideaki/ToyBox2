@@ -58,13 +58,18 @@
             </button>
           </ng-container>
 
-          <md-input-container *ngIf="column.manip == 'incrementalSearch'" >
-            <input mdInput
-              id="filteringInputBox"
-              [placeholder]="column.headerTitle"
-              [(ngModel)]="column.manipState"
-              (keyup)="updateView()" >
-          </md-input-container>
+          <ng-container *ngIf="column.manip == 'incrementalSearch'" >
+            <md-input-container >
+                <input mdInput
+                id="filteringInputBox"
+                [placeholder]="column.headerTitle"
+                [(ngModel)]="column.manipState"
+                (keyup)="updateView()" >
+            </md-input-container>
+            <!--<button md-icon-button (click)="reset( column.name )">
+              <md-icon class='clearSelectIcon'>clear</md-icon>
+            </button>-->
+          </ng-container>
 
         </th>
 

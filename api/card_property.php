@@ -48,6 +48,7 @@ function ReadCardList( $filePath ) {
       'recommended_combination' => $line[$it++],
       'memo'                    => $line[$it++],
       'implemented'             => ( $line[$it++] == 'true' ),
+      'randomizer_candidate'    => ( $line[$it++] == 'true' ),
     );
   }
 

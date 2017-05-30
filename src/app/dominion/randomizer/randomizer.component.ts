@@ -21,11 +21,12 @@ import { GetCardPropertyService } from '../get-card-property.service';
 })
 export class RandomizerComponent implements OnInit {
 
+    AllSetsSelected: boolean = true;
     DominionSetList: { name: string, selected: boolean }[];
     CardPropertyList: CardProperty[] = [];
 
     SelectedCards : {
-        KingdomCards    : number[],
+        KingdomCards10  : number[],
         Prosperity      : boolean,
         DarkAges        : boolean,
         BaneCard        : number,
@@ -34,13 +35,13 @@ export class RandomizerComponent implements OnInit {
         Obelisk         : number,
         BlackMarketPile : number[],
     } = {
-        KingdomCards    : [],
+        KingdomCards10  : [],
         Prosperity      : false,
         DarkAges        : false,
-        BaneCard        : 0,
+        BaneCard        : undefined,
         EventCards      : [],
         LandmarkCards   : [],
-        Obelisk         : 0,
+        Obelisk         : undefined,
         BlackMarketPile : [],
     };
 
@@ -53,7 +54,7 @@ export class RandomizerComponent implements OnInit {
     ngOnInit() {
         this.httpGetSetListService.GetSetList()
         .then( data => {
-            this.DominionSetList = data.map( name => { return { name:name, selected:false } } );
+            this.DominionSetList = data.map( name => { return { name : name, selected : true } } );
         });
 
         this.httpGetCardPropertyService.GetCardProperty()
@@ -63,86 +64,111 @@ export class RandomizerComponent implements OnInit {
     }
 
     selectAllToggle( $event ) {
-        this.DominionSetList.forEach( DominionSet => DominionSet.selected = $event );
+        this.DominionSetList.forEach( DominionSet => DominionSet.selected = this.AllSetsSelected );
+    }
+
+
+
+    randomizerClicked() {
+        if ( this.DominionSetList.every( DominionSet => !DominionSet.selected ) ) return;
+        for ( let i = 0; i < 1000; ++i ) this.randomizer();
     }
 
 
     randomizer() {
         // reset
-        this.SelectedCards.KingdomCards    = [];
-        this.SelectedCards.Prosperity      = false;
-        this.SelectedCards.DarkAges        = false;
-        this.SelectedCards.BaneCard        = 0;
+        this.SelectedCards.KingdomCards10  = [];
         this.SelectedCards.EventCards      = [];
         this.SelectedCards.LandmarkCards   = [];
-        this.SelectedCards.Obelisk         = 0;
+        this.SelectedCards.Prosperity      = false;
+        this.SelectedCards.DarkAges        = false;
+        this.SelectedCards.BaneCard        = undefined;
+        this.SelectedCards.Obelisk         = undefined;
         this.SelectedCards.BlackMarketPile = [];
 
 
         // 選択されている拡張セットに含まれているカードすべてをシャッフルし，indexとペアにしたリスト
-        const RandomSelectedShuffled
+        let CardsInSelectedSets_Shuffled: any[]
          = this.mylib.shuffle(
             this.CardPropertyList
             .map( (val,index) => { return { index: index, data: val }; } )
+            .filter ( e => e.data.randomizer_candidate )
             .filter( e =>
                 this.DominionSetList
                 .filter( s => s.selected )
                 .map( s => s.name )
                 .findIndex( val => val == e.data.set_name ) >= 0 )
-         );
+           );
 
-        // KingdomCards
-        this.SelectedCards.KingdomCards
-         = RandomSelectedShuffled
-            .filter( e => e.data.category == '王国' )
-            .slice( 0, 10 )
-            .map( e => e.index );
+        // 10 Supply KingdomCards and Event, Landmark
+        while ( this.SelectedCards.KingdomCards10.length < 10 ) {
+            let card = CardsInSelectedSets_Shuffled.pop();
+            if ( card.data.category == '王国' ) {
+                this.SelectedCards.KingdomCards10.push( card.index );
+            }
+            if ( (this.SelectedCards.EventCards.length + this.SelectedCards.LandmarkCards.length ) < 2 ) {
+                if ( card.data.card_type == 'イベント' ) {
+                    this.SelectedCards.EventCards.push( card.index );
+                }
+                if ( card.data.card_type == 'ランドマーク' ) {
+                    this.SelectedCards.LandmarkCards.push( card.index );
+                }
+            }
+        }
+
 
         // 繁栄場・避難所場の決定
-        this.SelectedCards.Prosperity = ( this.CardPropertyList[ this.SelectedCards.KingdomCards[0] ].set_name === '繁栄' );
-        this.SelectedCards.DarkAges   = ( this.CardPropertyList[ this.SelectedCards.KingdomCards[9] ].set_name === '暗黒時代' );
+        this.SelectedCards.Prosperity = ( this.CardPropertyList[ this.SelectedCards.KingdomCards10[0] ].set_name === '繁栄' );
+        this.SelectedCards.DarkAges   = ( this.CardPropertyList[ this.SelectedCards.KingdomCards10[9] ].set_name === '暗黒時代' );
 
-        this.SelectedCards.KingdomCards.sort();  // 繁栄場・避難所場の決定後にソート
+        // this.SelectedCards.KingdomCards10.sort();  // 繁栄場・避難所場の決定後にソート
 
 
         // 災いカード（収穫祭：魔女娘）
-        this.SelectedCards.BaneCard
-         = this.mylib.getRandomValue(
-            RandomSelectedShuffled
-                .filter( e => e.data.category == '王国' )
-                .slice(11)
-                .filter( e => (
-                       e.data.cost.debt   == 0
-                    && e.data.cost.potion == 0
-                    && e.data.cost.coin   >= 2
-                    && e.data.cost.coin   <= 3 ) )
-                .map( e => e.index )
-            );
+        if ( this.SelectedCards.KingdomCards10.findIndex( e => this.CardPropertyList[e].name_jp == '魔女娘' ) >= 0 ) {
+            this.SelectedCards.BaneCard
+            = this.mylib.removeIf( CardsInSelectedSets_Shuffled, e => (
+                        e.data.cost.debt   == 0
+                        && e.data.cost.potion == 0
+                        && e.data.cost.coin   >= 2
+                        && e.data.cost.coin   <= 3 ) ).index;
+        }
 
-
-        // Event Cards & Landmark Cards
-        RandomSelectedShuffled
-            .filter( e => e.data.card_type == 'イベント' || e.data.card_type == 'ランドマーク' )
-            .slice( 0, this.mylib.RandomNumber(0,2) )
-            .forEach( e => {
-                if ( e.data.card_type == 'イベント' ) {
-                    this.SelectedCards.EventCards.push( e.index );
-                } else if ( e.data.card_type == 'ランドマーク' ) {
-                    this.SelectedCards.LandmarkCards.push( e.index );
+        // Black Market (one copy of each Kingdom card not in the supply. 15種類選択を推奨)
+        if ( this.SelectedCards.KingdomCards10.findIndex( e => this.CardPropertyList[e].name_jp == '闇市場' ) >= 0 ) {
+            while ( this.SelectedCards.BlackMarketPile.length < 15 ) {
+                let card = CardsInSelectedSets_Shuffled.pop();
+                if ( card.data.category == '王国' ) {
+                    this.SelectedCards.BlackMarketPile.push( card.index );
                 }
-            });
+            }
+        }
 
-        // Black Market
 
         // Obelisk (Choose 1 Action Supply Pile)
+        if ( this.SelectedCards.LandmarkCards.findIndex( e => this.CardPropertyList[e].name_eng == 'Obelisk' ) >= 0 ) {
+            this.SelectedCards.Obelisk = ( () => {
+                    let supplyUsed: number[] = [].concat( this.SelectedCards.KingdomCards10, [this.SelectedCards.BaneCard] );
+                    let ObeliskCandidatesActionCards: number[] = this.mylib.copy( supplyUsed );
+                    // if ( supplyUsed.findIndex( e => this.CardPropertyList[e].card_type.includes('廃墟') ) >= 0 ) {
+                        let ruinsIndex: number = this.CardPropertyList.findIndex( e => e.name_jp == '廃墟' );
+                        ObeliskCandidatesActionCards.push( ruinsIndex );
+                    // }
+                    // return this.mylib.getRandomValue( supplyUsed );
+                    return ruinsIndex;
+                } )();
+        }
 
-        console.log(
-            this.SelectedCards.KingdomCards.map( e => this.CardPropertyList[e].name_jp ),
-            this.CardPropertyList[ this.SelectedCards.BaneCard ].name_jp,
-            this.SelectedCards.EventCards.map( e => this.CardPropertyList[e].name_jp ),
-            this.SelectedCards.LandmarkCards.map( e => this.CardPropertyList[e].name_jp ),
-        );
-
+if ( this.SelectedCards.Obelisk == this.CardPropertyList.findIndex( e => e.name_jp == '廃墟' ) ) {
+console.log( 'KingdomCards10' , this.SelectedCards.KingdomCards10 .map( e => this.CardPropertyList[e].name_jp ) );
+console.log( 'EventCards'     , this.SelectedCards.EventCards     .map( e => this.CardPropertyList[e].name_jp ) );
+console.log( 'LandmarkCards'  , this.SelectedCards.LandmarkCards  .map( e => this.CardPropertyList[e].name_jp ) );
+console.log( 'BlackMarketPile', this.SelectedCards.BlackMarketPile.map( e => this.CardPropertyList[e].name_jp ) );
+console.log( 'BaneCard'       , this.SelectedCards.BaneCard );
+console.log( 'BaneCard'       , ( this.SelectedCards.BaneCard ? this.CardPropertyList[this.SelectedCards.BaneCard].name_jp : '' ) );
+console.log( 'Obelisk'        , this.SelectedCards.Obelisk );
+console.log( 'Obelisk'        , ( this.SelectedCards.Obelisk  ? this.CardPropertyList[this.SelectedCards.Obelisk ].name_jp : '' ) );
+}
     }
 
 }
