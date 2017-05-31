@@ -8,8 +8,10 @@
 </div>
 
 
-
-<button md-button color='primary' (click)='randomizerClicked()'>Randomizer</button>
+<button md-button color='primary' (click)='randomizerClicked()'>
+    <span *ngIf="!httpGetDone"><md-spinner class="httpGetWaitingSpinner" ></md-spinner></span>
+    <span *ngIf="httpGetDone">Randomizer</span>
+</button>
 
 
 <table class='my-data-table my-data-table--shadow3px my-data-table--vertical-line'>

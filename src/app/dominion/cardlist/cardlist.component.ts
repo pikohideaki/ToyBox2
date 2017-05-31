@@ -27,6 +27,7 @@ export class CardlistComponent implements OnInit {
 
   CardPropertyList: CardProperty[] = [];
   CardPropertyListForView: any[] = [];
+  httpGetDone: boolean = false;
 
   // pagenation settings
   itemsPerPageOptions: number[] = [ 25, 50, 100, 200 ];
@@ -74,6 +75,7 @@ export class CardlistComponent implements OnInit {
       this.CardPropertyList = data;
       this.CardPropertyListForView = this.CardPropertyList.map( x => this.transform(x) );
       // console.log(this.CardPropertyListForView);
+      this.httpGetDone = true;
     });
   }
 

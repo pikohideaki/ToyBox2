@@ -28,6 +28,7 @@ export class GameResultListComponent implements OnInit {
 
   GameResultList: GameResult[] = [];
   GameResultListForView: any[] = [];
+  httpGetDone: boolean = false;
 
   // pagenation
   selectedPageIndex: number = 0;
@@ -55,6 +56,7 @@ export class GameResultListComponent implements OnInit {
     .then( data => {
       this.GameResultList = data;
       this.GameResultListForView = this.GameResultList.map( x => this.transform(x) );
+      this.httpGetDone = true;
     });
   }
 
