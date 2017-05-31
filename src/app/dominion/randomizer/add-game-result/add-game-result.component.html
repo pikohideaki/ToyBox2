@@ -1,0 +1,64 @@
+
+<div class='body-with-margin'>
+
+
+
+    <!--日付-->
+    <span class="marginedElement">
+        <md-input-container>
+        <input mdInput [mdDatepicker]="myDatepicker" placeholder="日付">
+        <button mdSuffix [mdDatepickerToggle]="myDatepicker"></button>
+        </md-input-container>
+        <md-datepicker #myDatepicker></md-datepicker>
+    </span>
+
+    <!--場所-->
+    <span class="marginedElement">
+        <md-input-container>
+            <input mdInput
+                [(ngModel)]="place"
+                placeholder="場所"
+                [mdAutocomplete]="auto"
+                [formControl]="stateCtrl">
+            </md-input-container>
+            <md-autocomplete #auto="mdAutocomplete">
+            <!--<md-option *ngFor="let place of places" [value]="place">-->
+            <md-option *ngFor="let place of filteredPlaces | async" [value]="place">
+                {{ place }}
+            </md-option>
+        </md-autocomplete>
+    </span>
+
+
+
+    <!--プレイヤー-->
+    <div class="marginedElement">
+        <ng-container *ngFor="let player of Players" >
+            <md-checkbox class="playerChbox" [(ngModel)]="player.selected">
+                {{player.name}}
+            </md-checkbox>
+        </ng-container>
+    </div>
+
+    <div class="marginedElement">
+        <md-radio-group [(ngModel)]="startPlayerName">
+            <table>
+                <tr *ngFor="let player of selectedPlayers" >
+                    <td>
+                        <md-radio-button [value]="player.name">{{player.name}}</md-radio-button>
+                    </td>
+                </tr>
+            </table>
+        </md-radio-group>
+    </div>
+
+
+    <!--メモ-->
+
+
+
+    <!--登録ボタン-->
+
+
+
+</div>

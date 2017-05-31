@@ -1,46 +1,132 @@
 
 <!--使用する拡張セットにチェック-->
-<div>
-    <md-slide-toggle [(ngModel)]="AllSetsSelected"  (change)="selectAllToggle( $event )"><b>全選択</b></md-slide-toggle>
-</div>
-<div *ngFor="let DominionSet of DominionSetList" >
-    <md-slide-toggle [(ngModel)]="DominionSet.selected">{{DominionSet.name}}</md-slide-toggle>
-</div>
 
 
-<button md-button color='primary' (click)='randomizerClicked()'>
-    <span *ngIf="!httpGetDone"><md-spinner class="httpGetWaitingSpinner" ></md-spinner></span>
-    <span *ngIf="httpGetDone">Randomizer</span>
-</button>
+<md-tab-group>
+    <md-tab label="Randomizer">
+    
+        <div class="randomizerOptions">
+
+            <div>
+                <md-slide-toggle [(ngModel)]="AllSetsSelected"  (change)="selectAllToggle( $event )"><b>全選択</b></md-slide-toggle>
+            </div>
+            <div *ngFor="let DominionSet of DominionSetList" >
+                <md-slide-toggle [(ngModel)]="DominionSet.selected">{{DominionSet.name}}</md-slide-toggle>
+            </div>
+
+            <button md-button color='primary' (click)='randomizerClicked()'>
+                <span *ngIf="!httpGetDone"><md-spinner class="httpGetWaitingSpinner" ></md-spinner></span>
+                <span *ngIf="httpGetDone">Randomizer</span>
+            </button>
+        </div>
 
 
-<table class='my-data-table my-data-table--shadow3px my-data-table--vertical-line'>
-    <tr>
-        <td>a</td>
-        <td>b</td>
-        <td>c</td>
-    </tr>
-    <tr>
-        <td>a</td>
-        <td>b</td>
-        <td>c</td>
-    </tr>
-</table>
+        <div class="supplyTable">
+            <div class="Prosperity_DarkAges">
+                <span id="Prosperity" *ngIf="this.SelectedCards.KingdomCards10.length > 0">
+                    <md-slide-toggle [(ngModel)]="SelectedCards.Prosperity">植民地場</md-slide-toggle>
+                </span>
 
-<!--
-<my-data-table
-    [data]='CardPropertyListForView'
-    [columnSettings]='columnSettings'
-    [itemsPerPageOptions]='itemsPerPageOptions'
-    [itemsPerPageDefault]='itemsPerPageDefault'
-    (onClick)='showDetail( $event )'
->
-</my-data-table>-->
+                <span id="DarkAges"   *ngIf="this.SelectedCards.KingdomCards10.length > 0">
+                    <md-slide-toggle [(ngModel)]="SelectedCards.DarkAges">避難所場</md-slide-toggle>
+                </span>
+            </div>
 
-<!--
-<md-list *ngFor="let DominionSet of DominionSetList" >
-    <md-list-item>
-        <md-checkbox [(ngModel)]="DominionSet.useThis">{{DominionSet.name}}</md-checkbox>
-    </md-list-item>
-</md-list>-->
+            <table class='my-data-table my-data-table--shadow3px my-data-table--vertical-line'>
+                <thead>
+                    <tr *ngIf="this.SelectedCards.KingdomCards10.length > 0">
+                        <th>セット</th>
+                        <th>名前</th>
+                        <th>name</th>
+                        <th>コスト</th>
+                    </tr>
+                </thead>
 
+                <tbody>
+                    <tr *ngFor="let cardIndex of SelectedCards.KingdomCards10">
+                        <td> {{ this.CardPropertyList[cardIndex].set_name }} </td>
+                        <td> {{ this.CardPropertyList[cardIndex].name_jp  }} </td>
+                        <td> {{ this.CardPropertyList[cardIndex].name_eng }} </td>
+                        <td> {{ costStr( this.CardPropertyList[cardIndex].cost ) }} </td>
+                    </tr>
+                </tbody>
+
+                <thead>
+                    <tr *ngIf="this.SelectedCards.BaneCard.length > 0">
+                        <th colspan="4">災いカード（魔女娘用）</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cardIndex of SelectedCards.BaneCard">
+                        <td> {{ this.CardPropertyList[cardIndex].set_name }} </td>
+                        <td> {{ this.CardPropertyList[cardIndex].name_jp  }} </td>
+                        <td> {{ this.CardPropertyList[cardIndex].name_eng }} </td>
+                        <td> {{ costStr( this.CardPropertyList[cardIndex].cost ) }} </td>
+                    </tr>
+                </tbody>
+
+                <thead>
+                    <tr *ngIf="this.SelectedCards.EventCards.length > 0">
+                        <th colspan="4">Event</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cardIndex of SelectedCards.EventCards">
+                        <td> {{ this.CardPropertyList[cardIndex].set_name }} </td>
+                        <td> {{ this.CardPropertyList[cardIndex].name_jp  }} </td>
+                        <td> {{ this.CardPropertyList[cardIndex].name_eng }} </td>
+                        <td> {{ costStr( this.CardPropertyList[cardIndex].cost ) }} </td>
+                    </tr>
+                </tbody>
+
+                <thead>
+                    <tr *ngIf="this.SelectedCards.LandmarkCards.length > 0">
+                        <th colspan="4">Landmark</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cardIndex of SelectedCards.LandmarkCards">
+                        <td> {{ this.CardPropertyList[cardIndex].set_name }} </td>
+                        <td> {{ this.CardPropertyList[cardIndex].name_jp  }} </td>
+                        <td> {{ this.CardPropertyList[cardIndex].name_eng }} </td>
+                        <td> {{ costStr( this.CardPropertyList[cardIndex].cost ) }} </td>
+                    </tr>
+                </tbody>
+
+                <thead>
+                    <tr *ngIf="this.SelectedCards.Obelisk.length > 0">
+                        <th colspan="4">Obelisk 指定カード</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cardIndex of SelectedCards.Obelisk">
+                        <td> {{ this.CardPropertyList[cardIndex].set_name }} </td>
+                        <td> {{ this.CardPropertyList[cardIndex].name_jp  }} </td>
+                        <td> {{ this.CardPropertyList[cardIndex].name_eng }} </td>
+                        <td> {{ costStr( this.CardPropertyList[cardIndex].cost ) }} </td>
+                    </tr>
+                </tbody>
+
+                <thead>
+                    <tr *ngIf="this.SelectedCards.BlackMarketPile.length > 0">
+                        <th colspan="4">闇市場デッキ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cardIndex of SelectedCards.BlackMarketPile">
+                        <td> {{ this.CardPropertyList[cardIndex].set_name }} </td>
+                        <td> {{ this.CardPropertyList[cardIndex].name_jp  }} </td>
+                        <td> {{ this.CardPropertyList[cardIndex].name_eng }} </td>
+                        <td> {{ costStr( this.CardPropertyList[cardIndex].cost ) }} </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </md-tab>
+    <md-tab *ngIf="this.SelectedCards.BlackMarketPile.length > 0" label="闇市場デッキ">
+        闇市場デッキ
+    </md-tab>
+    <md-tab label="結果入力">
+        <app-add-game-result></app-add-game-result>
+    </md-tab>
+</md-tab-group>

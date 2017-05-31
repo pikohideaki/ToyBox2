@@ -62,7 +62,7 @@ export class MyLibraryService {
                 .map( a => a[0] );
     };
 
-    sortNumeric( array: string[] ): string[] {
+    sortNumeric( array: any[] ): any[] {
         return array.sort( (a,b) => ( parseFloat(a) - parseFloat(b) ) );
     };
 

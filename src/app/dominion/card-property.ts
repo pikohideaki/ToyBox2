@@ -71,5 +71,55 @@ export class CardProperty {
         this.implemented             = implemented;
         this.randomizer_candidate    = randomizer_candidate;
     }
+
+
+
+
 }
 
+
+
+// [ToDo] method cannot be used when casted from an Object
+// export function costStr(): string {
+//     let costStr = '';
+//     if ( this.cost.coin > 0 || ( this.cost.potion == 0 && this.cost.debt == 0 ) ) {
+//         costStr += this.cost.coin.toString();
+//     }
+//     if ( this.cost.potion > 0 ) {
+//         for ( let i = 0; i < this.cost.potion; ++i ) costStr += 'P';
+//     }
+//     if ( this.cost.debt   > 0 ) {
+//         costStr += `<${this.cost.debt.toString()}>`;
+//     }
+//     return costStr;
+// }
+
+
+
+// export function forView(): any {
+//     return {
+//         no                      : this.no                      ,
+//         card_ID                 : this.card_ID                 ,
+//         name_jp                 : this.name_jp                 ,
+//         name_jp_yomi            : this.name_jp_yomi            ,
+//         name_eng                : this.name_eng                ,
+//         set_name                : this.set_name                ,
+//         cost_coin               : this.cost.coin               ,
+//         cost_potion             : this.cost.potion             ,
+//         cost_debt               : this.cost.debt               ,
+//         cost_str                : this.costStr()               ,
+//         category                : this.category                ,
+//         card_type               : this.card_type               ,
+//         VP                      : this.VP                      ,
+//         draw_card               : this.draw_card               ,
+//         action                  : this.action                  ,
+//         buy                     : this.buy                     ,
+//         coin                    : this.coin                    ,
+//         VPtoken                 : this.VPtoken                 ,
+//         effect                  : this.effect                  ,
+//         description             : this.description             ,
+//         recommended_combination : this.recommended_combination ,
+//         memo                    : this.memo                    ,
+//         implemented             : ( this.implemented ?  '実装済み' : '未実装' ),
+//     };
+// }

@@ -27,3 +27,7 @@
 .main {
   padding-top: 64px;
 }*/
+
+.body-with-margin {
+  margin: 20px;
+}

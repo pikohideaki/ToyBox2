@@ -72,7 +72,9 @@ export class CardlistComponent implements OnInit {
   ngOnInit() {
     this.httpService.GetCardProperty()
     .then( data => {
-      this.CardPropertyList = data;
+    //   this.CardPropertyList = data.map( e => e as CardProperty );
+      this.CardPropertyList = data as CardProperty[];
+    //   console.log( this.CardPropertyList[0] instanceof CardProperty ) false???
       this.CardPropertyListForView = this.CardPropertyList.map( x => this.transform(x) );
       // console.log(this.CardPropertyListForView);
       this.httpGetDone = true;

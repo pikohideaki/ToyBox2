@@ -6,6 +6,7 @@ import { MyDataTableComponent } from '../../my-data-table/my-data-table.componen
 
 import { GetSetListService } from '../get-set-list.service';
 
+import { CardCost } from '../card-cost';
 import { CardProperty } from "../card-property";
 import { GetCardPropertyService } from '../get-card-property.service';
 
@@ -24,6 +25,7 @@ export class RandomizerComponent implements OnInit {
     AllSetsSelected: boolean = true;
     DominionSetList: { name: string, selected: boolean }[] = [];
     CardPropertyList: CardProperty[] = [];
+    CardPropertyListForView: any[] = [];
     httpGetDone: boolean = false;
 
     SelectedCards : {
@@ -59,9 +61,10 @@ export class RandomizerComponent implements OnInit {
         ] )
         .then( data => {
             this.DominionSetList = data[0].map( name => { return { name : name, selected : true } } );
-            this.CardPropertyList = data[1];
+            this.CardPropertyList = data[1] as CardProperty[];
             this.httpGetDone = true;
             console.log("GetSetList, GetCardProperty done");
+            // console.log( this.CardPropertyList );
         });
     }
 
@@ -80,11 +83,11 @@ export class RandomizerComponent implements OnInit {
     randomizer() {
         // reset
         this.SelectedCards.KingdomCards10  = [];
-        this.SelectedCards.EventCards      = [];
-        this.SelectedCards.LandmarkCards   = [];
         this.SelectedCards.Prosperity      = false;
         this.SelectedCards.DarkAges        = false;
         this.SelectedCards.BaneCard        = [];
+        this.SelectedCards.EventCards      = [];
+        this.SelectedCards.LandmarkCards   = [];
         this.SelectedCards.Obelisk         = [];
         this.SelectedCards.BlackMarketPile = [];
 
@@ -124,8 +127,6 @@ export class RandomizerComponent implements OnInit {
         // 繁栄場・避難所場の決定
         this.SelectedCards.Prosperity = ( this.CardPropertyList[ this.SelectedCards.KingdomCards10[0] ].set_name === '繁栄' );
         this.SelectedCards.DarkAges   = ( this.CardPropertyList[ this.SelectedCards.KingdomCards10[9] ].set_name === '暗黒時代' );
-
-        // this.SelectedCards.KingdomCards10.sort();  // 繁栄場・避難所場の決定後にソート
 
 
         // 災いカード（収穫祭：魔女娘）
@@ -167,13 +168,36 @@ export class RandomizerComponent implements OnInit {
             } )();
         }
 
-        console.log( 'KingdomCards10' , this.SelectedCards.KingdomCards10 .map( e => this.CardPropertyList[e].name_jp ) );
-        console.log( 'EventCards'     , this.SelectedCards.EventCards     .map( e => this.CardPropertyList[e].name_jp ) );
-        console.log( 'LandmarkCards'  , this.SelectedCards.LandmarkCards  .map( e => this.CardPropertyList[e].name_jp ) );
-        console.log( 'BlackMarketPile', this.SelectedCards.BlackMarketPile.map( e => this.CardPropertyList[e].name_jp ) );
-        console.log( 'BaneCard'       , this.SelectedCards.BaneCard       .map( e => this.CardPropertyList[e].name_jp ) );
-        console.log( 'Obelisk'        , this.SelectedCards.Obelisk        .map( e => this.CardPropertyList[e].name_jp ) );
+        this.mylib.sortNumeric( this.SelectedCards.KingdomCards10 );  // 繁栄場・避難所場の決定後にソート
+        this.mylib.sortNumeric( this.SelectedCards.EventCards );
+        this.mylib.sortNumeric( this.SelectedCards.LandmarkCards );
+        this.mylib.sortNumeric( this.SelectedCards.BlackMarketPile );
 
+        // console.log( 'KingdomCards10' , this.SelectedCards.KingdomCards10  );//  .map( e => this.CardPropertyList[e].name_jp ) );
+        // console.log( 'EventCards'     , this.SelectedCards.EventCards      );// .map( e => this.CardPropertyList[e].name_jp ) );
+        // console.log( 'LandmarkCards'  , this.SelectedCards.LandmarkCards   );// .map( e => this.CardPropertyList[e].name_jp ) );
+        // console.log( 'BlackMarketPile', this.SelectedCards.BlackMarketPile );// .map( e => this.CardPropertyList[e].name_jp ) );
+        // console.log( 'BaneCard'       , this.SelectedCards.BaneCard        );// .map( e => this.CardPropertyList[e].name_jp ) );
+        // console.log( 'Obelisk'        , this.SelectedCards.Obelisk         );// .map( e => this.CardPropertyList[e].name_jp ) );
+        // console.log( 'Prosperity'     , this.SelectedCards.Prosperity );
+        // console.log( 'DarkAges'       , this.SelectedCards.DarkAges   );
+
+    }
+
+
+
+    costStr( cost: CardCost ): string {
+        let costStr = '';
+        if ( cost.coin > 0 || ( cost.potion == 0 && cost.debt == 0 ) ) {
+            costStr += cost.coin.toString();
+        }
+        if ( cost.potion > 0 ) {
+            for ( let i = 0; i < cost.potion; ++i ) costStr += 'P';
+        }
+        if ( cost.debt   > 0 ) {
+            costStr += `<${cost.debt.toString()}>`;
+        }
+        return costStr;
     }
 
 }

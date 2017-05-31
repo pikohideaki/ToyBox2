@@ -1,9 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
-import { MaterialModule, MdIconModule, MdIconRegistry } from '@angular/material';
+import { MaterialModule,
+         MdIconModule,
+         MdIconRegistry, 
+         MdDatepickerModule,
+         MdNativeDateModule, } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';  // md-tab
 import 'hammerjs';
 
@@ -25,9 +29,9 @@ import { RandomizerComponent          } from './dominion/randomizer/randomizer.c
 import { GameResultListComponent      } from './dominion/game-result-list/game-result-list.component';
 import { PlayersComponent             } from './dominion/players/players.component';
 import { CardlistComponent            } from './dominion/cardlist/cardlist.component';
-import { CardListPipe                 } from './dominion/cardlist/card-list.pipe';
 import { CardPropertyDialogComponent  } from './dominion/card-property-dialog/card-property-dialog.component';
 import { CardImageComponent           } from './dominion/card-image/card-image.component';
+import { AddGameResultComponent       } from './dominion/randomizer/add-game-result/add-game-result.component';
 
 
 @NgModule({
@@ -43,18 +47,22 @@ import { CardImageComponent           } from './dominion/card-image/card-image.c
         MyDataTableComponent,
         PagenationComponent,
         ItemsPerPageComponent,
-        CardListPipe,
         ResetButtonComponent,
         CardPropertyDialogComponent,
         CardImageComponent,
+        AddGameResultComponent,
     ],
     imports: [
         // UiSwitchModule,
         BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
         BrowserAnimationsModule,
         FormsModule,
         HttpModule,
-        MaterialModule.forRoot(),
+        MaterialModule,
+        MdDatepickerModule,
+        MdNativeDateModule,
         // StickyModule,
         // MyDatePickerModule,
         RouterModule.forRoot( [

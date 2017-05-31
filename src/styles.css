@@ -44,6 +44,10 @@ body {
   margin: 20px;
 }
 
+.marginedElement {
+    margin: 10px;
+}
+
 .no-styled-list {
   list-style: none;
 }
