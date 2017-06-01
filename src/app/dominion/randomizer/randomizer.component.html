@@ -4,20 +4,20 @@
 
 <md-tab-group>
     <md-tab label="Randomizer">
-    
-        <div class="randomizerOptions">
-
+        <div *ngIf="!httpGetDone"><md-spinner class="httpGetWaitingSpinner" ></md-spinner></div>
+        <div *ngIf="httpGetDone" class="randomizerOptions" >
             <div>
                 <md-slide-toggle [(ngModel)]="AllSetsSelected"  (change)="selectAllToggle( $event )"><b>全選択</b></md-slide-toggle>
             </div>
-            <div *ngFor="let DominionSet of DominionSetList" >
+            <div *ngFor="let DominionSet of DominionSetNameList" >
                 <md-slide-toggle [(ngModel)]="DominionSet.selected">{{DominionSet.name}}</md-slide-toggle>
             </div>
 
-            <button md-button color='primary' (click)='randomizerClicked()'>
-                <span *ngIf="!httpGetDone"><md-spinner class="httpGetWaitingSpinner" ></md-spinner></span>
-                <span *ngIf="httpGetDone">Randomizer</span>
-            </button>
+            <div class="marginedElement">
+                <button md-raised-button color='primary' (click)='randomizerClicked()'>
+                    Randomizer
+                </button>
+            </div>
         </div>
 
 

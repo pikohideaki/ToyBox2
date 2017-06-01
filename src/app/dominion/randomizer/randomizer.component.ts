@@ -4,7 +4,7 @@ import { MyLibraryService } from '../../my-library.service';
 
 import { MyDataTableComponent } from '../../my-data-table/my-data-table.component';
 
-import { GetSetListService } from '../get-set-list.service';
+import { GetSetNameListService } from '../get-set-list.service';
 
 import { CardCost } from '../card-cost';
 import { CardProperty } from "../card-property";
@@ -12,7 +12,7 @@ import { GetCardPropertyService } from '../get-card-property.service';
 
 
 @Component({
-    providers: [MyLibraryService, GetSetListService, GetCardPropertyService],
+    providers: [MyLibraryService, GetSetNameListService, GetCardPropertyService],
     selector: 'app-randomizer',
     templateUrl: './randomizer.component.html',
     styleUrls: [
@@ -23,7 +23,7 @@ import { GetCardPropertyService } from '../get-card-property.service';
 export class RandomizerComponent implements OnInit {
 
     AllSetsSelected: boolean = true;
-    DominionSetList: { name: string, selected: boolean }[] = [];
+    DominionSetNameList: { name: string, selected: boolean }[] = [];
     CardPropertyList: CardProperty[] = [];
     CardPropertyListForView: any[] = [];
     httpGetDone: boolean = false;
@@ -50,32 +50,32 @@ export class RandomizerComponent implements OnInit {
 
     constructor(
         private mylib: MyLibraryService,
-        private httpGetSetListService: GetSetListService,
+        private httpGetSetNameListService: GetSetNameListService,
         private httpGetCardPropertyService: GetCardPropertyService,
     ) { }
 
     ngOnInit() {
         Promise.all( [
-            this.httpGetSetListService.GetSetList(),
+            this.httpGetSetNameListService.GetSetNameList(),
             this.httpGetCardPropertyService.GetCardProperty()
         ] )
         .then( data => {
-            this.DominionSetList = data[0].map( name => { return { name : name, selected : true } } );
+            this.DominionSetNameList = data[0].map( name => { return { name : name, selected : true } } );
             this.CardPropertyList = data[1] as CardProperty[];
             this.httpGetDone = true;
-            console.log("GetSetList, GetCardProperty done");
+            console.log("GetSetNameList, GetCardProperty done");
             // console.log( this.CardPropertyList );
         });
     }
 
     selectAllToggle( $event ) {
-        this.DominionSetList.forEach( DominionSet => DominionSet.selected = this.AllSetsSelected );
+        this.DominionSetNameList.forEach( DominionSet => DominionSet.selected = this.AllSetsSelected );
     }
 
 
 
     randomizerClicked() {
-        if ( this.DominionSetList.every( DominionSet => !DominionSet.selected ) ) return;
+        if ( this.DominionSetNameList.every( DominionSet => !DominionSet.selected ) ) return;
         this.randomizer();
     }
 
@@ -98,13 +98,13 @@ export class RandomizerComponent implements OnInit {
             .map( (val,index) => { return { index: index, data: val }; } )
             .filter ( e => e.data.randomizer_candidate )
             .filter( e =>
-                this.DominionSetList
+                this.DominionSetNameList
                 .filter( s => s.selected )
                 .map( s => s.name )
                 .findIndex( val => val == e.data.set_name ) >= 0 )
            );
 
-        // console.log(this.DominionSetList .filter( s => s.selected ) .map( s => s.name ))
+        // console.log(this.DominionSetNameList .filter( s => s.selected ) .map( s => s.name ))
         // console.log(CardsInSelectedSets_Shuffled.map( e => e.data.name_jp  ) );
 
         // 10 Supply KingdomCards and Event, Landmark

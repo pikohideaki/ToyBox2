@@ -1,6 +1,6 @@
 <?php
 
-define( INPUT_FILE_PATH, '../data/dominion/SetList.tsv' );
+define( INPUT_FILE_PATH, '../data/dominion/SetNameList.tsv' );
 
 setlocale( LC_ALL, 'ja_JP.UTF-8' );
 
@@ -8,20 +8,20 @@ include './returnJson.php';
 
 
 
-function ReadSetList( $filePath ) {
+function ReadSetNameList( $filePath ) {
     if ( !is_readable( $filePath ) ) { echo $filePath . ' is not readable'; exit; }
 
     $file = new SplFileObject( $filePath );
     // $file->setFlags( SplFileObject::READ_CSV );
     // $file->setCsvControl("\t");
 
-    $SetList = array();
+    $SetNameList = array();
     foreach ( $file as $line ) {
         // if ( count( $line ) == 0 ) continue;
         if ( $line == "" ) continue;
-        $SetList[] = $line;
+        $SetNameList[] = $line;
     }
-    return $SetList;
+    return $SetNameList;
 }
 
 
@@ -30,15 +30,15 @@ function ReadSetList( $filePath ) {
 // $type = $_REQUEST['user_type'];
 
 try {
-    $SetList = ReadSetList( INPUT_FILE_PATH );
+    $SetNameList = ReadSetNameList( INPUT_FILE_PATH );
 
-    if ( empty( $SetList ) ) {
+    if ( empty( $SetNameList ) ) {
         header("HTTP/1.1 404 Not Found");
         exit(0);
     }
 
     // 返却値の作成
-    $result = array( 'data' => $SetList );
+    $result = array( 'data' => $SetNameList );
     // JSONでレスポンスを返す
     returnJson( $result );
 

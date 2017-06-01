@@ -32,6 +32,7 @@ import { CardlistComponent            } from './dominion/cardlist/cardlist.compo
 import { CardPropertyDialogComponent  } from './dominion/card-property-dialog/card-property-dialog.component';
 import { CardImageComponent           } from './dominion/card-image/card-image.component';
 import { AddGameResultComponent       } from './dominion/randomizer/add-game-result/add-game-result.component';
+import { SubmitGameResultDialogComponent } from './dominion/submit-game-result-dialog/submit-game-result-dialog.component';
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import { AddGameResultComponent       } from './dominion/randomizer/add-game-res
         CardPropertyDialogComponent,
         CardImageComponent,
         AddGameResultComponent,
+        SubmitGameResultDialogComponent,
     ],
     imports: [
         // UiSwitchModule,
@@ -108,7 +110,8 @@ import { AddGameResultComponent       } from './dominion/randomizer/add-game-res
     ],
     /* for dialog */
     entryComponents: [
-        CardPropertyDialogComponent
+        CardPropertyDialogComponent,
+        SubmitGameResultDialogComponent
     ],
     bootstrap: [AppComponent]
 })

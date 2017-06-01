@@ -6,20 +6,20 @@ import 'rxjs/add/operator/toPromise';
 
 
 @Injectable()
-export class GetSetNameListService {
+export class GetPlayersNameListService {
 
   constructor(
     private http: Http,
     @Inject('HOST_NAME') private HOST_NAME: string
   ) { }
 
-  private SetNameListUrl = `${this.HOST_NAME}/api/set_list.php`;
+  private Url = `${this.HOST_NAME}/api/players_name.php`;
 
-  GetSetNameList(): Promise< string[] > {
+  GetPlayersNameList(): Promise< { name: string, name_yomi: string }[] > {
     return this.http
-      .get( this.SetNameListUrl )
+      .get( this.Url )
       .toPromise()
-      .then( response => response.json().data as string[] )
+      .then( response => response.json().data as { name: string, name_yomi: string }[] )
       .catch( this.handleError );
   }
 
