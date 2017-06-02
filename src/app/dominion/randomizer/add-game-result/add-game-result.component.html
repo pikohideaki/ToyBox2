@@ -33,11 +33,17 @@
     <!--プレイヤー-->
     <div class="marginedElement">
         <p>参加者を選択（2~4人）：</p>
-        <ng-container *ngFor="let player of Players" >
-            <md-checkbox class="playerChbox" [(ngModel)]="player.selected" >
-                {{player.name}}
-            </md-checkbox>
-        </ng-container>
+
+        <div *ngIf="!httpGetDone">
+            <md-spinner class="httpGetWaitingSpinner" ></md-spinner>
+        </div>
+        <div *ngIf="httpGetDone">
+            <ng-container *ngFor="let player of Players" >
+                <md-checkbox class="playerChbox" [(ngModel)]="player.selected" >
+                    {{player.name}}
+                </md-checkbox>
+            </ng-container>
+        </div>
     </div>
 
     <div class="marginedElement">
@@ -76,7 +82,7 @@
 
     <!--メモ-->
     <md-input-container>
-        <textarea  mdInput placeholder="memo"  [(ngModel)]="memo" ></textarea>
+        <textarea  mdInput placeholder="Memo"  [(ngModel)]="memo" ></textarea>
     </md-input-container>
 
 

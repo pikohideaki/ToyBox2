@@ -28,8 +28,10 @@ import 'rxjs/add/operator/map';
 })
 export class AddGameResultComponent implements OnInit {
 
-    date;
+    httpGetDone: boolean = false;
 
+
+    date;
 
     place:string = "";
     places: string[] = [];
@@ -53,6 +55,7 @@ export class AddGameResultComponent implements OnInit {
     gameResult;
 
     selectPlayerNumAlert: boolean = false;
+
 
     constructor(
         private mylib: MyLibraryService,
@@ -88,6 +91,7 @@ export class AddGameResultComponent implements OnInit {
             this.filteredPlaces = this.stateCtrl.valueChanges
                         .startWith(null)
                         .map( name => this.filterPlaces(name) );
+            this.httpGetDone = true;
         } );
     }
 

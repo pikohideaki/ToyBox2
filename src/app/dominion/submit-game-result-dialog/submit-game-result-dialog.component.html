@@ -1,8 +1,37 @@
-<h1 md-dialog-title>test</h1>
+
+<!--title-->
+<h1 md-dialog-title>結果</h1>
+
+<!--OK button-->
 <div md-dialog-content>
-    {{gameResult}}
+    <p> 以下の内容で登録します。 </p>
+
+    <p>日付：{{date}}</p>
+    <p>場所：{{place}}</p>
+    <div>
+        <table class='my-data-table my-data-table--shadow3px my-data-table--vertical-line'>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>VP</th>
+                    <th>同点手番勝ち</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let player of Players">
+                <tr *ngIf="player.selected">
+                    <td> {{player.name}} </td>
+                    <td> {{player.VP}} </td>
+                    <td> {{player.fewerTurns}} </td>
+                </tr>
+                </ng-container>
+            </tbody>
+        </table>
+    </div>
+    <p> Memo : {{gameResult.Memo}} </p>
 </div>
 
+<!--OK button-->
 <div md-dialog-actions class='actionButtons'>
     <button md-raised-button color='primary' class='actionButton' (click)="dialogRef.close()">OK</button>
 </div>
