@@ -6,7 +6,7 @@ import { CardProperty } from "./card-property";
 
 
 @Injectable()
-export class GetCardPropertyService {
+export class CardPropertyHttpService {
 
   constructor(
     private http: Http,

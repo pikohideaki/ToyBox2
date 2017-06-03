@@ -6,10 +6,10 @@ import { MdDialog } from '@angular/material';
 
 import { MyLibraryService } from '../../../my-library.service';
 
-import { GetPlayersNameListService } from '../../get-players-name.service';
+import { PlayersNameListService } from '../../get-players-name.service';
 
 import { GameResult } from "../../game-result";
-import { GetGameResultService } from '../../get-game-result.service';
+import { GameResultListService } from '../../get-game-result.service';
 
 import { SubmitGameResultDialogComponent } from '../../submit-game-result-dialog/submit-game-result-dialog.component';
 
@@ -18,7 +18,7 @@ import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
 
 @Component({
-    providers: [MyLibraryService, GetPlayersNameListService, GetGameResultService],
+    providers: [MyLibraryService, PlayersNameListService, GameResultListService],
     selector: 'app-add-game-result',
     templateUrl: './add-game-result.component.html',
     styleUrls: [
@@ -49,7 +49,7 @@ export class AddGameResultComponent implements OnInit {
         }[] = [];
 
     startPlayerName: string = "";
-    memo: string = "";
+    Memo: string = "";
 
 
     gameResult;
@@ -59,8 +59,8 @@ export class AddGameResultComponent implements OnInit {
 
     constructor(
         private mylib: MyLibraryService,
-        private httpGetPlayersNameListService: GetPlayersNameListService,
-        private httpGetGameResultService: GetGameResultService,
+        private httpPlayersNameListService: PlayersNameListService,
+        private httpGameResultListService: GameResultListService,
         public dialog: MdDialog,
     ) {
         this.stateCtrl = new FormControl();
@@ -72,8 +72,8 @@ export class AddGameResultComponent implements OnInit {
     ngOnInit() {
         this.date = Date.now();
         Promise.all( [
-            this.httpGetPlayersNameListService.GetPlayersNameList(),
-            this.httpGetGameResultService.GetGameResult(),
+            this.httpPlayersNameListService.GetPlayersNameList(),
+            this.httpGameResultListService.GetGameResult(),
         ])
         .then( data => {
             this.PlayersNameList = data[0];
@@ -114,7 +114,7 @@ export class AddGameResultComponent implements OnInit {
                 'places' , this.places,
                 'Players' , this.Players,
                 'startPlayerName' , this.startPlayerName,
-                'memo' , this.memo,
+                'Memo' , this.Memo,
             );
     }
 
@@ -137,7 +137,11 @@ export class AddGameResultComponent implements OnInit {
                 height: '80%',
                 width : '80%',
             });
-        this.gameResult = "test";
-        dialogRef.componentInstance.gameResult = this.gameResult;
+
+        dialogRef.componentInstance.date    = this.date;
+        dialogRef.componentInstance.place   = this.place;
+        dialogRef.componentInstance.Players = this.Players;
+        dialogRef.componentInstance.Memo    = this.Memo;
+        dialogRef.componentInstance.GameResultList = this.GameResultList;
     }
 }

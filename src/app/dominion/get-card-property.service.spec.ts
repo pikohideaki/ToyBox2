@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { GetCardPropertyService } from './get-card-property.service';
+import { CardPropertyHttpService } from './get-card-property.service';
 
 describe('GetCardPropertyService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [GetCardPropertyService]
+      providers: [CardPropertyHttpService]
     });
   });
 
-  it('should ...', inject([GetCardPropertyService], (service: GetCardPropertyService) => {
+  it('should ...', inject([CardPropertyHttpService], (service: CardPropertyHttpService) => {
     expect(service).toBeTruthy();
   }));
 });

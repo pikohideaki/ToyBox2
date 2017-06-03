@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { GetSetNameListService } from './get-set-list.service';
+import { DominionSetNameListHttpService } from './get-set-list.service';
 
 describe('GetSetNameListService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [GetSetNameListService]
+      providers: [DominionSetNameListHttpService]
     });
   });
 
-  it('should ...', inject([GetSetNameListService], (service: GetSetNameListService) => {
+  it('should ...', inject([DominionSetNameListHttpService], (service: DominionSetNameListHttpService) => {
     expect(service).toBeTruthy();
   }));
 });

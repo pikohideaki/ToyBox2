@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { GetPlayersNameListService } from './get-players-name.service';
+import { PlayersNameListService } from './get-players-name.service';
 
 describe('GetPlayersNameListService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [GetPlayersNameListService]
+      providers: [PlayersNameListService]
     });
   });
 
-  it('should ...', inject([GetPlayersNameListService], (service: GetPlayersNameListService) => {
+  it('should ...', inject([PlayersNameListService], (service: PlayersNameListService) => {
     expect(service).toBeTruthy();
   }));
 });

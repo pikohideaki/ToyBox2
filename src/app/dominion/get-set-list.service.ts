@@ -6,7 +6,7 @@ import 'rxjs/add/operator/toPromise';
 
 
 @Injectable()
-export class GetSetNameListService {
+export class DominionSetNameListHttpService {
 
   constructor(
     private http: Http,

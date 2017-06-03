@@ -4,15 +4,15 @@ import { MyLibraryService } from '../../my-library.service';
 
 import { MyDataTableComponent } from '../../my-data-table/my-data-table.component';
 
-import { GetSetNameListService } from '../get-set-list.service';
+import { DominionSetNameListHttpService } from '../get-set-list.service';
 
 import { CardCost } from '../card-cost';
 import { CardProperty } from "../card-property";
-import { GetCardPropertyService } from '../get-card-property.service';
+import { CardPropertyHttpService } from '../get-card-property.service';
 
 
 @Component({
-    providers: [MyLibraryService, GetSetNameListService, GetCardPropertyService],
+    providers: [MyLibraryService, DominionSetNameListHttpService, CardPropertyHttpService],
     selector: 'app-randomizer',
     templateUrl: './randomizer.component.html',
     styleUrls: [
@@ -50,14 +50,14 @@ export class RandomizerComponent implements OnInit {
 
     constructor(
         private mylib: MyLibraryService,
-        private httpGetSetNameListService: GetSetNameListService,
-        private httpGetCardPropertyService: GetCardPropertyService,
+        private httpDominionSetNameListService: DominionSetNameListHttpService,
+        private httpCardPropertyService: CardPropertyHttpService,
     ) { }
 
     ngOnInit() {
         Promise.all( [
-            this.httpGetSetNameListService.GetSetNameList(),
-            this.httpGetCardPropertyService.GetCardProperty()
+            this.httpDominionSetNameListService.GetSetNameList(),
+            this.httpCardPropertyService.GetCardProperty()
         ] )
         .then( data => {
             this.DominionSetNameList = data[0].map( name => { return { name : name, selected : true } } );

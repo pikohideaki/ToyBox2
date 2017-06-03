@@ -7,7 +7,7 @@ import { MyLibraryService } from '../../my-library.service';
 import { MyDataTableComponent } from '../../my-data-table/my-data-table.component';
 
 import { GameResult } from "../game-result";
-import { GetGameResultService } from '../get-game-result.service';
+import { GameResultListService } from '../get-game-result.service';
 
 
 
@@ -16,7 +16,7 @@ import { PagenationComponent, getPagenatedData } from '../../my-data-table/pagen
 
 
 @Component({
-  providers: [GetGameResultService],
+  providers: [GameResultListService],
   selector: 'app-game-result-list',
   templateUrl: './game-result-list.component.html',
   styleUrls: [
@@ -46,7 +46,7 @@ export class GameResultListComponent implements OnInit {
 
 
   constructor(
-    private httpService: GetGameResultService,
+    private httpService: GameResultListService,
     public dialog: MdDialog,
   ) {}
 

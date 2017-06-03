@@ -6,7 +6,7 @@ import 'rxjs/add/operator/toPromise';
 
 
 @Injectable()
-export class GetPlayersNameListService {
+export class PlayersNameListService {
 
   constructor(
     private http: Http,

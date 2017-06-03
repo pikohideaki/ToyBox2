@@ -6,7 +6,8 @@
 <div md-dialog-content>
     <p> 以下の内容で登録します。 </p>
 
-    <p>日付：{{date}}</p>
+    <!--<p>日付：{{date.toDateString()}}</p>-->
+    <p>日付：{{date.getFullYear()}}年{{date.getMonth() + 1}}月{{date.getDate()}}日</p>
     <p>場所：{{place}}</p>
     <div>
         <table class='my-data-table my-data-table--shadow3px my-data-table--vertical-line'>
@@ -22,16 +23,32 @@
                 <tr *ngIf="player.selected">
                     <td> {{player.name}} </td>
                     <td> {{player.VP}} </td>
-                    <td> {{player.fewerTurns}} </td>
+                    <td>
+                        <md-icon *ngIf="player.fewerTurns">check</md-icon>
+                    </td>
                 </tr>
                 </ng-container>
             </tbody>
         </table>
     </div>
-    <p> Memo : {{gameResult.Memo}} </p>
+    <p> Memo : {{Memo}} </p>
 </div>
 
 <!--OK button-->
 <div md-dialog-actions class='actionButtons'>
-    <button md-raised-button color='primary' class='actionButton' (click)="dialogRef.close()">OK</button>
+    <span class="marginedElement">
+        <button md-raised-button
+            color='primary'
+            (click)="dialogRef.close(); ">
+            <!--(click)="submitGameResult(); dialogRef.close(); ">-->
+            OK
+        </button>
+    </span>
+    <span class="marginedElement">
+        <button md-raised-button
+            class="marginedElement"
+            (click)="dialogRef.close()">
+            Cancel
+        </button>
+    </span>
 </div>

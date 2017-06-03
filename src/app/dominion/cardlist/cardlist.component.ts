@@ -8,14 +8,14 @@ import { MyDataTableComponent } from '../../my-data-table/my-data-table.componen
 
 // import { CardCost } from '../card-cost';
 import { CardProperty } from "../card-property";
-import { GetCardPropertyService } from '../get-card-property.service';
+import { CardPropertyHttpService } from '../get-card-property.service';
 // import { CardListPipe } from './card-list.pipe';
 import { CardPropertyDialogComponent } from '../card-property-dialog/card-property-dialog.component';
 
 
 
 @Component({
-  providers: [GetCardPropertyService],
+  providers: [CardPropertyHttpService],
   selector: 'app-cardlist',
   templateUrl: './cardlist.component.html',
   styleUrls: [
@@ -65,7 +65,7 @@ export class CardlistComponent implements OnInit {
 
   constructor(
     private mylib: MyLibraryService,
-    private httpService: GetCardPropertyService,
+    private httpService: CardPropertyHttpService,
     public dialog: MdDialog,
   ) {}
 
