@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
-import { HttpModule, Http, Headers } from '@angular/http';
+import { HttpModule, Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 import { GameResult } from './game-result';
@@ -25,13 +25,14 @@ export class GameResultListService {
     }
 
     private headers = new Headers( {'Content-Type': 'application/json'} );
+    private options = new RequestOptions({ headers: this.headers });
 
     SetGameResult( GameResultList: any[] ): Promise< GameResult[] > {
         return this.http
-            .put( this.GetGameResultUrl, JSON.stringify(GameResultList), {headers: this.headers} )
+            .post( this.SetGameResultUrl, JSON.stringify(GameResultList), this.options )
             .toPromise()
             .then( () => GameResultList )
-            .catch( this.handleError );
+            .catch( error => this.handleError( error ) );
     }
 
     private handleError( error: any ): Promise<any> {
