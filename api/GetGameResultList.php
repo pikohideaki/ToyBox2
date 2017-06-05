@@ -36,7 +36,7 @@ function ReformLine( $line, $line_no ) {
     $GameResult['players'][] = array(
       'name'       =>         $line[$it++]  ,
       'VP'         => intval( $line[$it++] ),
-      'less_turns' =>       (  $line[$it++] == "true" ),
+      'lessTurns' =>       (  $line[$it++] == "true" ),
       'rank'       => intval( $line[$it++] ),
       'score'      => intval( $line[$it++] )
       );

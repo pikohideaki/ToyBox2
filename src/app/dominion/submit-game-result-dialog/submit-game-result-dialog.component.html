@@ -13,18 +13,22 @@
         <table class='my-data-table my-data-table--shadow3px my-data-table--vertical-line'>
             <thead>
                 <tr>
+                    <th>Rank</th>
                     <th>Name</th>
                     <th>VP</th>
+                    <th>Score</th>
                     <th>同点手番勝ち</th>
                 </tr>
             </thead>
             <tbody>
-                <ng-container *ngFor="let player of Players">
+                <ng-container *ngFor="let player of playerResult">
                 <tr *ngIf="player.selected">
+                    <td> {{player.rank + 1}} </td>
                     <td> {{player.name}} </td>
                     <td> {{player.VP}} </td>
+                    <td> {{player.score}} </td>
                     <td>
-                        <md-icon *ngIf="player.fewerTurns">check</md-icon>
+                        <md-icon *ngIf="player.lessTurns">check</md-icon>
                     </td>
                 </tr>
                 </ng-container>
@@ -40,7 +44,6 @@
         <button md-raised-button
             color='primary'
             (click)="submitGameResult(); dialogRef.close(); ">
-            <!--(click)="dialogRef.close(); ">-->
             OK
         </button>
     </span>

@@ -38,7 +38,7 @@ foreach ( $GameResultList as $gr ) {
             $tsv_line_buf .= (
                   "\t" . $pl->name
                 . "\t" . $pl->VP
-                . "\t" . $pl->less_turns
+                . "\t" . $pl->lessTurns
                 . "\t" . $pl->rank
                 . "\t" . $pl->score
             );

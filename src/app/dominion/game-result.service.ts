@@ -18,10 +18,17 @@ export class GameResultListService {
 
     GetGameResult(): Promise< GameResult[] > {
         return this.http
-            .get( this.GetGameResultUrl )
-            .toPromise()
-            .then( response => response.json().data as GameResult[] )
-            .catch( this.handleError );
+                   .get( this.GetGameResultUrl )
+                   .toPromise()
+                   .then( response => response.json().data as GameResult[] )
+                   .then( listObj => {
+                       let result: GameResult[] = [];
+                       listObj.forEach( grObj => {
+                           result.push( new GameResult( grObj ) );
+                       });
+                       return result;
+                   } )
+                   .catch( this.handleError );
     }
 
     private headers = new Headers( {'Content-Type': 'application/json'} );
@@ -29,10 +36,10 @@ export class GameResultListService {
 
     SetGameResult( GameResultList: any[] ): Promise< GameResult[] > {
         return this.http
-            .post( this.SetGameResultUrl, JSON.stringify(GameResultList), this.options )
-            .toPromise()
-            .then( () => GameResultList )
-            .catch( error => this.handleError( error ) );
+                   .post( this.SetGameResultUrl, JSON.stringify( GameResultList ), this.options )
+                   .toPromise()
+                   .then( () => GameResultList )
+                   .catch( error => this.handleError( error ) );
     }
 
     private handleError( error: any ): Promise<any> {

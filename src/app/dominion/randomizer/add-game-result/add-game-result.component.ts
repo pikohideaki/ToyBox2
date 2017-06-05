@@ -31,7 +31,7 @@ export class AddGameResultComponent implements OnInit {
     httpGetDone: boolean = false;
 
 
-    date;
+    date: Date;
 
     place:string = "";
     places: string[] = [];
@@ -45,7 +45,7 @@ export class AddGameResultComponent implements OnInit {
             name          : string,
             selected      : boolean,
             VP            : number,
-            fewerTurns    : boolean,
+            lessTurns    : boolean,
         }[] = [];
 
     startPlayerName: string = "";
@@ -69,7 +69,7 @@ export class AddGameResultComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.date = Date.now();
+        this.date = new Date( Date.now() );
         Promise.all( [
             this.httpPlayersNameListService.GetPlayersNameList(),
             this.httpGameResultListService.GetGameResult(),
@@ -83,14 +83,19 @@ export class AddGameResultComponent implements OnInit {
                     name : player.name,
                     selected : false,
                     VP : 0,
-                    fewerTurns : false,
+                    lessTurns : false,
                 };
             } );
-            this.places = this.mylib.uniq( this.GameResultList.map( e => e.place ) ).filter( e => e != "" );
+            this.places = this.mylib.uniq( this.GameResultList.map( e => e.place ) )
+                                    .filter( e => e != "" );
             this.filteredPlaces = this.stateCtrl.valueChanges
                         .startWith(null)
                         .map( name => this.filterPlaces(name) );
             this.httpGetDone = true;
+
+            this.Players[16].selected = true;
+            this.Players[17].selected = true;
+            this.Players[18].selected = true;
         } );
     }
 
@@ -138,12 +143,12 @@ export class AddGameResultComponent implements OnInit {
             });
         console.log( this.SelectedCards );
 
-        dialogRef.componentInstance.date    = this.date;
-        dialogRef.componentInstance.place   = this.place;
-        dialogRef.componentInstance.Players = this.Players;
-        dialogRef.componentInstance.memo    = this.memo;
-        dialogRef.componentInstance.SelectedCards = this.SelectedCards;
+        dialogRef.componentInstance.date                = this.date;
+        dialogRef.componentInstance.place               = this.place;
+        dialogRef.componentInstance.selectedPlayers     = this.selectedPlayers();
+        dialogRef.componentInstance.memo                = this.memo;
+        dialogRef.componentInstance.SelectedCards       = this.SelectedCards;
         dialogRef.componentInstance.DominionSetNameList = this.DominionSetNameList;
-        dialogRef.componentInstance.GameResultList = this.GameResultList;
+        dialogRef.componentInstance.GameResultList      = this.GameResultList;
     }
 }

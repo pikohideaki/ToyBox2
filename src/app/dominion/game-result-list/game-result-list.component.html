@@ -39,7 +39,7 @@
   <tbody>
     <tr *ngFor='let line of getDataForView()'>
       <td class='my-data-table--cell-numeric'>{{line.no}}</td>
-      <td> {{line.date   }}</td>
+      <td> {{line.date.getFullYear()}}年{{line.date.getMonth() + 1}}月{{line.date.getDate()}}日 </td>
       <td> {{line.place  }}</td>
       <td>
         <table class='my-data-table  sub-table' ><!--style='box-shadow: none'-->
@@ -50,7 +50,7 @@
               <td class='                                      sub-table--normal-cell'>
                 {{playerResult.name  }}</td>
               <td class='my-data-table--cell-numeric  sub-table--narrow-cell'>
-                {{playerResult.VP}}{{(playerResult.less_turns == 'true' ? '*' : '')}}</td>
+                {{playerResult.VP}}{{(playerResult.lessTurns == 'true' ? '*' : '')}}</td>
               <td class='my-data-table--cell-numeric  sub-table--narrow-cell'>
                 {{playerResult.score }}</td>
             </tr>
