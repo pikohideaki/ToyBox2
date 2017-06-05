@@ -127,6 +127,9 @@
         闇市場デッキ
     </md-tab>
     <md-tab label="結果入力">
-        <app-add-game-result></app-add-game-result>
+        <app-add-game-result
+            [SelectedCards]="SelectedCards"
+            [DominionSetNameList]="DominionSetNameList">
+        </app-add-game-result>
     </md-tab>
 </md-tab-group>

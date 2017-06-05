@@ -82,14 +82,14 @@
 
     <!--メモ-->
     <md-input-container>
-        <textarea  mdInput placeholder="Memo"  [(ngModel)]="Memo" ></textarea>
+        <textarea  mdInput placeholder="Memo"  [(ngModel)]="memo" ></textarea>
     </md-input-container>
 
 
     <!--登録ボタン-->
     <div class="marginedElement">
         <button md-raised-button color='primary' (click)='submitGameResult()'>Submit</button>
-        <span *ngIf="!selectedPlayersCountIsOK()">プレイヤーを2~4人選択してください！</span>
+        <span *ngIf="!playerNumAlert()">プレイヤーを2~4人選択してください！</span>
     </div>
 
 </div>

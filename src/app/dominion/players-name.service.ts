@@ -13,7 +13,7 @@ export class PlayersNameListService {
     @Inject('HOST_NAME') private HOST_NAME: string
   ) { }
 
-  private Url = `${this.HOST_NAME}/api/players_name.php`;
+  private Url = `${this.HOST_NAME}/api/PlayersNameList.php`;
 
   GetPlayersNameList(): Promise< { name: string, name_yomi: string }[] > {
     return this.http

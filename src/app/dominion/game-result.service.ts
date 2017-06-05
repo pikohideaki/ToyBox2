@@ -13,8 +13,8 @@ export class GameResultListService {
         @Inject('HOST_NAME') private HOST_NAME: string
     ) { }
 
-    private GetGameResultUrl = `${this.HOST_NAME}/api/get_game_result.php`;
-    private SetGameResultUrl = `${this.HOST_NAME}/api/set_game_result.php`;
+    private GetGameResultUrl = `${this.HOST_NAME}/api/GetGameResultList.php`;
+    private SetGameResultUrl = `${this.HOST_NAME}/api/SetGameResultList.php`;
 
     GetGameResult(): Promise< GameResult[] > {
         return this.http

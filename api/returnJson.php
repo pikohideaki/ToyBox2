@@ -6,11 +6,17 @@
 // }
 
 
+// JSON_PRETTY_PRINT はdump確認のため
 function returnJson( $resultArray ) {
+//   if ( array_key_exists( 'callback', $_GET ) ) {
+//     $json = $_GET['callback'] . "(" . json_encode( $resultArray, JSON_PRETTY_PRINT ) . ");";
+//   } else {
+//     $json = json_encode( $resultArray, JSON_PRETTY_PRINT );
+//   }
   if ( array_key_exists( 'callback', $_GET ) ) {
-    $json = $_GET['callback'] . "(" . json_encode( $resultArray, JSON_PRETTY_PRINT ) . ");";
+    $json = $_GET['callback'] . "(" . json_encode( $resultArray ) . ");";
   } else {
-    $json = json_encode( $resultArray, JSON_PRETTY_PRINT );
+    $json = json_encode( $resultArray );
   }
 
   // header('Access-Control-Allow-Origin: http://localhost:4200');

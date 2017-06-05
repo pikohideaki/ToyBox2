@@ -3,7 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { MdDialogRef } from '@angular/material';
 
 import { GameResult } from "../game-result";
-import { GameResultListService } from '../get-game-result.service';
+import { GameResultListService } from '../game-result.service';
 
 
 @Component({
@@ -19,9 +19,15 @@ export class SubmitGameResultDialogComponent implements OnInit {
 
     @Input() date;
     @Input() place: string;
-    @Input() Players: any[] = [];
-    @Input() Memo: string;
-
+    @Input() Players: {
+            name          : string,
+            selected      : boolean,
+            VP            : number,
+            fewerTurns    : boolean,
+        }[] = [];
+    @Input() memo: string;
+    @Input() SelectedCards: any;
+    @Input() DominionSetNameList: { name: string, selected: boolean }[] = [];
     @Input() GameResultList: any[] = [];
 
 
@@ -34,8 +40,25 @@ export class SubmitGameResultDialogComponent implements OnInit {
         this.date = new Date( this.date );
     }
 
+    Rank( selectedPlayers: any[] ) {
+        
+        return ;
+    }
+
     submitGameResult(): Promise<any> {
-        console.log( this.GameResultList );
+        let gr = new GameResult();
+        gr.no = this.GameResultList.length;
+        gr.id = Date.now();
+        gr.date = this.date;
+        gr.place = this.place;
+        gr.number_of_players = this.Players.map( e => e.selected ).length;
+        gr.players = this.Rank( this.Players.map( e => e.selected ) );
+        gr.memo = this.memo;
+        gr.used_sets = this.DominionSetNameList.map( e => e.selected );
+        gr.used_card_IDs = this.SelectedCards;
+
+        console.log(gr);
+
         return this.httpGameResultListService
                 .SetGameResult( this.GameResultList )
                 .then( () => console.log("submit GameResultList done") );

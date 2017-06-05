@@ -7,7 +7,7 @@ import { MyLibraryService } from '../../my-library.service';
 import { MyDataTableComponent } from '../../my-data-table/my-data-table.component';
 
 import { GameResult } from "../game-result";
-import { GameResultListService } from '../get-game-result.service';
+import { GameResultListService } from '../game-result.service';
 
 
 
@@ -46,17 +46,18 @@ export class GameResultListComponent implements OnInit {
 
 
   constructor(
-    private httpService: GameResultListService,
+    private httpGameResultListService: GameResultListService,
     public dialog: MdDialog,
   ) {}
 
   ngOnInit() {
     this.itemsPerPage = this.itemsPerPageDefault;
-    this.httpService.GetGameResult()
+    this.httpGameResultListService.GetGameResult()
     .then( data => {
-      this.GameResultList = data;
+      this.GameResultList = data as GameResult[];
       this.GameResultListForView = this.GameResultList.map( x => this.transform(x) );
       this.httpGetDone = true;
+    //   console.log(this.GameResultList);
     });
   }
 

@@ -4,11 +4,11 @@ import { MyLibraryService } from '../../my-library.service';
 
 import { MyDataTableComponent } from '../../my-data-table/my-data-table.component';
 
-import { DominionSetNameListHttpService } from '../get-set-list.service';
+import { DominionSetNameListHttpService } from '../set-list.service';
 
 import { CardCost } from '../card-cost';
 import { CardProperty } from "../card-property";
-import { CardPropertyHttpService } from '../get-card-property.service';
+import { CardPropertyHttpService } from '../card-property.service';
 
 
 @Component({

@@ -1,25 +1,26 @@
 
 <div>
 
-  <my-data-table--items-per-page
-      [itemsPerPageDefault]='itemsPerPageDefault'
-      [itemsPerPageOptions]='itemsPerPageOptions'
-      [(itemsPerPage)]='itemsPerPage' >
-  </my-data-table--items-per-page>
+  <div class="pagerWrapper">
+    <my-data-table--items-per-page
+        [itemsPerPageDefault]='itemsPerPageDefault'
+        [itemsPerPageOptions]='itemsPerPageOptions'
+        [(itemsPerPage)]='itemsPerPage' >
+    </my-data-table--items-per-page>
 
-  <my-data-table--pagenation
-      [(selectedPageIndex)]='selectedPageIndex'
-      [itemsPerPage]='itemsPerPage'
-      [dataSize]='filteredData.length' >
-  </my-data-table--pagenation>
+    <my-data-table--pagenation
+        [(selectedPageIndex)]='selectedPageIndex'
+        [itemsPerPage]='itemsPerPage'
+        [dataSize]='filteredData.length' >
+    </my-data-table--pagenation>
 
 
-  <my-data-table--reset-buttons (click)='reset()' >
-  </my-data-table--reset-buttons>
+    <my-data-table--reset-buttons (click)='reset()' >
+    </my-data-table--reset-buttons>
 
-  <span>{{filteredData.length}} items</span>
-  <!--<span>{{dataSize}} items</span>-->
-  <div class='clear'></div>
+    <span>{{filteredData.length}} items</span>
+    <div class='clear'></div>
+  </div>
 
 
   <table class='my-data-table my-data-table--shadow3px my-data-table--vertical-line'>
@@ -92,5 +93,28 @@
       </tr>
     </tbody>
   </table>
+
+
+  <div class="pagerWrapper">
+    <my-data-table--items-per-page
+        [itemsPerPageDefault]='itemsPerPageDefault'
+        [itemsPerPageOptions]='itemsPerPageOptions'
+        [(itemsPerPage)]='itemsPerPage' >
+    </my-data-table--items-per-page>
+
+    <my-data-table--pagenation
+        [(selectedPageIndex)]='selectedPageIndex'
+        [itemsPerPage]='itemsPerPage'
+        [dataSize]='filteredData.length' >
+    </my-data-table--pagenation>
+
+
+    <my-data-table--reset-buttons (click)='reset()' >
+    </my-data-table--reset-buttons>
+
+    <span>{{filteredData.length}} items</span>
+    <div class='clear'></div>
+  </div>
+
 
 </div>

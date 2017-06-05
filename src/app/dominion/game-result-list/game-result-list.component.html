@@ -71,3 +71,16 @@
 <div>
     <span *ngIf="!httpGetDone"><md-spinner class="httpGetWaitingSpinner" ></md-spinner></span>
 </div>
+
+
+<my-data-table--items-per-page
+    [itemsPerPageDefault]='itemsPerPageDefault'
+    [itemsPerPageOptions]='itemsPerPageOptions'
+    [(itemsPerPage)]='itemsPerPage' >
+</my-data-table--items-per-page>
+
+<my-data-table--pagenation
+    [(selectedPageIndex)]='selectedPageIndex'
+    [itemsPerPage]='itemsPerPage'
+    [dataSize]='GameResultList.length' >
+</my-data-table--pagenation>

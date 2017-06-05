@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { DominionSetNameListHttpService } from './get-set-list.service';
+import { DominionSetNameListHttpService } from './set-list.service';
 
 describe('GetSetNameListService', () => {
   beforeEach(() => {

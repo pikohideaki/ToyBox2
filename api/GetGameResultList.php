@@ -1,6 +1,6 @@
 <?php
 
-define( INPUT_FILE_PATH, '../data/dominion/GameResult.tsv' );
+define( INPUT_FILE_PATH, 'GameResultList.tsv' );
 
 setlocale( LC_ALL, 'ja_JP.UTF-8' );
 
@@ -12,45 +12,46 @@ function ReformLine( $line, $line_no ) {
   $it = 0;
 
   $GameResult = array(
-    'no' => $line_no,
-    'id' => $line[$it++],
-    'date' => $line[$it++],
-    'place' => $line[$it++],
-    'number_of_players' => $line[$it++],
-    'players' => array(),
-    'memo' => 0,
-    'used_sets' => array(),
-    'used_card_IDs' => array(
-      'KingdomCards' => array(),
-      'Prosperity' => 0,
-      'DarkAges' => 0,
-      'BaneCard' => 0,
-      'EventCards' => array(),
-      'Obelisk' => 0,
-      'Landmark' => array(),
-      'BlackMarket' => array(),
+    'no'                => intval( $line_no     ),
+    'id'                => intval( $line[$it++] ),
+    'date'              =>         $line[$it++]  ,
+    'place'             =>         $line[$it++]  ,
+    'number_of_players' => intval( $line[$it++] ),
+    'players'           => array(),
+    'memo'              => "",
+    'used_sets'         => array(),
+    'used_card_IDs'     => array(
+      'KingdomCards'        => array(),
+      'Prosperity'          => false,
+      'DarkAges'            => false,
+      'BaneCard'            => 0,
+      'EventCards'          => array(),
+      'Obelisk'             => 0,
+      'Landmark'            => array(),
+      'BlackMarket'         => array(),
     ),
   );
 
   for ( $i = 0; $i < $GameResult['number_of_players']; $i++ ) {
     $GameResult['players'][] = array(
-      'name'       => $line[$it++],
-      'VP'         => $line[$it++],
-      'less_turns' => $line[$it++],
-      'rank'       => $line[$it++],
-      'score'      => $line[$it++] );
+      'name'       =>         $line[$it++]  ,
+      'VP'         => intval( $line[$it++] ),
+      'less_turns' =>       (  $line[$it++] == "true" ),
+      'rank'       => intval( $line[$it++] ),
+      'score'      => intval( $line[$it++] )
+      );
   }
   $it += (6 - $GameResult['number_of_players']) * 5;
 
   $GameResult['memo'] = $line[$it++];
   for ( $i = 0; $i < 20; $i++ ) {
-      $GameResult['used_sets'][] = $line[$it++];
+      $GameResult['used_sets'][] = ( $line[$it++] == "true" );
   }
   for ( $i = 0; $i < 10; $i++ ) {
     $GameResult['used_card_IDs']['KingdomCards'][] = $line[$it++];
   }
-  $GameResult['used_card_IDs']['Prosperity']  = $line[$it++];
-  $GameResult['used_card_IDs']['DarkAges']    = $line[$it++];
+  $GameResult['used_card_IDs']['Prosperity']  = ( $line[$it++] == "true" );
+  $GameResult['used_card_IDs']['DarkAges']    = ( $line[$it++] == "true" );
   $GameResult['used_card_IDs']['BaneCard']    = $line[$it++];
   $GameResult['used_card_IDs']['EventCards']  = array( $line[$it++], $line[$it++] );
   $GameResult['used_card_IDs']['Obelisk']     = $line[$it++];

@@ -67,3 +67,7 @@ table.my-data-table--shadow3px {
 tbody button {
     font-weight: 700;  
 }
+
+.pagerWrapper {
+    margin: 20px;
+}

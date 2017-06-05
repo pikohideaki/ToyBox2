@@ -13,7 +13,7 @@ export class CardPropertyHttpService {
     @Inject('HOST_NAME') private HOST_NAME: string
   ) { }
 
-  private CardPropertyUrl = `${this.HOST_NAME}/api/card_property.php`;
+  private CardPropertyUrl = `${this.HOST_NAME}/api/CardPropertyList.php`;
 
   GetCardProperty(): Promise< CardProperty[] > {
     return this.http

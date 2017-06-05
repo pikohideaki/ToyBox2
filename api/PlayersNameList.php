@@ -1,6 +1,6 @@
 <?php
 
-define( INPUT_FILE_PATH, '../data/dominion/SetNameList.tsv' );
+define( INPUT_FILE_PATH, 'PlayersNameList.tsv' );
 
 setlocale( LC_ALL, 'ja_JP.UTF-8' );
 
@@ -8,20 +8,24 @@ include './returnJson.php';
 
 
 
-function ReadSetNameList( $filePath ) {
+function ReadPlayersNameList( $filePath ) {
     if ( !is_readable( $filePath ) ) { echo $filePath . ' is not readable'; exit; }
 
     $file = new SplFileObject( $filePath );
-    // $file->setFlags( SplFileObject::READ_CSV );
-    // $file->setCsvControl("\t");
+    $file->setFlags( SplFileObject::READ_CSV );
+    $file->setCsvControl("\t");
 
-    $SetNameList = array();
+    $PlayersNameList = array();
     foreach ( $file as $line ) {
         // if ( count( $line ) == 0 ) continue;
-        if ( $line == "" ) continue;
-        $SetNameList[] = $line;
+        // if ( $line == "" ) continue;
+        // $PlayersNameList[] = preg_replace( '~[\r\n]+~', '', $line );
+        $PlayersNameList[] = array(
+            'name'      => $line[0],
+            'name_yomi' => $line[1],
+        );
     }
-    return $SetNameList;
+    return $PlayersNameList;
 }
 
 
@@ -30,15 +34,15 @@ function ReadSetNameList( $filePath ) {
 // $type = $_REQUEST['user_type'];
 
 try {
-    $SetNameList = ReadSetNameList( INPUT_FILE_PATH );
+    $PlayersNameList = ReadPlayersNameList( INPUT_FILE_PATH );
 
-    if ( empty( $SetNameList ) ) {
+    if ( empty( $PlayersNameList ) ) {
         header("HTTP/1.1 404 Not Found");
         exit(0);
     }
 
     // 返却値の作成
-    $result = array( 'data' => $SetNameList );
+    $result = array( 'data' => $PlayersNameList );
     // JSONでレスポンスを返す
     returnJson( $result );
 

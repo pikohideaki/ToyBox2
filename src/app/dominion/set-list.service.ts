@@ -13,7 +13,7 @@ export class DominionSetNameListHttpService {
     @Inject('HOST_NAME') private HOST_NAME: string
   ) { }
 
-  private SetNameListUrl = `${this.HOST_NAME}/api/set_list.php`;
+  private SetNameListUrl = `${this.HOST_NAME}/api/DominionSetNameList.php`;
 
   GetSetNameList(): Promise< string[] > {
     return this.http

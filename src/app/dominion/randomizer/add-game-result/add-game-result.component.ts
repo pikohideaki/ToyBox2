@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import { MdDialog } from '@angular/material';
@@ -6,10 +6,10 @@ import { MdDialog } from '@angular/material';
 
 import { MyLibraryService } from '../../../my-library.service';
 
-import { PlayersNameListService } from '../../get-players-name.service';
+import { PlayersNameListService } from '../../players-name.service';
 
 import { GameResult } from "../../game-result";
-import { GameResultListService } from '../../get-game-result.service';
+import { GameResultListService } from '../../game-result.service';
 
 import { SubmitGameResultDialogComponent } from '../../submit-game-result-dialog/submit-game-result-dialog.component';
 
@@ -49,12 +49,11 @@ export class AddGameResultComponent implements OnInit {
         }[] = [];
 
     startPlayerName: string = "";
-    Memo: string = "";
+    memo: string = "";
 
 
-    gameResult;
-
-    selectPlayerNumAlert: boolean = false;
+    @Input() SelectedCards;
+    @Input() DominionSetNameList: { name: string, selected: boolean }[] = [];
 
 
     constructor(
@@ -114,7 +113,7 @@ export class AddGameResultComponent implements OnInit {
                 'places' , this.places,
                 'Players' , this.Players,
                 'startPlayerName' , this.startPlayerName,
-                'Memo' , this.Memo,
+                'Memo' , this.memo,
             );
     }
 
@@ -126,22 +125,25 @@ export class AddGameResultComponent implements OnInit {
     }
 
 
-    selectedPlayersCountIsOK(): boolean {
+    playerNumAlert(): boolean {
         return ( 2 <= this.selectedPlayers().length && this.selectedPlayers().length <= 4 );
     }
 
 
     submitGameResult(): void {
-        if ( !this.selectedPlayersCountIsOK() ) return;
+        if ( !this.playerNumAlert() ) return;
         let dialogRef = this.dialog.open( SubmitGameResultDialogComponent, {
                 height: '80%',
                 width : '80%',
             });
+        console.log( this.SelectedCards );
 
         dialogRef.componentInstance.date    = this.date;
         dialogRef.componentInstance.place   = this.place;
         dialogRef.componentInstance.Players = this.Players;
-        dialogRef.componentInstance.Memo    = this.Memo;
+        dialogRef.componentInstance.memo    = this.memo;
+        dialogRef.componentInstance.SelectedCards = this.SelectedCards;
+        dialogRef.componentInstance.DominionSetNameList = this.DominionSetNameList;
         dialogRef.componentInstance.GameResultList = this.GameResultList;
     }
 }

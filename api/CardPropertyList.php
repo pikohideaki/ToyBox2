@@ -1,6 +1,6 @@
 <?php
 
-define( INPUT_FILE_PATH, '../data/dominion/CardList.tsv' );
+define( INPUT_FILE_PATH, 'CardPropertyList.tsv' );
 
 setlocale( LC_ALL, 'ja_JP.UTF-8' );
 
@@ -8,7 +8,7 @@ include './returnJson.php';
 
 
 
-function ReadCardList( $filePath ) {
+function ReadCardPropertyList( $filePath ) {
   // $filePath = $_SERVER['DOCUMENT_ROOT'] . $dir;
   if ( !is_readable( $filePath ) ) { echo $filePath . ' is not readable'; exit; }
 
@@ -16,14 +16,15 @@ function ReadCardList( $filePath ) {
   $file->setFlags( SplFileObject::READ_CSV );
   $file->setCsvControl("\t");
 
-  $CardList = array();
+  $CardPropertyList = array();
   $line_no = 0;
+
   foreach ( $file as $line ) {
     if ( $file->key() == 0 ) continue;  // discard the first line
 
     $it = 0;
     $line_no++;
-    $CardList[] = array(
+    $CardPropertyList[] = array(
       'no'                      => $line_no,
       'card_ID'                 => $line[$it++],
       'name_jp'                 => $line[$it++],
@@ -52,7 +53,7 @@ function ReadCardList( $filePath ) {
     );
   }
 
-  return $CardList;
+  return $CardPropertyList;
 }
 
 
@@ -62,7 +63,7 @@ function ReadCardList( $filePath ) {
 // $type = $_REQUEST['user_type'];
 
 try {
-  $CardInfoList = ReadCardList( INPUT_FILE_PATH );
+  $CardInfoList = ReadCardPropertyList( INPUT_FILE_PATH );
 
   if ( empty( $CardInfoList ) ) {
     header("HTTP/1.1 404 Not Found");
