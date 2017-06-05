@@ -5,6 +5,13 @@ export class MyLibraryService {
 
     constructor() { }
 
+    roundAt( val: number, precision: number ) {
+        let digit = Math.pow(10, precision);
+        val *= digit;
+        val = Math.round( val );
+        return val / digit;
+    }
+
     RandomNumber( Min: number, Max: number ): number {
         return Min + Math.floor( Math.random() * ( Max - Min + 1 ) );
     }

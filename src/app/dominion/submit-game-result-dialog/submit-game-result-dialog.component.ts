@@ -2,12 +2,14 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { MdDialogRef } from '@angular/material';
 
+import { MyLibraryService } from '../../my-library.service';
+
 import { GameResult } from "../game-result";
 import { GameResultListService } from '../game-result.service';
 import { ScoringService } from './scoring.service';
 
 @Component({
-    providers: [ GameResultListService, ScoringService ],
+    providers: [ MyLibraryService, GameResultListService, ScoringService ],
     selector: 'app-submit-game-result-dialog',
     templateUrl: './submit-game-result-dialog.component.html',
     styleUrls: [
@@ -31,7 +33,8 @@ export class SubmitGameResultDialogComponent implements OnInit {
     @Input() GameResultList: any[] = [];
 
     // scoringMap: Map< string, number >;
-    scoringMap: Map< {playerNum: number, rank: number }, number >;
+    // scoringMap: Map< {playerNum: number, rank: number }, number >;
+    defaultScores: number[][] = [];
 
     playerResult: {
         name      : string,
@@ -44,6 +47,7 @@ export class SubmitGameResultDialogComponent implements OnInit {
 
     constructor(
         public dialogRef: MdDialogRef<SubmitGameResultDialogComponent>,
+        private mylib: MyLibraryService,
         private httpGameResultListService: GameResultListService,
         private httpScoringService: ScoringService
     ) {}
@@ -58,20 +62,12 @@ export class SubmitGameResultDialogComponent implements OnInit {
                 score     : 0,
             };
         });
-        // console.log( this.playerResult[0] );
 
         this.httpScoringService.GetScoringList()
         .then( data => {
-            console.log(data);
-            this.scoringMap = data;
-            console.log(this.scoringMap);
+            this.defaultScores = data;
             this.rankPlayers();
-            for ( let i = 0; i < 6; ++i ) for ( let j = 0; j < 6; ++j ) {
-                console.log( i, j, this.scoringMap.has( {playerNum:i, rank:j} ) );
-                // console.log( i, j, this.scoringMap.has( `${i},${j}` ) );
-            }
-            // this.scorePlayers();
-            // console.log( "after score", this.playerResult );
+            this.scorePlayers();
         });
     }
 
@@ -95,27 +91,42 @@ export class SubmitGameResultDialogComponent implements OnInit {
     }
 
     scorePlayers() {
-        // this.playerResult
-        // .forEach( e => {
-        //     e.score = this.scoringMap.get( {playerNum : this.playerResult.length, rank : e.rank } )
-        //     console.log([this.playerResult.length, e.rank], e.score)
-        //  } );
+        // 同着に対応
+        let scoringTemp: number[] = this.defaultScores[this.playerResult.length];
+        {
+            let pl = this.playerResult;  // alias; playerResult is sorted by rank
+            let count: number = 0;
+            let sum: number = 0;
+            let k = 0;
+            for ( let i = 0; i < pl.length; ++i ) {
+                count++;
+                sum += this.defaultScores[pl.length][k++];
+                if ( i === pl.length - 1 || pl[i].rank !== pl[i + 1].rank ) {
+                    scoringTemp[ pl[i].rank ] = this.mylib.roundAt( sum / count, 3 );
+                    count = 0;  // reset
+                    sum = 0;  // reset
+                }
+            }
+        }
+
+        // write back
+        this.playerResult.forEach( e => { e.score = scoringTemp[ e.rank ]; } );
     }
 
 
     submitGameResult(): Promise<any> {
         let gr = new GameResult();
-        gr.no                = this.GameResultList.length;
-        gr.id                = Date.now();
-        gr.date              = this.date;
-        gr.place             = this.place;
-        gr.number_of_players = this.selectedPlayers.length;
-        gr.players           = this.playerResult;
-        gr.memo              = this.memo;
-        gr.used_sets         = this.DominionSetNameList.map( e => e.selected );
-        gr.used_card_IDs     = this.SelectedCards;
+        gr.no                   = this.GameResultList.length + 1;
+        gr.id                   = Date.now();
+        gr.date                 = this.date;
+        gr.place                = this.place;
+        gr.numberOfPlayers      = this.selectedPlayers.length;
+        gr.players              = this.playerResult;
+        gr.memo                 = this.memo;
+        gr.selectedDominionSets = this.DominionSetNameList.map( e => e.selected );
+        gr.usedCardIDs          = this.SelectedCards;
 
-        console.log(gr);
+        console.log(gr, this.mylib.back( this.GameResultList ) );
 
         return this.httpGameResultListService
                 .SetGameResult( this.GameResultList )

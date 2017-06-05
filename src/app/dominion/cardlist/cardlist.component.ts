@@ -15,7 +15,7 @@ import { CardPropertyDialogComponent } from '../card-property-dialog/card-proper
 
 
 @Component({
-  providers: [CardPropertyHttpService],
+  providers: [MyLibraryService, CardPropertyHttpService],
   selector: 'app-cardlist',
   templateUrl: './cardlist.component.html',
   styleUrls: [

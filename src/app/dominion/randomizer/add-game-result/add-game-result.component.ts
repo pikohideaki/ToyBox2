@@ -141,7 +141,6 @@ export class AddGameResultComponent implements OnInit {
                 height: '80%',
                 width : '80%',
             });
-        console.log( this.SelectedCards );
 
         dialogRef.componentInstance.date                = this.date;
         dialogRef.componentInstance.place               = this.place;

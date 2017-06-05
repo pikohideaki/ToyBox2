@@ -14,23 +14,22 @@ export class ScoringService {
     private GetScoringUrl = `${this.HOST_NAME}/api/GetScoringList.php`;
     private SetScoringUrl = `${this.HOST_NAME}/api/SetScoringList.php`;
 
-    GetScoringList(): Promise< Map<{ playerNum : number, rank : number }, number> > {
-    // GetScoringList(): Promise< Map<string, number> > {
+    GetScoringList(): Promise<number[][]> {
         return this.http
                    .get( this.GetScoringUrl )
                    .toPromise()
                    .then( response => response.json().data )
-                   .then( data => {
-                       let scoringMap = new Map();
-                       for ( let i = 0; i < data.length; ++i ) {
-                           for ( let j = 0; j < data[i].length; ++j ) {
-                               scoringMap.set( { playerNum : i, rank : j }, data[i][j] );
-                            //    scoringMap.set( `${i},${j}`, data[i][j] );
-                               console.log(scoringMap.has({ playerNum : i, rank : j }));
-                           }
-                       }
-                       return scoringMap;
-                   })
+                //    .then( data => {
+                //        let scoringMap = new Map();
+                //        for ( let i = 0; i < data.length; ++i ) {
+                //            for ( let j = 0; j < data[i].length; ++j ) {
+                //                scoringMap.set( { playerNum : i, rank : j }, data[i][j] );
+                //             //    scoringMap.set( `${i},${j}`, data[i][j] );
+                //                console.log(scoringMap.has({ playerNum : i, rank : j }));
+                //            }
+                //        }
+                //        return scoringMap;
+                //    })
                    .catch( this.handleError );
     }
 

@@ -22,14 +22,12 @@
             </thead>
             <tbody>
                 <ng-container *ngFor="let player of playerResult">
-                <tr *ngIf="player.selected">
+                <tr>
                     <td> {{player.rank + 1}} </td>
                     <td> {{player.name}} </td>
                     <td> {{player.VP}} </td>
                     <td> {{player.score}} </td>
-                    <td>
-                        <md-icon *ngIf="player.lessTurns">check</md-icon>
-                    </td>
+                    <td> <md-icon *ngIf="player.lessTurns">check</md-icon> </td>
                 </tr>
                 </ng-container>
             </tbody>
