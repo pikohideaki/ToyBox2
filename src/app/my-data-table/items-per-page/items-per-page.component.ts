@@ -13,7 +13,8 @@ export class ItemsPerPageComponent implements OnInit {
   @Input()  itemsPerPage: number = 0;
   @Output() itemsPerPageChange = new EventEmitter<number>();
 
-
+  @Input()  selectedPageIndex: number = 0;
+  @Output() selectedPageIndexChange = new EventEmitter<number>();
 
   constructor() {
   }
@@ -24,6 +25,7 @@ export class ItemsPerPageComponent implements OnInit {
 
   setItemsPerPage( size: number ): void {
     this.itemsPerPageChange.emit( size );
+    this.selectedPageIndexChange.emit(0);
   }
 
 

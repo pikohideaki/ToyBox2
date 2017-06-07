@@ -20,7 +20,7 @@ import { PagenationComponent, getPagenatedData } from '../../my-data-table/pagen
   selector: 'app-game-result-list',
   templateUrl: './game-result-list.component.html',
   styleUrls: [
-    '../../my-data-table/table-body/table-body.component.css',
+    '../../my-data-table/my-data-table.component.css',
     './game-result-list.component.css'
   ]
 })

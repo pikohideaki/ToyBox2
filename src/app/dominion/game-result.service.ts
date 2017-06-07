@@ -26,7 +26,7 @@ export class GameResultListService {
                    .then( listObj => {
                        let result: GameResult[] = [];
                        listObj.forEach( grObj => result.push( new GameResult( grObj ) ) );
-                       console.log( "GetGameResult Done." );
+                       console.log( "GetGameResultList Done." );
                        return result;
                    } )
                    .catch( this.handleError );
@@ -40,7 +40,7 @@ export class GameResultListService {
                    .post( this.SetGameResultListUrl, JSON.stringify( GameResultList ), this.options )
                    .toPromise()
                    .then( () => {
-                       console.log( "SetGameResult Done." );
+                       console.log( "SetGameResultList Done." );
                        return GameResultList;
                     } )
                    .catch( error => this.handleError( error ) );

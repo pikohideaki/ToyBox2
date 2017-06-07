@@ -22,9 +22,9 @@ export class ResetButtonComponent implements OnInit {
 
   resetSelector( columnSettings: any[], columnName?: string ): void {
     if ( columnName != undefined ) {
-      columnSettings = columnSettings.filter( column => column.name == columnName )
+      columnSettings = columnSettings.filter( column => column.name == columnName );
     }
-    columnSettings.forEach( e => { e.manipState = undefined; } );
+    columnSettings.forEach( e => e.manipState = undefined );
   }
 
 }

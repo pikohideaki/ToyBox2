@@ -1,7 +1,9 @@
 
-<my-data-table-body
-    [data]="PlayersNameList"
-    [columnSettings]='columnSettings'>
-</my-data-table-body>
+<my-data-table
+    [data]='PlayersNameList'
+    [columnSettings]='columnSettings'
+    (onClick)='showDetail( $event )'
+>
+</my-data-table>
 
 <my-waiting-spinner *ngIf="!httpGetDone"></my-waiting-spinner>

@@ -1,55 +1,139 @@
 
 <div>
 
-    <div class="pagerWrapper">
-        <my-data-table--items-per-page
-                [itemsPerPageDefault]='itemsPerPageDefault'
-                [itemsPerPageOptions]='itemsPerPageOptions'
-                [(itemsPerPage)]='itemsPerPage' >
-        </my-data-table--items-per-page>
+  <div *ngIf="itemsPerPageOptions != undefined" class="pagerWrapper">
+    <my-data-table--items-per-page
+        [itemsPerPageDefault]='itemsPerPageDefault'
+        [itemsPerPageOptions]='itemsPerPageOptions'
+        [(itemsPerPage)]='itemsPerPage'
+        [(selectedPageIndex)]='selectedPageIndex' >
+    </my-data-table--items-per-page>
 
-        <my-data-table--pagenation
-                [dataSize]='filteredData.length'
-                [itemsPerPage]='itemsPerPage'
-                [(selectedPageIndex)]='selectedPageIndex'>
-        </my-data-table--pagenation>
-
-        <my-data-table--reset-buttons (click)='reset()' >
-        </my-data-table--reset-buttons>
-
-        <span>{{filteredData.length}} items</span>
-        <div class='clear'></div>
-    </div>
+    <my-data-table--pagenation
+        [itemsPerPage]='itemsPerPage'
+        [dataSize]='filteredData.length'
+        [(selectedPageIndex)]='selectedPageIndex' >
+    </my-data-table--pagenation>
 
 
+    <my-data-table--reset-buttons (click)='reset()' >
+    </my-data-table--reset-buttons>
 
-    <my-data-table-body
-        [data]="this.getDataAtPage( this.selectedPageIndex )"
-        [(filteredData)]="filteredData"
-        [columnSettings]='columnSettings'>
-    </my-data-table-body>
+    <span>{{filteredData.length}} items</span>
+    <div class='clear'></div>
+  </div>
 
 
+  <table class='my-data-table my-data-table--shadow3px my-data-table--vertical-line'>
+    <thead>
+      <tr>
+        <th *ngFor='let column of columnSettings'
+            [class.my-data-table--cell-alignLeft]  ="column.align == 'l' "
+            [class.my-data-table--cell-alignCenter]="column.align == 'c' "
+            [class.my-data-table--cell-alignRight] ="column.align == 'r' " >
 
-    <div class="pagerWrapper">
-        <my-data-table--items-per-page
-                [itemsPerPageDefault]='itemsPerPageDefault'
-                [itemsPerPageOptions]='itemsPerPageOptions'
-                [(itemsPerPage)]='itemsPerPage' >
-        </my-data-table--items-per-page>
+          <span *ngIf="column.manip == 'none'">
+            {{column.headerTitle}}
+          </span>
 
-        <my-data-table--pagenation
-                [dataSize]='filteredData.length'
-                [itemsPerPage]='itemsPerPage'
-                [(selectedPageIndex)]='selectedPageIndex'>
-        </my-data-table--pagenation>
+          <!--
+          <button md-button disableRipple *ngIf="column.manip == 'sort'"
+              class="headerSortButton"
+              (click)="sortColumn( column.manipState, column.name )" >
+            {{column.headerTitle}}
+            <md-icon *ngIf="column.manipState == 'accending' " class='sortIcon'>arrow_drop_up</md-icon>
+            <md-icon *ngIf="column.manipState == 'descending'" class='sortIcon'>arrow_drop_down</md-icon>
+          </button>-->
 
-        <my-data-table--reset-buttons (click)='reset()' >
-        </my-data-table--reset-buttons>
+          <ng-container *ngIf="column.manip == 'filterBySelecter'">
+            <md-select
+                [(ngModel)]="column.manipState"
+                [placeholder]="column.headerTitle"
+                (change)="updateView()" >
+              <!--<md-option *ngFor="let option of selectorOptions[ column.name ]"-->
+              <md-option *ngFor="let option of column.options"
+                  [value]="option">
+                {{ option }}
+              </md-option>
+            </md-select>
+            <button md-icon-button (click)="reset( column.name )">
+              <md-icon class='clearSelectIcon'>clear</md-icon>
+            </button>
+          </ng-container>
 
-        <span>{{filteredData.length}} items</span>
-        <div class='clear'></div>
-    </div>
+          <ng-container *ngIf="column.manip == 'incrementalSearch'" >
+            <md-input-container>
+                <input mdInput
+                    id="filteringInputBox"
+                    [placeholder]="column.headerTitle"
+                    [(ngModel)]="column.manipState"
+                    (keyup)="updateView()" >
+            </md-input-container>
+            <!--<button md-icon-button (click)="reset( column.name )">
+              <md-icon class='clearSelectIcon'>clear</md-icon>
+            </button>-->
+          </ng-container>
+
+<!--          
+          <ng-container *ngIf="column.manip == 'autoComplete'" >
+            <md-input-container>
+                <input mdInput
+                    [placeholder]="column.headerTitle"
+                    [(ngModel)]="column.manipState"
+                    [mdAutocomplete]="auto"
+                    [formControl]="stateCtrl">
+            </md-input-container>
+            <md-autocomplete #auto="mdAutocomplete">
+                <md-option *ngFor="let option of filteredOptions | async" [value]="option">
+                    {{ option }}
+                </md-option>
+            </md-autocomplete>
+          </ng-container>-->
+
+        </th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor='let value of this.getDataAtPage( this.selectedPageIndex )'>
+        <td *ngFor='let column of columnSettings'
+            [class.my-data-table--cell-alignLeft]  ="column.align=='l'"
+            [class.my-data-table--cell-alignCenter]="column.align=='c'"
+            [class.my-data-table--cell-alignRight] ="column.align=='r'" >
+
+          <button md-button color="primary" *ngIf="column.button" (click)="clicked(value.no)">
+            {{ value[column.name] }}
+          </button>
+          <span *ngIf="!column.button">
+            {{ value[column.name] }}
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <div *ngIf="itemsPerPageOptions != undefined" class="pagerWrapper">
+    <my-data-table--items-per-page
+        [itemsPerPageDefault]='itemsPerPageDefault'
+        [itemsPerPageOptions]='itemsPerPageOptions'
+        [(itemsPerPage)]='itemsPerPage'
+        [(selectedPageIndex)]='selectedPageIndex' >
+    </my-data-table--items-per-page>
+
+    <my-data-table--pagenation
+        [(selectedPageIndex)]='selectedPageIndex'
+        [itemsPerPage]='itemsPerPage'
+        [dataSize]='filteredData.length' >
+    </my-data-table--pagenation>
+
+
+    <my-data-table--reset-buttons (click)='reset()' >
+    </my-data-table--reset-buttons>
+
+    <span>{{filteredData.length}} items</span>
+    <div class='clear'></div>
+  </div>
 
 
 </div>

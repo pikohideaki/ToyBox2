@@ -25,18 +25,9 @@ export class PlayersComponent implements OnInit {
   itemsPerPageDefault: number = 20;
 
 
-  columnSettings
-    : {
-        name        : string,
-        align       : string,
-        manip       : string,
-        manipState  : any,
-        button      : boolean,
-        headerTitle : string,
-      }[]
-   = [
-    { name: 'name'     , align: 'l', manip: 'none', manipState: undefined, button: false, headerTitle: '名前' },
-    { name: 'name_yomi', align: 'l', manip: 'none', manipState: undefined, button: false, headerTitle: '読み' },
+  columnSettings = [
+    { name: 'name'     , align: 'l', manip: 'none', button: false, headerTitle: '名前' },
+    { name: 'name_yomi', align: 'l', manip: 'none', button: false, headerTitle: '読み' },
   ];
 
 

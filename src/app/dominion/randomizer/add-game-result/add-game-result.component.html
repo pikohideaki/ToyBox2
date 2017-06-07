@@ -20,8 +20,8 @@
                 placeholder="場所"
                 [mdAutocomplete]="auto"
                 [formControl]="stateCtrl">
-            </md-input-container>
-            <md-autocomplete #auto="mdAutocomplete">
+        </md-input-container>
+        <md-autocomplete #auto="mdAutocomplete">
             <md-option *ngFor="let place of filteredPlaces | async" [value]="place">
                 {{ place }}
             </md-option>
