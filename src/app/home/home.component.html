@@ -2,7 +2,13 @@
 
   <!--<a routerLink="/">home</a>-->
 
-  <a routerLink="/dominion">Dominion</a>
+
+<ng-container *ngFor="let app of Apps">
+    <md-card class="dominionApp" [routerLink]="app.address">
+        <md-card-title>{{app.title}}</md-card-title>
+        <md-card-subtitle>{{app.subtitle}}</md-card-subtitle>
+    </md-card>
+</ng-container>
 
 </nav>
 

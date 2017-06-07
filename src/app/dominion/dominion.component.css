@@ -18,4 +18,10 @@
 	/*background-image : url(./s_Copper.png);*/
 }
 
+.dominionApp {
+    margin-top: 10px;
+}
 
+.dominionApp:hover {
+    cursor: pointer;
+}

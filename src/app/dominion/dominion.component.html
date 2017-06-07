@@ -1,17 +1,12 @@
-<p>
-  Dominion Apps
-</p>
+<md-toolbar color="primary">
+    <span>Dominion Apps</span>
+</md-toolbar>
 <!--<img src="./450px-DominionOnlineLogo.jpg" alt="Dominion">-->
 <!--<div class='card'></div>-->
 
-<ul>
-  <li>Online</li>
-  <li><a routerLink="/dominion/randomizer"    > Randomizer       </a></li>
-  <li><a routerLink="/dominion/gameresultlist"> Game Result List </a></li>
-  <li><a routerLink="/dominion/players"       > Players          </a></li>
-  <li><a routerLink="/dominion/rulebooks"     > RuleBooks        </a></li>
-  <li><a routerLink="/dominion/cardlist"      > Cardlist         </a></li>
-</ul>
-
-
-<!--<app-cardlist [CardInfoList]="CardInfoList"></app-cardlist>-->
+<ng-container *ngFor="let app of dominionApps">
+    <md-card class="dominionApp" [routerLink]="app.address">
+        <md-card-title>{{app.title}}</md-card-title>
+        <md-card-subtitle>{{app.subtitle}}</md-card-subtitle>
+    </md-card>
+</ng-container>

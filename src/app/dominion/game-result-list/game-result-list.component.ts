@@ -32,8 +32,8 @@ export class GameResultListComponent implements OnInit {
 
   // pagenation
   selectedPageIndex: number = 0;
-  itemsPerPageOptions: number[] = [ 50, 100, 200 ];
-  itemsPerPageDefault: number = 100;
+  itemsPerPageOptions: number[] = [ 50, 100, 200, 400 ];
+  itemsPerPageDefault: number = 200;
   itemsPerPage: number;
   getDataForView() {
     return getPagenatedData(

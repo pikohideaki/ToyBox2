@@ -18,6 +18,13 @@ export class MyLibraryService {
         return ( localStorage.getItem( key ) != null );
     }
 
+    submatch( target: string, key: string, ignoreCase: boolean = false ): boolean {
+        if ( ignoreCase ) {
+            return this.submatch( target.toUpperCase(), key.toUpperCase() );
+        }
+        return target.indexOf( key ) !== -1;
+    }
+
 
     roundAt( val: number, precision: number ) {
         let digit = Math.pow(10, precision);

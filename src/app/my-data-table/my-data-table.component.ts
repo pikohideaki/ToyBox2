@@ -71,11 +71,11 @@ export class MyDataTableComponent implements OnInit, OnChanges  {
 
 
     filterAsyncOptions( columnName: string, inputString: string ): string[]{
-        return inputString ? this.mylib.uniq(
-                                this.filteredData
-                                    .map( e => e[columnName] )
-                                    .filter( s => new RegExp(`^${inputString}`, 'yi').test(s) ) )
-                           : this.filteredData.map( e => e[columnName] );
+        const uniqValues = this.mylib.uniq( this.filteredData.map( e => e[columnName] ) );
+        return inputString ? uniqValues.filter( s => this.mylib.submatch( s, inputString, true ) )
+                           : uniqValues;
+        // return inputString ? uniqValues.filter( s => new RegExp(`^${inputString}`, 'yi').test(s) )
+                        //    : uniqValues;
     }
 
 
@@ -91,19 +91,21 @@ export class MyDataTableComponent implements OnInit, OnChanges  {
     }
 
 
-    filterFunction( data: any ): boolean {
+    filterFunction( lineOfData: any ): boolean {
         let validSettings = this.columnSettings.filter( column => column.manipState != undefined );
 
         for ( let column of validSettings ) switch ( column.manip ) {
             case 'filterBySelecter' :
-            if ( data[ column.name ] != column.manipState ) return false;
+                if ( lineOfData[ column.name ] != column.manipState ) return false;
 
             case 'incrementalSearch' :
-            let regexp = new RegExp( column.manipState, "gi" );
-            if ( !regexp.test( data[ column.name ] ) ) return false;
+                // let regexp = new RegExp( column.manipState, "gi" );
+                // if ( !regexp.test( lineOfData[ column.name ] ) ) return false;
+                if ( !this.mylib.submatch( lineOfData[ column.name ], column.manipState, true ) ) return false;
+                break;
 
             default :
-            break;
+                break;
         }
         return true;
     }

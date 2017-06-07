@@ -19,14 +19,8 @@ export class PlayersComponent implements OnInit {
   PlayersNameList: { name: string, name_yomi: string }[] = [];
   httpGetDone: boolean = false;
 
-
-  // pagenation settings
-  itemsPerPageOptions: number[] = [ 10,20,30 ];
-  itemsPerPageDefault: number = 20;
-
-
   columnSettings = [
-    { name: 'name'     , align: 'l', manip: 'autoComplete', button: false, headerTitle: '名前' },
+    { name: 'name'     , align: 'l', manip: 'none', button: false, headerTitle: '名前' },
     { name: 'name_yomi', align: 'l', manip: 'none', button: false, headerTitle: '読み' },
   ];
 

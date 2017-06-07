@@ -93,7 +93,9 @@ export class AddGameResultComponent implements OnInit {
 
 
     filterPlaces( val: string ): string[] {
-        return val ? this.places.filter( s => new RegExp(`^${val}`, 'yi').test(s) )
+        // return val ? this.places.filter( s => new RegExp(`^${val}`, 'yi').test(s) )
+        //            : this.places;
+        return val ? this.places.filter( s => this.mylib.submatch( s, val, true ) )
                    : this.places;
     }
 
