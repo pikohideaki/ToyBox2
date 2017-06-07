@@ -26,7 +26,7 @@ export class PlayersComponent implements OnInit {
 
 
   columnSettings = [
-    { name: 'name'     , align: 'l', manip: 'none', button: false, headerTitle: '名前' },
+    { name: 'name'     , align: 'l', manip: 'autoComplete', button: false, headerTitle: '名前' },
     { name: 'name_yomi', align: 'l', manip: 'none', button: false, headerTitle: '読み' },
   ];
 

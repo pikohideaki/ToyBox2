@@ -74,21 +74,20 @@
             </button>-->
           </ng-container>
 
-<!--          
           <ng-container *ngIf="column.manip == 'autoComplete'" >
             <md-input-container>
                 <input mdInput
                     [placeholder]="column.headerTitle"
                     [(ngModel)]="column.manipState"
-                    [mdAutocomplete]="auto"
+                    [mdAutocomplete]=autoCompColumn
                     [formControl]="stateCtrl">
             </md-input-container>
-            <md-autocomplete #auto="mdAutocomplete">
-                <md-option *ngFor="let option of filteredOptions | async" [value]="option">
+            <md-autocomplete #autoCompColumn="mdAutocomplete">
+                <md-option *ngFor="let option of column.asyncOptions | async" [value]="option">
                     {{ option }}
                 </md-option>
             </md-autocomplete>
-          </ng-container>-->
+          </ng-container>
 
         </th>
 

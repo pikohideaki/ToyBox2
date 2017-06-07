@@ -40,7 +40,7 @@ export class CardlistComponent implements OnInit {
     { name: 'name_eng'   , align: 'c', manip: 'incrementalSearch', button: false, headerTitle: 'Name' },
     { name: 'set_name'   , align: 'c', manip: 'filterBySelecter' , button: false, headerTitle: 'セット名' },
     { name: 'category'   , align: 'c', manip: 'filterBySelecter' , button: false, headerTitle: '分類' },
-    { name: 'card_type'  , align: 'c', manip: 'incrementalSearch', button: false, headerTitle: '種別' },
+    { name: 'card_type'  , align: 'c', manip: 'autoComplete'     , button: false, headerTitle: '種別' },
     { name: 'cost_str'   , align: 'c', manip: 'none'             , button: false, headerTitle: 'コスト' },
     { name: 'VP'         , align: 'c', manip: 'none'             , button: false, headerTitle: 'VP' },
     { name: 'draw_card'  , align: 'c', manip: 'none'             , button: false, headerTitle: '+card' },
@@ -84,8 +84,6 @@ export class CardlistComponent implements OnInit {
 
 
   transform( cardProperty: CardProperty ): any {
-    // console.log( cardProperty.cost );
-
     let cost = cardProperty.cost;
     let costStr = '';
     if ( cost.coin > 0 || ( cost.potion == 0 && cost.debt == 0 ) ) {

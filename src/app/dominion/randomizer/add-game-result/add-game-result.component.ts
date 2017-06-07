@@ -1,21 +1,16 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
-
+import 'rxjs/add/operator/startWith';
+import 'rxjs/add/operator/map';
 import { MdDialog } from '@angular/material';
 
 
 import { MyLibraryService } from '../../../my-library.service';
-
 import { PlayersNameListService } from '../../players-name.service';
-
 import { GameResult } from "../../game-result";
 import { GameResultListService } from '../../game-result.service';
-
 import { SubmitGameResultDialogComponent } from '../../submit-game-result-dialog/submit-game-result-dialog.component';
 
-
-import 'rxjs/add/operator/startWith';
-import 'rxjs/add/operator/map';
 
 @Component({
     providers: [MyLibraryService, PlayersNameListService, GameResultListService],
@@ -80,9 +75,9 @@ export class AddGameResultComponent implements OnInit {
 
             this.Players = this.PlayersNameList.map( player => {
                 return {
-                    name : player.name,
-                    selected : false,
-                    VP : 0,
+                    name      : player.name,
+                    selected  : false,
+                    VP        : 0,
                     lessTurns : false,
                 };
             } );

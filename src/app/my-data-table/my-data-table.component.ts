@@ -25,13 +25,14 @@ export class MyDataTableComponent implements OnInit, OnChanges  {
 
     @Input()
     columnSettings: {
-            name        : string,
-            align       : string,
-            manip       : string,
-            manipState  : any,
-            options     : string[],
-            button      : boolean,
-            headerTitle : string,
+            name         : string,
+            align        : string,
+            manip        : string,
+            manipState   : any,
+            options      : string[],
+            asyncOptions : any,
+            button       : boolean,
+            headerTitle  : string,
         }[] = [];
 
     // pagenation
@@ -43,97 +44,97 @@ export class MyDataTableComponent implements OnInit, OnChanges  {
     @Output() onClick = new EventEmitter<number>();
 
     stateCtrl: FormControl;
-    filteredOptions: any;
 
 
-
-  constructor(
-    private mylib: MyLibraryService,
-    private resetButton: ResetButtonComponent
-  ) {
-
-        // this.stateCtrl = new FormControl();
-        // this.filteredOptions = this.stateCtrl.valueChanges
-        //     .startWith(null)
-        //     .map( name => this.filterOptions(name) );
-  }
-
-  ngOnInit() {
-    this.itemsPerPage = this.itemsPerPageDefault;
-  }
-
-  ngOnChanges( changes: SimpleChanges ) {
-    // console.log( changes );
-    if ( changes.data != undefined ) {  // at http-get done
-      this.updateView();
+    constructor(
+        private mylib: MyLibraryService,
+        private resetButton: ResetButtonComponent
+    ) {
+        this.stateCtrl = new FormControl();
     }
-  }
 
-
-    // filterPlaces( val: string ): string[] {
-    //     return val ? this.places.filter( s => new RegExp(`^${val}`, 'yi').test(s) )
-    //                : this.places;
-    // }
-
-
-  updateView() {
-    this.filteredData = this.data.filter( x => this.filterFunction(x) );
-    this.setSelectorOptions( this.filteredData );
-    this.selectedPageIndex = 0;
-  }
-
-  reset( name?: string ): void {
-    this.resetButton.resetSelector( this.columnSettings, name );
-    this.updateView();
-  }
-
-
-  filterFunction( data: any ): boolean {
-    let validSettings = this.columnSettings.filter( column => column.manipState != undefined );
-
-    for ( let column of validSettings ) {
-      switch ( column.manip ) {
-        case 'filterBySelecter' :
-          if ( data[ column.name ] != column.manipState ) return false;
-
-        case 'incrementalSearch' :
-          let regexp = new RegExp( column.manipState, "gi" );
-          if ( !regexp.test( data[ column.name ] ) ) return false;
-
-        default :
-          break;
-      }
+    ngOnInit() {
+        this.itemsPerPage = this.itemsPerPageDefault;
     }
-    return true;
-  }
 
+    ngOnChanges( changes: SimpleChanges ) {
+        if ( changes.data != undefined ) {  // at http-get done
+            this.updateView();
 
-  /* データから指定列を取り出す */
-  getColumn( data: any[], name: string ): any[] {
-    return data.map( e => e[ name ] );
-  }
-
-  setSelectorOptions( data: any[] ): any {
-    let selectorOptions = {};
-    for ( let e of this.columnSettings ) {
-      if ( e.manip != 'filterBySelecter' ) continue;
-      e.options = this.mylib.uniq( this.getColumn( data, e.name ) );
+            this.columnSettings.forEach( e => {
+                e.asyncOptions = this.stateCtrl.valueChanges
+                            .startWith(null)
+                            .map( inputString => this.filterAsyncOptions( e.name, inputString) );
+            });
+        }
     }
-    return selectorOptions;
-  }
+
+
+    filterAsyncOptions( columnName: string, inputString: string ): string[]{
+        return inputString ? this.mylib.uniq(
+                                this.filteredData
+                                    .map( e => e[columnName] )
+                                    .filter( s => new RegExp(`^${inputString}`, 'yi').test(s) ) )
+                           : this.filteredData.map( e => e[columnName] );
+    }
+
+
+    updateView() {
+        this.filteredData = this.data.filter( x => this.filterFunction(x) );
+        this.setSelectorOptions( this.filteredData );
+        this.selectedPageIndex = 0;
+    }
+
+    reset( name?: string ): void {
+        this.resetButton.resetSelector( this.columnSettings, name );
+        this.updateView();
+    }
+
+
+    filterFunction( data: any ): boolean {
+        let validSettings = this.columnSettings.filter( column => column.manipState != undefined );
+
+        for ( let column of validSettings ) switch ( column.manip ) {
+            case 'filterBySelecter' :
+            if ( data[ column.name ] != column.manipState ) return false;
+
+            case 'incrementalSearch' :
+            let regexp = new RegExp( column.manipState, "gi" );
+            if ( !regexp.test( data[ column.name ] ) ) return false;
+
+            default :
+            break;
+        }
+        return true;
+    }
+
+
+    /* データから指定列を取り出す */
+    getColumn( data: any[], columnName: string ): any[] {
+        return data.map( e => e[ columnName ] );
+    }
+
+    setSelectorOptions( data: any[] ): any {
+        let selectorOptions = {};
+        for ( let e of this.columnSettings ) {
+            if ( e.manip != 'filterBySelecter' ) continue;
+            e.options = this.mylib.uniq( this.getColumn( data, e.name ) );
+        }
+        return selectorOptions;
+    }
 
 
 
   /* フィルタ済みの表示直前データから指定ページ範囲分のみ取り出す */
-  getDataAtPage( selectedPageIndex: number ): any[] {
-    return getPagenatedData(
-          this.filteredData,
-          this.itemsPerPage,
-          selectedPageIndex );
-  }
+    getDataAtPage( selectedPageIndex: number ): any[] {
+        return getPagenatedData(
+            this.filteredData,
+            this.itemsPerPage,
+            selectedPageIndex );
+    }
 
 
-  clicked( cardNo: number ) {
-    this.onClick.emit( cardNo );
-  }
+    clicked( cardNo: number ) {
+        this.onClick.emit( cardNo );
+    }
 }
