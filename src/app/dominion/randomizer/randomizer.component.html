@@ -3,22 +3,20 @@
 
 
 <md-tab-group>
-    <md-tab label="結果入力">
-        <app-add-game-result
-            [SelectedCards]="SelectedCards"
-            [DominionSetNameList]="DominionSetNameList">
-        </app-add-game-result>
-    </md-tab>
-
 
     <md-tab label="Randomizer">
-        <div *ngIf="!httpGetDone"><md-spinner class="httpGetWaitingSpinner" ></md-spinner></div>
+        <my-waiting-spinner *ngIf="!httpGetDone"></my-waiting-spinner>
+
         <div *ngIf="httpGetDone" class="randomizerOptions" >
             <div>
-                <md-slide-toggle [(ngModel)]="AllSetsSelected"  (change)="selectAllToggle( $event )"><b>全選択</b></md-slide-toggle>
+                <md-slide-toggle [(ngModel)]="AllSetsSelected"  (change)="selectAllToggle( $event )">
+                    <b>全選択</b>
+                </md-slide-toggle>
             </div>
             <div *ngFor="let DominionSet of DominionSetNameList" >
-                <md-slide-toggle [(ngModel)]="DominionSet.selected">{{DominionSet.name}}</md-slide-toggle>
+                <md-slide-toggle [(ngModel)]="DominionSet.selected">
+                    {{DominionSet.name}}
+                </md-slide-toggle>
             </div>
 
             <div class="marginedElement">
@@ -32,11 +30,15 @@
         <div class="supplyTable">
             <div class="Prosperity_DarkAges">
                 <span id="Prosperity" *ngIf="this.SelectedCards.KingdomCards10.length > 0">
-                    <md-slide-toggle [(ngModel)]="SelectedCards.Prosperity">植民地場</md-slide-toggle>
+                    <md-slide-toggle [(ngModel)]="SelectedCards.Prosperity">
+                        植民地場
+                    </md-slide-toggle>
                 </span>
 
                 <span id="DarkAges"   *ngIf="this.SelectedCards.KingdomCards10.length > 0">
-                    <md-slide-toggle [(ngModel)]="SelectedCards.DarkAges">避難所場</md-slide-toggle>
+                    <md-slide-toggle [(ngModel)]="SelectedCards.DarkAges">
+                        避難所場
+                    </md-slide-toggle>
                 </span>
             </div>
 
@@ -134,10 +136,10 @@
     <md-tab *ngIf="this.SelectedCards.BlackMarketPile.length > 0" label="闇市場デッキ">
         闇市場デッキ
     </md-tab>
-    <!--<md-tab label="結果入力">
+    <md-tab label="結果入力">
         <app-add-game-result
             [SelectedCards]="SelectedCards"
             [DominionSetNameList]="DominionSetNameList">
         </app-add-game-result>
-    </md-tab>-->
+    </md-tab>
 </md-tab-group>

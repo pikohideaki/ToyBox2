@@ -11,25 +11,17 @@ export class ScoringService {
         @Inject('HOST_NAME') private HOST_NAME: string
     ) { }
 
-    private GetScoringUrl = `${this.HOST_NAME}/api/GetScoringList.php`;
-    private SetScoringUrl = `${this.HOST_NAME}/api/SetScoringList.php`;
+    private GetScoringUrl = `${this.HOST_NAME}/api/GetJsonData.php?targetFileName=ScoringList.json`;
+    private SetScoringUrl = `${this.HOST_NAME}/api/SetJsonData.php?targetFileName=ScoringList.json`;
 
     GetScoringList(): Promise<number[][]> {
         return this.http
                    .get( this.GetScoringUrl )
                    .toPromise()
-                   .then( response => response.json().data )
-                //    .then( data => {
-                //        let scoringMap = new Map();
-                //        for ( let i = 0; i < data.length; ++i ) {
-                //            for ( let j = 0; j < data[i].length; ++j ) {
-                //                scoringMap.set( { playerNum : i, rank : j }, data[i][j] );
-                //             //    scoringMap.set( `${i},${j}`, data[i][j] );
-                //                console.log(scoringMap.has({ playerNum : i, rank : j }));
-                //            }
-                //        }
-                //        return scoringMap;
-                //    })
+                   .then( response => {
+                       console.log( "SetScoringList Done." );
+                       return response.json().data;
+                    } )
                    .catch( this.handleError );
     }
 
@@ -40,7 +32,10 @@ export class ScoringService {
         return this.http
                    .post( this.SetScoringUrl, JSON.stringify( ScoringList ), this.options )
                    .toPromise()
-                   .then( () => ScoringList )
+                   .then( () => {
+                       console.log( "SetScoringList Done." );
+                       return ScoringList;
+                    } )
                    .catch( error => this.handleError( error ) );
     }
 

@@ -8,7 +8,4 @@
 >
 </my-data-table>
 
-
-<div>
-    <span *ngIf="!httpGetDone"><md-spinner class="httpGetWaitingSpinner" ></md-spinner></span>
-</div>
+<my-waiting-spinner *ngIf="!httpGetDone"></my-waiting-spinner>

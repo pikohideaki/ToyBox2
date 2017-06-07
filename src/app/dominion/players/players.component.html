@@ -1,4 +1,7 @@
-<p>
 
-  players works!
-</p>
+<my-data-table-body
+    [data]="PlayersNameList"
+    [columnSettings]='columnSettings'>
+</my-data-table-body>
+
+<my-waiting-spinner *ngIf="!httpGetDone"></my-waiting-spinner>

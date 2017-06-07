@@ -74,7 +74,7 @@ export class SubmitGameResultDialogComponent implements OnInit {
     rankPlayers() {
         let sp = this.selectedPlayers;  // alias
 
-        this.playerResult.forEach( e => e.rank = 0 );  // initialize ranks
+        this.playerResult.forEach( e => e.rank = 1 );  // initialize ranks
 
         for ( let j = 1; j < sp.length; j++ ) {
         for ( let i = 0; i < j; i++ ) {
@@ -97,10 +97,10 @@ export class SubmitGameResultDialogComponent implements OnInit {
             let pl = this.playerResult;  // alias; playerResult is sorted by rank
             let count: number = 0;
             let sum: number = 0;
-            let k = 0;
+            let rank = 1;
             for ( let i = 0; i < pl.length; ++i ) {
                 count++;
-                sum += this.defaultScores[pl.length][k++];
+                sum += this.defaultScores[pl.length][rank++];
                 if ( i === pl.length - 1 || pl[i].rank !== pl[i + 1].rank ) {
                     scoringTemp[ pl[i].rank ] = this.mylib.roundAt( sum / count, 3 );
                     count = 0;  // reset
@@ -126,10 +126,13 @@ export class SubmitGameResultDialogComponent implements OnInit {
         gr.selectedDominionSets = this.DominionSetNameList.map( e => e.selected );
         gr.usedCardIDs          = this.SelectedCards;
 
-        console.log(gr, this.mylib.back( this.GameResultList ) );
+        this.GameResultList.push( gr );
 
         return this.httpGameResultListService
-                .SetGameResult( this.GameResultList )
-                .then( () => console.log("submit GameResultList done") );
+                .SetGameResultList( this.GameResultList )
+                .then( () => {
+                    console.log("submit GameResultList done");
+
+                });
     }
 }

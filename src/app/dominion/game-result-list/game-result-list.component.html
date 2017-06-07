@@ -33,7 +33,7 @@
       <th>場所</th>
       <th>スコア</th>
       <th>メモ</th>
-      <th></th>
+      <!--<th></th>-->
     </tr>
   </thead>
   <tbody>
@@ -58,19 +58,15 @@
         </table>
       </td>
       <td> {{line.memo   }}</td>
-      <td>
+      <!--<td>
         <button md-raised-button color='primary' (click)='getDetail()'>Detail</button>
         <button md-raised-button color='warn' (click)='editGameResult()'>Edit</button>
-        <!--<button md-raised-button color='warn' (click)='deleteGameResult()'>Delete</button>-->
-        <!--<md-icon style='fill:red'>delete</md-icon>-->
-      </td>
+      </td>-->
     </tr>
   </tbody>
 </table>
 
-<div>
-    <span *ngIf="!httpGetDone"><md-spinner class="httpGetWaitingSpinner" ></md-spinner></span>
-</div>
+<my-waiting-spinner *ngIf="!httpGetDone"></my-waiting-spinner>
 
 
 <my-data-table--items-per-page

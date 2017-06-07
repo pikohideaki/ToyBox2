@@ -42,10 +42,10 @@ export class AddGameResultComponent implements OnInit {
 
     PlayersNameList: { name: string, name_yomi: string }[] = [];
     Players: {
-            name          : string,
-            selected      : boolean,
-            VP            : number,
-            lessTurns    : boolean,
+            name      : string,
+            selected  : boolean,
+            VP        : number,
+            lessTurns : boolean,
         }[] = [];
 
     startPlayerName: string = "";
@@ -72,7 +72,7 @@ export class AddGameResultComponent implements OnInit {
         this.date = new Date( Date.now() );
         Promise.all( [
             this.httpPlayersNameListService.GetPlayersNameList(),
-            this.httpGameResultListService.GetGameResult(),
+            this.httpGameResultListService.GetGameResultList(),
         ])
         .then( data => {
             this.PlayersNameList = data[0];
@@ -92,10 +92,6 @@ export class AddGameResultComponent implements OnInit {
                         .startWith(null)
                         .map( name => this.filterPlaces(name) );
             this.httpGetDone = true;
-
-            this.Players[16].selected = true;
-            this.Players[17].selected = true;
-            this.Players[18].selected = true;
         } );
     }
 
@@ -126,7 +122,6 @@ export class AddGameResultComponent implements OnInit {
     selectStartPlayer(): void {
         if ( this.selectedPlayers().length < 1 ) return;
         this.startPlayerName = this.mylib.getRandomValue( this.selectedPlayers() ).name;
-        console.log(this.startPlayerName);
     }
 
 
@@ -149,5 +144,16 @@ export class AddGameResultComponent implements OnInit {
         dialogRef.componentInstance.SelectedCards       = this.SelectedCards;
         dialogRef.componentInstance.DominionSetNameList = this.DominionSetNameList;
         dialogRef.componentInstance.GameResultList      = this.GameResultList;
+
+        dialogRef.afterClosed().subscribe(result => {
+            if ( result == "OK Clicked" ) {
+                this.Players.forEach( pl => {
+                    pl.lessTurns = false;
+                    pl.VP = 0;
+                });
+                this.memo = "";
+                this.startPlayerName = "";
+            }
+        });
     }
 }

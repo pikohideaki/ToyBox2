@@ -5,6 +5,20 @@ export class MyLibraryService {
 
     constructor() { }
 
+
+    localStorage_set( key: string, value: any ) {
+        localStorage.setItem( key, JSON.stringify( value ) );
+    }
+    
+    localStorage_get( key: string ) {
+        return JSON.parse( localStorage.getItem( key ) );
+    }
+
+    localStorage_has( key: string ): boolean {
+        return ( localStorage.getItem( key ) != null );
+    }
+
+
     roundAt( val: number, precision: number ) {
         let digit = Math.pow(10, precision);
         val *= digit;

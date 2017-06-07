@@ -23,7 +23,7 @@
             <tbody>
                 <ng-container *ngFor="let player of playerResult">
                 <tr>
-                    <td> {{player.rank + 1}} </td>
+                    <td> {{player.rank}} </td>
                     <td> {{player.name}} </td>
                     <td> {{player.VP}} </td>
                     <td> {{player.score}} </td>
@@ -40,15 +40,19 @@
 <div md-dialog-actions class='actionButtons'>
     <span class="marginedElement">
         <button md-raised-button
+            md-dialog-close="OK Clicked"
             color='primary'
-            (click)="submitGameResult(); dialogRef.close(); ">
+            (click)="submitGameResult()">
+            <!--(click)="submitGameResult(); dialogRef.close(); ">-->
             OK
         </button>
     </span>
     <span class="marginedElement">
         <button md-raised-button
+            md-dialog-close="Cancel Clicked"
             class="marginedElement"
-            (click)="dialogRef.close()">
+            >
+            <!--(click)="dialogRef.close()"-->
             Cancel
         </button>
     </span>

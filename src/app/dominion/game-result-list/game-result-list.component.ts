@@ -20,7 +20,7 @@ import { PagenationComponent, getPagenatedData } from '../../my-data-table/pagen
   selector: 'app-game-result-list',
   templateUrl: './game-result-list.component.html',
   styleUrls: [
-    '../../my-data-table/my-data-table.component.css',
+    '../../my-data-table/table-body/table-body.component.css',
     './game-result-list.component.css'
   ]
 })
@@ -52,7 +52,7 @@ export class GameResultListComponent implements OnInit {
 
   ngOnInit() {
     this.itemsPerPage = this.itemsPerPageDefault;
-    this.httpGameResultListService.GetGameResult()
+    this.httpGameResultListService.GetGameResultList()
     .then( data => {
       this.GameResultList = data as GameResult[];
       this.GameResultListForView = this.GameResultList.map( x => this.transform(x) );

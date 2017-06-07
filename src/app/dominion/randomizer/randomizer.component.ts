@@ -52,19 +52,25 @@ export class RandomizerComponent implements OnInit {
         private mylib: MyLibraryService,
         private httpDominionSetNameListService: DominionSetNameListHttpService,
         private httpCardPropertyService: CardPropertyHttpService,
-    ) { }
+    ) {}
 
     ngOnInit() {
         Promise.all( [
             this.httpDominionSetNameListService.GetSetNameList(),
-            this.httpCardPropertyService.GetCardProperty()
+            this.httpCardPropertyService.GetCardPropertyList()
         ] )
         .then( data => {
             this.DominionSetNameList = data[0].map( name => { return { name : name, selected : true } } );
             this.CardPropertyList = data[1] as CardProperty[];
             this.httpGetDone = true;
-            console.log("GetSetNameList, GetCardProperty done");
-            // console.log( this.CardPropertyList );
+
+            if ( this.mylib.localStorage_has('DominionSetNameList') ) {
+                let ls = this.mylib.localStorage_get('DominionSetNameList');
+                this.DominionSetNameList.forEach( elm => {
+                    let localValue = ls.find( e => e.name == elm.name );
+                    if ( localValue ) { elm.selected = localValue.selected; }
+                })
+            }
         });
     }
 
@@ -77,6 +83,7 @@ export class RandomizerComponent implements OnInit {
     randomizerClicked() {
         if ( this.DominionSetNameList.every( DominionSet => !DominionSet.selected ) ) return;
         this.randomizer();
+        this.mylib.localStorage_set('DominionSetNameList', this.DominionSetNameList );
     }
 
 

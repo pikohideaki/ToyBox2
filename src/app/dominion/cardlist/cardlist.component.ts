@@ -65,18 +65,15 @@ export class CardlistComponent implements OnInit {
 
   constructor(
     private mylib: MyLibraryService,
-    private httpService: CardPropertyHttpService,
+    private httpCardPropertyHttpService: CardPropertyHttpService,
     public dialog: MdDialog,
   ) {}
 
   ngOnInit() {
-    this.httpService.GetCardProperty()
+    this.httpCardPropertyHttpService.GetCardPropertyList()
     .then( data => {
-    //   this.CardPropertyList = data.map( e => e as CardProperty );
       this.CardPropertyList = data as CardProperty[];
-    //   console.log( this.CardPropertyList[0] instanceof CardProperty ) false???
       this.CardPropertyListForView = this.CardPropertyList.map( x => this.transform(x) );
-      // console.log(this.CardPropertyListForView);
       this.httpGetDone = true;
     });
   }

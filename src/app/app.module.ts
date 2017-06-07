@@ -33,6 +33,8 @@ import { CardPropertyDialogComponent  } from './dominion/card-property-dialog/ca
 import { CardImageComponent           } from './dominion/card-image/card-image.component';
 import { AddGameResultComponent       } from './dominion/randomizer/add-game-result/add-game-result.component';
 import { SubmitGameResultDialogComponent } from './dominion/submit-game-result-dialog/submit-game-result-dialog.component';
+import { TableBodyComponent } from './my-data-table/table-body/table-body.component';
+import { MyWaitingSpinnerComponent } from './my-waiting-spinner/my-waiting-spinner.component';
 
 
 @NgModule({
@@ -53,6 +55,8 @@ import { SubmitGameResultDialogComponent } from './dominion/submit-game-result-d
         CardImageComponent,
         AddGameResultComponent,
         SubmitGameResultDialogComponent,
+        TableBodyComponent,
+        MyWaitingSpinnerComponent,
     ],
     imports: [
         // UiSwitchModule,

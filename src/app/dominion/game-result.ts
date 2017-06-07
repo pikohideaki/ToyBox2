@@ -27,15 +27,11 @@ export class GameResult {
 
     constructor( grObj? ) {
         if ( grObj == undefined ) return;
-        this.no                   = grObj.no;
-        this.id                   = grObj.id;
-        this.date                 = new Date( grObj.date );
-        this.place                = grObj.place;
-        this.numberOfPlayers      = grObj.number_of_players;
-        this.players              = grObj.players;
-        this.memo                 = grObj.memo;
-        this.selectedDominionSets = grObj.used_sets;
-        this.usedCardIDs          = grObj.used_card_IDs;
+        Object.keys( grObj )
+            .filter( key => key != "date" )
+            .forEach( key => this[key] = grObj[key] );
+
+        this.date = new Date( grObj.date );
     }
 }
 

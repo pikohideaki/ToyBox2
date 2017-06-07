@@ -1,0 +1,68 @@
+
+<table class='my-data-table my-data-table--shadow3px my-data-table--vertical-line'>
+<thead>
+    <tr>
+    <th *ngFor='let column of columnSettings'>
+
+        <span *ngIf="column.manip == 'none'">
+        {{column.headerTitle}}
+        </span>
+
+        <!--
+        <button md-button disableRipple *ngIf="column.manip == 'sort'"
+            class="headerSortButton"
+            (click)="sortColumn( column.manipState, column.name )" >
+        {{column.headerTitle}}
+        <md-icon *ngIf="column.manipState == 'accending' " class='sortIcon'>arrow_drop_up</md-icon>
+        <md-icon *ngIf="column.manipState == 'descending'" class='sortIcon'>arrow_drop_down</md-icon>
+        </button>-->
+
+        <ng-container *ngIf="column.manip == 'filterBySelecter'">
+        <md-select
+                [(ngModel)]="column.manipState"
+                [placeholder]="column.headerTitle"
+                (change)="updateView()" >
+            <md-option *ngFor="let valueInThisColumn of selectorOptions[ column.name ]"
+                    [value]="valueInThisColumn">
+                {{ valueInThisColumn }}
+            </md-option>
+        </md-select>
+        <button md-icon-button (click)="reset( column.name )">
+            <md-icon class='clearSelectIcon'>clear</md-icon>
+        </button>
+        </ng-container>
+
+        <ng-container *ngIf="column.manip == 'incrementalSearch'" >
+        <md-input-container >
+            <input mdInput
+            id="filteringInputBox"
+            [placeholder]="column.headerTitle"
+            [(ngModel)]="column.manipState"
+            (keyup)="updateView()" >
+        </md-input-container>
+        <!--<button md-icon-button (click)="reset( column.name )">
+            <md-icon class='clearSelectIcon'>clear</md-icon>
+        </button>-->
+        </ng-container>
+
+    </th>
+
+    </tr>
+</thead>
+<tbody>
+    <tr *ngFor='let value of data'>
+    <td *ngFor='let column of columnSettings'
+        [class.my-data-table--cell-alignLeft]="(column.align=='l')"
+        [class.my-data-table--cell-alignCenter]="(column.align=='c')"
+        [class.my-data-table--cell-alignRight]="(column.align=='r')" >
+
+        <button md-button color="primary" *ngIf="column.button" (click)="buttonClicked(value.no)">
+            {{ value[column.name] }}
+        </button>
+        <span *ngIf="!column.button">
+            {{ value[column.name] }}
+        </span>
+    </td>
+    </tr>
+</tbody>
+</table>

@@ -13,13 +13,16 @@ export class PlayersNameListService {
     @Inject('HOST_NAME') private HOST_NAME: string
   ) { }
 
-  private Url = `${this.HOST_NAME}/api/PlayersNameList.php`;
+  private Url = `${this.HOST_NAME}/api/GetJsonData.php?targetFileName=PlayersNameList.json`;
 
   GetPlayersNameList(): Promise< { name: string, name_yomi: string }[] > {
     return this.http
       .get( this.Url )
       .toPromise()
-      .then( response => response.json().data as { name: string, name_yomi: string }[] )
+      .then( response => {
+          console.log( "GetPlayersNameList Done." );
+          return response.json().data as { name: string, name_yomi: string }[];
+       } )
       .catch( this.handleError );
   }
 
