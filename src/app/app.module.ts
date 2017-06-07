@@ -12,25 +12,28 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
 import 'hammerjs';
 
 
-import { AppComponent                 } from './app.component';
-import { MyLibraryService             } from './my-library.service';
-import { MyDataTableComponent         } from './my-data-table/my-data-table.component';
-import { PagenationComponent          } from './my-data-table/pagenation/pagenation.component';
-import { ItemsPerPageComponent        } from './my-data-table/items-per-page/items-per-page.component';
-import { ResetButtonComponent         } from './my-data-table/reset-button/reset-button.component';
+import { AppComponent                    } from './app.component';
+import { MyLibraryService                } from './my-library.service';
+import { MyDataTableComponent            } from './my-data-table/my-data-table.component';
+import { PagenationComponent             } from './my-data-table/pagenation/pagenation.component';
+import { ItemsPerPageComponent           } from './my-data-table/items-per-page/items-per-page.component';
+import { ResetButtonComponent            } from './my-data-table/reset-button/reset-button.component';
 
-import { HomeComponent                } from './home/home.component';
-import { DominionComponent            } from './dominion/dominion.component';
-import { RuleBooksComponent           } from './dominion/rule-books/rule-books.component';
-import { RandomizerComponent          } from './dominion/randomizer/randomizer.component';
-import { GameResultListComponent      } from './dominion/game-result-list/game-result-list.component';
-import { PlayersComponent             } from './dominion/players/players.component';
-import { CardlistComponent            } from './dominion/cardlist/cardlist.component';
-import { CardPropertyDialogComponent  } from './dominion/card-property-dialog/card-property-dialog.component';
-import { CardImageComponent           } from './dominion/card-image/card-image.component';
-import { AddGameResultComponent       } from './dominion/randomizer/add-game-result/add-game-result.component';
+import { MyWaitingSpinnerComponent       } from './my-waiting-spinner/my-waiting-spinner.component';
+
+import { HomeComponent                   } from './home/home.component';
+import { DominionComponent               } from './dominion/dominion.component';
+import { RuleBooksComponent              } from './dominion/rule-books/rule-books.component';
+import { RandomizerComponent             } from './dominion/randomizer/randomizer.component';
+import { GameResultComponent             } from './dominion/game-result/game-result.component';
+import { GameResultListComponent         } from './dominion/game-result/game-result-list/game-result-list.component';
+import { PlayersComponent                } from './dominion/players/players.component';
+import { CardlistComponent               } from './dominion/cardlist/cardlist.component';
+import { CardPropertyDialogComponent     } from './dominion/card-property-dialog/card-property-dialog.component';
+import { CardImageComponent              } from './dominion/card-image/card-image.component';
+import { AddGameResultComponent          } from './dominion/randomizer/add-game-result/add-game-result.component';
 import { SubmitGameResultDialogComponent } from './dominion/submit-game-result-dialog/submit-game-result-dialog.component';
-import { MyWaitingSpinnerComponent } from './my-waiting-spinner/my-waiting-spinner.component';
+import { GameResultOfPlayerComponent } from './dominion/game-result/game-result-of-player/game-result-of-player.component';
 
 
 @NgModule({
@@ -52,9 +55,10 @@ import { MyWaitingSpinnerComponent } from './my-waiting-spinner/my-waiting-spinn
         AddGameResultComponent,
         SubmitGameResultDialogComponent,
         MyWaitingSpinnerComponent,
+        GameResultComponent,
+        GameResultOfPlayerComponent,
     ],
     imports: [
-        // UiSwitchModule,
         BrowserModule,
         FormsModule,
         ReactiveFormsModule,
@@ -87,8 +91,8 @@ import { MyWaitingSpinnerComponent } from './my-waiting-spinner/my-waiting-spinn
                 component: RandomizerComponent,
             },
             {
-                path: 'dominion/gameresultlist',
-                component: GameResultListComponent,
+                path: 'dominion/gameresult',
+                component: GameResultComponent,
             },
             {
                 path: 'dominion/players',
