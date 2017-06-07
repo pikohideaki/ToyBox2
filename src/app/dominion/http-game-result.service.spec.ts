@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { GameResultListService } from './game-result.service';
+import { GameResultListService } from './http-game-result.service';
 
 describe('GetGameResultService', () => {
   beforeEach(() => {

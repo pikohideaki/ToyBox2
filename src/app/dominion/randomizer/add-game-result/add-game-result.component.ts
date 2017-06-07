@@ -6,9 +6,9 @@ import { MdDialog } from '@angular/material';
 
 
 import { MyLibraryService } from '../../../my-library.service';
-import { PlayersNameListService } from '../../players-name.service';
+import { PlayersNameListService } from '../../http-players-name.service';
 import { GameResult } from "../../game-result";
-import { GameResultListService } from '../../game-result.service';
+import { GameResultListService } from '../../http-game-result.service';
 import { SubmitGameResultDialogComponent } from '../../submit-game-result-dialog/submit-game-result-dialog.component';
 
 

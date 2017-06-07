@@ -7,7 +7,7 @@ import { MyLibraryService } from '../../my-library.service';
 import { MyDataTableComponent } from '../../my-data-table/my-data-table.component';
 
 import { GameResult } from "../game-result";
-import { GameResultListService } from '../game-result.service';
+import { GameResultListService } from '../http-game-result.service';
 
 
 

@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { CardPropertyHttpService } from './card-property.service';
+import { CardPropertyHttpService } from './http-card-property.service';
 
 describe('GetCardPropertyService', () => {
   beforeEach(() => {

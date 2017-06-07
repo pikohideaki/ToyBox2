@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { MyLibraryService } from '../../my-library.service';
 import { MyDataTableComponent } from '../../my-data-table/my-data-table.component';
-import { PlayersNameListService } from '../players-name.service';
+import { PlayersNameListService } from '../http-players-name.service';
 
 
 @Component({

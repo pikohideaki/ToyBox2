@@ -8,7 +8,7 @@ import { MyDataTableComponent } from '../../my-data-table/my-data-table.componen
 
 // import { CardCost } from '../card-cost';
 import { CardProperty } from "../card-property";
-import { CardPropertyHttpService } from '../card-property.service';
+import { CardPropertyHttpService } from '../http-card-property.service';
 // import { CardListPipe } from './card-list.pipe';
 import { CardPropertyDialogComponent } from '../card-property-dialog/card-property-dialog.component';
 

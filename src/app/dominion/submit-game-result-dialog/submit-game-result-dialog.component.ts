@@ -5,7 +5,7 @@ import { MdDialogRef } from '@angular/material';
 import { MyLibraryService } from '../../my-library.service';
 
 import { GameResult } from "../game-result";
-import { GameResultListService } from '../game-result.service';
+import { GameResultListService } from '../http-game-result.service';
 import { ScoringService } from './scoring.service';
 
 @Component({

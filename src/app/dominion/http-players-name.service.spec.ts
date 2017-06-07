@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { PlayersNameListService } from './players-name.service';
+import { PlayersNameListService } from './http-players-name.service';
 
 describe('GetPlayersNameListService', () => {
   beforeEach(() => {
