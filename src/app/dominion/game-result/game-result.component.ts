@@ -16,9 +16,14 @@ export class GameResultComponent implements OnInit {
     httpGetDone: boolean = false;
     GameResultList: GameResult[] = [];
 
-    constructor(
-        private httpGameResultListService: GameResultListService,
+    playerNumOptions: { playerNum: number, selected: boolean }[] = [];
 
+    dateBegin: Date;
+    dateEnd: Date;
+
+    constructor(
+        private mylib: MyLibraryService,
+        private httpGameResultListService: GameResultListService,
     ) { }
 
     ngOnInit() {
@@ -26,6 +31,15 @@ export class GameResultComponent implements OnInit {
         .then( data => {
             this.GameResultList = data;
             this.httpGetDone = true;
+
+            // set default values
+            this.playerNumOptions
+                = this.mylib.uniq( this.GameResultList.map( e => e.numberOfPlayers ).sort() )
+                            .map( v => { return { playerNum: v, selected: true }; } );
+
+            // set default values
+            this.dateBegin = this.mylib.front( this.GameResultList.map( e => e.date ) );
+            this.dateEnd   = this.mylib.back ( this.GameResultList.map( e => e.date ) );
          } );
     }
 

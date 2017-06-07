@@ -5,7 +5,7 @@
 <!--<div class='card'></div>-->
 
 <ng-container *ngFor="let app of dominionApps">
-    <md-card class="dominionApp" [routerLink]="app.address">
+    <md-card class="dominionApp" [class.inService]="app.inService" [routerLink]="app.address">
         <md-card-title>{{app.title}}</md-card-title>
         <md-card-subtitle>{{app.subtitle}}</md-card-subtitle>
     </md-card>

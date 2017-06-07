@@ -7,7 +7,6 @@ import { MyLibraryService } from '../../../my-library.service';
 import { MyDataTableComponent } from '../../../my-data-table/my-data-table.component';
 
 import { GameResult } from "../../game-result";
-import { GameResultListService } from '../../http-game-result.service';
 
 
 
@@ -16,7 +15,6 @@ import { PagenationComponent, getPagenatedData } from '../../../my-data-table/pa
 
 
 @Component({
-  providers: [GameResultListService],
   selector: 'game-result-list',
   templateUrl: './game-result-list.component.html',
   styleUrls: [
@@ -28,7 +26,6 @@ export class GameResultListComponent implements OnInit, OnChanges {
 
     @Input() GameResultList: GameResult[] = [];
     GameResultListForView: any[] = [];
-    httpGetDone: boolean = false;
 
     // pagenation
     selectedPageIndex: number = 0;
@@ -46,25 +43,17 @@ export class GameResultListComponent implements OnInit, OnChanges {
 
 
     constructor(
-        private httpGameResultListService: GameResultListService,
         public dialog: MdDialog,
     ) {}
 
     ngOnInit() {
         this.itemsPerPage = this.itemsPerPageDefault;
-        this.httpGameResultListService.GetGameResultList()
-        .then( data => {
-            this.GameResultList = data as GameResult[];
-            this.GameResultListForView = this.GameResultList.map( x => this.transform(x) );
-            this.httpGetDone = true;
-            //   console.log(this.GameResultList);
-        });
     }
 
 
     ngOnChanges( changes: SimpleChanges ) {
-        if ( changes.data != undefined ) {  // at http-get done
-
+        if ( changes.GameResultList != undefined ) {  // at http-get done
+            this.GameResultListForView = this.GameResultList.map( x => this.transform(x) );
         }
     }
 
@@ -81,12 +70,6 @@ export class GameResultListComponent implements OnInit, OnChanges {
     showDetail( cardNo: number ) {
         const selectedData = this.transform( this.GameResultList.find( x => x.no == cardNo ) );
         console.log( selectedData );
-        // let dialogRef = this.dialog.open( CardPropertyDialogComponent, {
-        //   height: '80%',
-        //   width : '80%',
-        // });
-        // dialogRef.componentInstance.card = selectedCard;
-        // dialogRef.afterClosed().subscribe( result => {} );
     }
 
 

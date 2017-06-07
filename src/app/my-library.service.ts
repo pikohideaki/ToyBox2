@@ -45,6 +45,10 @@ export class MyLibraryService {
         return ar[ ar.length - 1 ];
     };
 
+    front<T>( ar: Array<T> ): T {
+        return ar[0];
+    };
+
     removeIf<T>( ar: Array<T>, f: (T) => boolean ): T {
         return this.removeAt( ar, ar.findIndex(f) );
     }
