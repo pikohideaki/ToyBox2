@@ -2,14 +2,14 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
-import { MdDialog } from '@angular/material';
-
+import { MdDialog, MdSnackBar } from '@angular/material';
 
 import { MyLibraryService } from '../../../my-library.service';
 import { PlayersNameListService } from '../../http-players-name.service';
 import { GameResult } from "../../game-result";
 import { GameResultListService } from '../../http-game-result.service';
 import { SubmitGameResultDialogComponent } from '../../submit-game-result-dialog/submit-game-result-dialog.component';
+import { CardProperty } from "../../card-property";
 
 
 @Component({
@@ -49,6 +49,7 @@ export class AddGameResultComponent implements OnInit {
 
     @Input() SelectedCards;
     @Input() DominionSetNameList: { name: string, selected: boolean }[] = [];
+    @Input() CardPropertyList: CardProperty[];
 
 
     constructor(
@@ -56,6 +57,7 @@ export class AddGameResultComponent implements OnInit {
         private httpPlayersNameListService: PlayersNameListService,
         private httpGameResultListService: GameResultListService,
         public dialog: MdDialog,
+        public snackBar: MdSnackBar
     ) {
         this.stateCtrl = new FormControl();
         this.filteredPlaces = this.stateCtrl.valueChanges
@@ -141,6 +143,7 @@ export class AddGameResultComponent implements OnInit {
         dialogRef.componentInstance.SelectedCards       = this.SelectedCards;
         dialogRef.componentInstance.DominionSetNameList = this.DominionSetNameList;
         dialogRef.componentInstance.GameResultList      = this.GameResultList;
+        dialogRef.componentInstance.CardPropertyList    = this.CardPropertyList;
 
         dialogRef.afterClosed().subscribe(result => {
             if ( result == "OK Clicked" ) {
@@ -150,7 +153,14 @@ export class AddGameResultComponent implements OnInit {
                 });
                 this.memo = "";
                 this.startPlayerName = "";
+                this.openSnackBar();
             }
         });
     }
+
+
+    openSnackBar() {
+        this.snackBar.open( "Successfully Submitted!", undefined, { duration: 3000 } );
+    }
+
 }

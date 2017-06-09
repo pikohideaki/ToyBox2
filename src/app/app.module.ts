@@ -33,7 +33,8 @@ import { CardPropertyDialogComponent     } from './dominion/card-property-dialog
 import { CardImageComponent              } from './dominion/card-image/card-image.component';
 import { AddGameResultComponent          } from './dominion/randomizer/add-game-result/add-game-result.component';
 import { SubmitGameResultDialogComponent } from './dominion/submit-game-result-dialog/submit-game-result-dialog.component';
-import { GameResultOfPlayerComponent } from './dominion/game-result/game-result-of-player/game-result-of-player.component';
+import { GameResultOfPlayerComponent     } from './dominion/game-result/game-result-of-player/game-result-of-player.component';
+import { ScoringService                  } from './dominion/http-scoring.service';
 
 
 @NgModule({
@@ -109,11 +110,12 @@ import { GameResultOfPlayerComponent } from './dominion/game-result/game-result-
         // { provide: 'HOST_NAME', useValue: 'http://192.168.33.1' },
         // { provide: 'HOST_NAME', useValue: 'http://localhost:8000' },
         MyLibraryService,
+        ScoringService,
     ],
-    /* for dialog */
+    /* for dialog, snackbar */
     entryComponents: [
         CardPropertyDialogComponent,
-        SubmitGameResultDialogComponent
+        SubmitGameResultDialogComponent,
     ],
     bootstrap: [AppComponent]
 })

@@ -71,3 +71,8 @@ tbody button {
 .pagerWrapper {
     margin: 20px;
 }
+
+/*
+.my-data-table--stripe tbody tr:nth-child(even){
+    background:#F2F2FF;
+}*/

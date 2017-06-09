@@ -29,13 +29,13 @@
 
         <div class="supplyTable">
             <div class="Prosperity_DarkAges">
-                <span id="Prosperity" *ngIf="this.SelectedCards.KingdomCards10.length > 0">
+                <span id="Prosperity" *ngIf="SelectedCards.KingdomCards10.length > 0">
                     <md-slide-toggle [(ngModel)]="SelectedCards.Prosperity">
                         植民地場
                     </md-slide-toggle>
                 </span>
 
-                <span id="DarkAges"   *ngIf="this.SelectedCards.KingdomCards10.length > 0">
+                <span id="DarkAges"   *ngIf="SelectedCards.KingdomCards10.length > 0">
                     <md-slide-toggle [(ngModel)]="SelectedCards.DarkAges">
                         避難所場
                     </md-slide-toggle>
@@ -44,7 +44,7 @@
 
             <table class='my-data-table my-data-table--shadow3px my-data-table--vertical-line'>
                 <thead>
-                    <tr *ngIf="this.SelectedCards.KingdomCards10.length > 0">
+                    <tr *ngIf="SelectedCards.KingdomCards10.length > 0">
                         <th>セット</th>
                         <th>名前</th>
                         <th>name</th>
@@ -54,92 +54,93 @@
 
                 <tbody>
                     <tr *ngFor="let cardIndex of SelectedCards.KingdomCards10">
-                        <td> {{ this.CardPropertyList[cardIndex].set_name }} </td>
-                        <td> {{ this.CardPropertyList[cardIndex].name_jp  }} </td>
-                        <td> {{ this.CardPropertyList[cardIndex].name_eng }} </td>
-                        <td> {{ costStr( this.CardPropertyList[cardIndex].cost ) }} </td>
+                        <td> {{ CardPropertyList[cardIndex].set_name }} </td>
+                        <td> {{ CardPropertyList[cardIndex].name_jp  }} </td>
+                        <td> {{ CardPropertyList[cardIndex].name_eng }} </td>
+                        <td> {{ CardPropertyList[cardIndex].costStr() }} </td>
                     </tr>
                 </tbody>
 
                 <thead>
-                    <tr *ngIf="this.SelectedCards.BaneCard.length > 0">
+                    <tr *ngIf="SelectedCards.BaneCard.length > 0">
                         <th colspan="4">災いカード（魔女娘用）</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let cardIndex of SelectedCards.BaneCard">
-                        <td> {{ this.CardPropertyList[cardIndex].set_name }} </td>
-                        <td> {{ this.CardPropertyList[cardIndex].name_jp  }} </td>
-                        <td> {{ this.CardPropertyList[cardIndex].name_eng }} </td>
-                        <td> {{ costStr( this.CardPropertyList[cardIndex].cost ) }} </td>
+                        <td> {{ CardPropertyList[cardIndex].set_name }} </td>
+                        <td> {{ CardPropertyList[cardIndex].name_jp  }} </td>
+                        <td> {{ CardPropertyList[cardIndex].name_eng }} </td>
+                        <td> {{ CardPropertyList[cardIndex].costStr() }} </td>
                     </tr>
                 </tbody>
 
                 <thead>
-                    <tr *ngIf="this.SelectedCards.EventCards.length > 0">
+                    <tr *ngIf="SelectedCards.EventCards.length > 0">
                         <th colspan="4">Event</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let cardIndex of SelectedCards.EventCards">
-                        <td> {{ this.CardPropertyList[cardIndex].set_name }} </td>
-                        <td> {{ this.CardPropertyList[cardIndex].name_jp  }} </td>
-                        <td> {{ this.CardPropertyList[cardIndex].name_eng }} </td>
-                        <td> {{ costStr( this.CardPropertyList[cardIndex].cost ) }} </td>
+                        <td> {{ CardPropertyList[cardIndex].set_name }} </td>
+                        <td> {{ CardPropertyList[cardIndex].name_jp  }} </td>
+                        <td> {{ CardPropertyList[cardIndex].name_eng }} </td>
+                        <td> {{ CardPropertyList[cardIndex].costStr() }} </td>
                     </tr>
                 </tbody>
 
                 <thead>
-                    <tr *ngIf="this.SelectedCards.LandmarkCards.length > 0">
-                        <th colspan="4">Landmark</th>
+                    <tr *ngIf="SelectedCards.LandmarkCards.length > 0">
+                        <th colspan="4">LandmarkCards</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let cardIndex of SelectedCards.LandmarkCards">
-                        <td> {{ this.CardPropertyList[cardIndex].set_name }} </td>
-                        <td> {{ this.CardPropertyList[cardIndex].name_jp  }} </td>
-                        <td> {{ this.CardPropertyList[cardIndex].name_eng }} </td>
-                        <td> {{ costStr( this.CardPropertyList[cardIndex].cost ) }} </td>
+                        <td> {{ CardPropertyList[cardIndex].set_name }} </td>
+                        <td> {{ CardPropertyList[cardIndex].name_jp  }} </td>
+                        <td> {{ CardPropertyList[cardIndex].name_eng }} </td>
+                        <td> {{ CardPropertyList[cardIndex].costStr() }} </td>
                     </tr>
                 </tbody>
 
                 <thead>
-                    <tr *ngIf="this.SelectedCards.Obelisk.length > 0">
+                    <tr *ngIf="SelectedCards.Obelisk.length > 0">
                         <th colspan="4">Obelisk 指定カード</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let cardIndex of SelectedCards.Obelisk">
-                        <td> {{ this.CardPropertyList[cardIndex].set_name }} </td>
-                        <td> {{ this.CardPropertyList[cardIndex].name_jp  }} </td>
-                        <td> {{ this.CardPropertyList[cardIndex].name_eng }} </td>
-                        <td> {{ costStr( this.CardPropertyList[cardIndex].cost ) }} </td>
+                        <td> {{ CardPropertyList[cardIndex].set_name }} </td>
+                        <td> {{ CardPropertyList[cardIndex].name_jp  }} </td>
+                        <td> {{ CardPropertyList[cardIndex].name_eng }} </td>
+                        <td> {{ CardPropertyList[cardIndex].costStr() }} </td>
                     </tr>
                 </tbody>
 
                 <thead>
-                    <tr *ngIf="this.SelectedCards.BlackMarketPile.length > 0">
+                    <tr *ngIf="SelectedCards.BlackMarketPile.length > 0">
                         <th colspan="4">闇市場デッキ</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let cardIndex of SelectedCards.BlackMarketPile">
-                        <td> {{ this.CardPropertyList[cardIndex].set_name }} </td>
-                        <td> {{ this.CardPropertyList[cardIndex].name_jp  }} </td>
-                        <td> {{ this.CardPropertyList[cardIndex].name_eng }} </td>
-                        <td> {{ costStr( this.CardPropertyList[cardIndex].cost ) }} </td>
+                        <td> {{ CardPropertyList[cardIndex].set_name }} </td>
+                        <td> {{ CardPropertyList[cardIndex].name_jp  }} </td>
+                        <td> {{ CardPropertyList[cardIndex].name_eng }} </td>
+                        <td> {{ CardPropertyList[cardIndex].costStr() }} </td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </md-tab>
-    <md-tab *ngIf="this.SelectedCards.BlackMarketPile.length > 0" label="闇市場デッキ">
+    <md-tab *ngIf="SelectedCards.BlackMarketPile.length > 0" label="闇市場デッキ">
         闇市場デッキ
     </md-tab>
     <md-tab label="結果入力">
         <app-add-game-result
             [SelectedCards]="SelectedCards"
-            [DominionSetNameList]="DominionSetNameList">
+            [DominionSetNameList]="DominionSetNameList"
+            [CardPropertyList]="CardPropertyList">
         </app-add-game-result>
     </md-tab>
 </md-tab-group>

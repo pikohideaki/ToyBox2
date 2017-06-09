@@ -16,18 +16,78 @@ import { GameResult } from "../../game-result";
 })
 export class GameResultOfPlayerComponent implements OnInit, OnChanges {
 
-    @Input() GameResultList: GameResult[] = [];
+    @Input() GameResultListFiltered: GameResult[] = [];
+    @Input() playerNumOptions: { playerNum: number, selected: boolean }[] = [];
+    rankOptions: boolean[] = [];
 
-    constructor() { }
+
+    GameResultOfEachPlayer = {};
+    GameResultOfEachPlayerForView = [];
+
+
+    constructor(
+        private mylib: MyLibraryService
+    ) { }
 
     ngOnInit() {
     }
 
 
     ngOnChanges( changes: SimpleChanges ) {
-        if ( changes.GameResultList != undefined ) {  // at http-get done
-            console.log( this.GameResultList );
+        if ( changes.GameResultListFiltered != undefined ) {  // at http-get done
+            this.calcGameResultOfPlayers();
+
+            let playerNumIsSelected = [];
+            this.playerNumOptions.forEach( e => playerNumIsSelected[e.playerNum] = e.selected );
+            this.rankOptions = Array(6).fill(true);
+            for ( let i = 6; i > 0; --i ) {
+                if ( !playerNumIsSelected[i] ) this.rankOptions[i] = false;
+                else break;
+            }
         }
+    }
+
+    calcGameResultOfPlayers() {
+        // get all player names
+        let playerNames = new Set();
+        this.GameResultListFiltered.forEach( gr => gr.players.forEach( player => {
+            playerNames.add( player.name );
+        }));
+
+        // initialize
+        playerNames.forEach( name => {
+            this.GameResultOfEachPlayer[name] = {
+                count        : 0,
+                countRank    : [0,0,0,0,0,0,0],
+                scoreSum     : 0.0,
+                scoreAverage : 0.0,
+            };
+        } );
+
+        // sum up rank & score of each player
+        this.GameResultListFiltered.forEach( gr => gr.players.forEach( player => {
+            this.GameResultOfEachPlayer[ player.name ].countRank[ player.rank ]++;
+            this.GameResultOfEachPlayer[ player.name ].scoreSum += player.score;
+        }));
+
+        // calculate countRank and score average
+        this.mylib.objectForEach( this.GameResultOfEachPlayer, playerResult => {
+            playerResult.countRank.forEach( e => playerResult.count += e );  // sum of countRank
+            playerResult.scoreAverage = playerResult.scoreSum / playerResult.count;
+        });
+
+        // sort
+        this.GameResultOfEachPlayerForView = [];  // reset
+        this.mylib.objectForEach( this.GameResultOfEachPlayer, (playerResult, playerName) => {
+            this.GameResultOfEachPlayerForView.push( {
+                name         : playerName,
+                scoreAverage : this.mylib.roundAt( playerResult.scoreAverage, 3 ),
+                scoreSum     : this.mylib.roundAt( playerResult.scoreSum, 3 ),
+                count        : playerResult.count,
+                countRank    : playerResult.countRank
+            })
+        });
+        this.GameResultOfEachPlayerForView.sort( (a,b) => b.scoreAverage - a.scoreAverage );
     }
 
 }

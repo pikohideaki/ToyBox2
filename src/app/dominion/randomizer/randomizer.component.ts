@@ -99,7 +99,7 @@ export class RandomizerComponent implements OnInit {
         this.SelectedCards.BlackMarketPile = [];
 
         // 選択されている拡張セットに含まれているカードすべてをシャッフルし，indexとペアにしたリスト
-        let CardsInSelectedSets_Shuffled: any[]
+        let CardsInSelectedSets_Shuffled: { index: number, data: CardProperty }[]
          = this.mylib.shuffle(
             this.CardPropertyList
             .map( (val,index) => { return { index: index, data: val }; } )
@@ -114,7 +114,7 @@ export class RandomizerComponent implements OnInit {
         // console.log(this.DominionSetNameList .filter( s => s.selected ) .map( s => s.name ))
         // console.log(CardsInSelectedSets_Shuffled.map( e => e.data.name_jp  ) );
 
-        // 10 Supply KingdomCards and Event, Landmark
+        // 10 Supply KingdomCards10 and Event, LandmarkCards
         while ( this.SelectedCards.KingdomCards10.length < 10 ) {
             let card = CardsInSelectedSets_Shuffled.pop();
             if ( card.data.category == '王国' ) {
@@ -179,32 +179,5 @@ export class RandomizerComponent implements OnInit {
         this.mylib.sortNumeric( this.SelectedCards.EventCards );
         this.mylib.sortNumeric( this.SelectedCards.LandmarkCards );
         this.mylib.sortNumeric( this.SelectedCards.BlackMarketPile );
-
-        // console.log( 'KingdomCards10' , this.SelectedCards.KingdomCards10  );//  .map( e => this.CardPropertyList[e].name_jp ) );
-        // console.log( 'EventCards'     , this.SelectedCards.EventCards      );// .map( e => this.CardPropertyList[e].name_jp ) );
-        // console.log( 'LandmarkCards'  , this.SelectedCards.LandmarkCards   );// .map( e => this.CardPropertyList[e].name_jp ) );
-        // console.log( 'BlackMarketPile', this.SelectedCards.BlackMarketPile );// .map( e => this.CardPropertyList[e].name_jp ) );
-        // console.log( 'BaneCard'       , this.SelectedCards.BaneCard        );// .map( e => this.CardPropertyList[e].name_jp ) );
-        // console.log( 'Obelisk'        , this.SelectedCards.Obelisk         );// .map( e => this.CardPropertyList[e].name_jp ) );
-        // console.log( 'Prosperity'     , this.SelectedCards.Prosperity );
-        // console.log( 'DarkAges'       , this.SelectedCards.DarkAges   );
-
     }
-
-
-
-    costStr( cost: CardCost ): string {
-        let costStr = '';
-        if ( cost.coin > 0 || ( cost.potion == 0 && cost.debt == 0 ) ) {
-            costStr += cost.coin.toString();
-        }
-        if ( cost.potion > 0 ) {
-            for ( let i = 0; i < cost.potion; ++i ) costStr += 'P';
-        }
-        if ( cost.debt   > 0 ) {
-            costStr += `<${cost.debt.toString()}>`;
-        }
-        return costStr;
-    }
-
 }

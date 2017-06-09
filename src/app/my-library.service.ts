@@ -25,6 +25,31 @@ export class MyLibraryService {
         return target.indexOf( key ) !== -1;
     }
 
+    objectForEach( object: any, f: (element: any, key?: any, object?: any) => any ) {
+        Object.keys( object ).forEach( key => f( object[key], key, object ) );
+    }
+
+
+    getYestereday( date: Date ): Date {
+        let yestereday = new Date( date );
+        yestereday.setDate( yestereday.getDate() - 1 );  // yesterday
+        return yestereday;
+    }
+
+    getTommorow( date: Date ): Date {
+        let tommorow = new Date( date );
+        tommorow.setDate( tommorow.getDate() - 1 );  // yesterday
+        return tommorow;
+    }
+
+    getMidnightOfDate( date: Date ): Date {
+        let midnight = new Date( date );
+        midnight.setHours(0);
+        midnight.setMinutes(0);
+        midnight.setSeconds(0);
+        midnight.setMilliseconds(0);
+        return midnight;
+    }
 
     roundAt( val: number, precision: number ) {
         let digit = Math.pow(10, precision);

@@ -9,11 +9,11 @@
 <my-data-table--pagenation
     [(selectedPageIndex)]='selectedPageIndex'
     [itemsPerPage]='itemsPerPage'
-    [dataSize]='GameResultList.length' >
+    [dataSize]='GameResultListFiltered.length' >
 </my-data-table--pagenation>
 
 
-<span>{{GameResultList.length}} Games</span>
+<span>{{GameResultListFiltered.length}} Games</span>
 <div class='clear'></div>
 
 
@@ -31,20 +31,24 @@
   <tbody>
     <tr *ngFor='let line of getDataForView()'>
       <td class='my-data-table--cell-numeric'>{{line.no}}</td>
-      <td> {{line.date.getFullYear()}}年{{line.date.getMonth() + 1}}月{{line.date.getDate()}}日 </td>
+      <td> {{line.date.getFullYear()}}/{{line.date.getMonth() + 1}}/{{line.date.getDate()}} </td>
       <td> {{line.place  }}</td>
       <td>
         <table class='my-data-table  sub-table' ><!--style='box-shadow: none'-->
           <tbody>
             <tr *ngFor='let playerResult of line.players'>
               <td class='my-data-table--cell-numeric  sub-table--narrow-cell'>
-                {{playerResult.rank  }}</td>
+                {{playerResult.rank  }}
+              </td>
               <td class='                                      sub-table--normal-cell'>
-                {{playerResult.name  }}</td>
+                {{playerResult.name  }}
+              </td>
               <td class='my-data-table--cell-numeric  sub-table--narrow-cell'>
-                {{playerResult.VP}}{{(playerResult.lessTurns == 'true' ? '*' : '')}}</td>
+                {{playerResult.VP}}{{(playerResult.lessTurns ? '*' : '')}}
+              </td>
               <td class='my-data-table--cell-numeric  sub-table--narrow-cell'>
-                {{playerResult.score }}</td>
+                {{playerResult.score }}
+              </td>
             </tr>
           </tbody>
         </table>
@@ -69,5 +73,5 @@
 <my-data-table--pagenation
     [(selectedPageIndex)]='selectedPageIndex'
     [itemsPerPage]='itemsPerPage'
-    [dataSize]='GameResultList.length' >
+    [dataSize]='GameResultListFiltered.length' >
 </my-data-table--pagenation>

@@ -19,7 +19,7 @@ export class ScoringService {
                    .get( this.GetScoringUrl )
                    .toPromise()
                    .then( response => {
-                       console.log( "SetScoringList Done." );
+                       console.log( "GetScoringList Done." );
                        return response.json().data;
                     } )
                    .catch( this.handleError );

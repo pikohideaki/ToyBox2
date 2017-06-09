@@ -13,17 +13,20 @@ export class CardPropertyHttpService {
     @Inject('HOST_NAME') private HOST_NAME: string
   ) { }
 
-  private CardPropertyUrl = `${this.HOST_NAME}/api/GetJsonData.php?targetFileName=CardPropertyList.json`;
+  private CardPropertyListUrl = `${this.HOST_NAME}/api/GetJsonData.php?targetFileName=CardPropertyList.json`;
 
   GetCardPropertyList(): Promise< CardProperty[] > {
-    return this.http
-      .get( this.CardPropertyUrl )
-      .toPromise()
-      .then( response => {
-          console.log( "GetCardPropertyList Done." );
-          return response.json().data as CardProperty[]
-      })
-      .catch( this.handleError );
+        return this.http
+            .get( this.CardPropertyListUrl )
+            .toPromise()
+            .then( response => {
+                let result: CardProperty[] = [];
+                let CardPropertyListObj = response.json().data;
+                CardPropertyListObj.forEach( cpObj => result.push( new CardProperty( cpObj ) ) );
+                console.log( "GetCardPropertyList Done." );
+                return result;
+            })
+            .catch( this.handleError );
   }
 
   private handleError( error: any ): Promise<any> {

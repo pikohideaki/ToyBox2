@@ -24,7 +24,7 @@ import { PagenationComponent, getPagenatedData } from '../../../my-data-table/pa
 })
 export class GameResultListComponent implements OnInit, OnChanges {
 
-    @Input() GameResultList: GameResult[] = [];
+    @Input() GameResultListFiltered: GameResult[] = [];
     GameResultListForView: any[] = [];
 
     // pagenation
@@ -34,7 +34,7 @@ export class GameResultListComponent implements OnInit, OnChanges {
     itemsPerPage: number;
     getDataForView() {
         return getPagenatedData(
-            this.GameResultList.reverse(),
+            this.GameResultListFiltered.reverse(),
             this.itemsPerPage,
             this.selectedPageIndex );
     }
@@ -52,8 +52,9 @@ export class GameResultListComponent implements OnInit, OnChanges {
 
 
     ngOnChanges( changes: SimpleChanges ) {
-        if ( changes.GameResultList != undefined ) {  // at http-get done
-            this.GameResultListForView = this.GameResultList.map( x => this.transform(x) );
+        if ( changes.GameResultListFiltered != undefined ) {  // at http-get done
+            // this.GameResultListForView = this.GameResultListFiltered.map( x => this.transform(x) );
+            this.selectedPageIndex = 0;
         }
     }
 
@@ -67,15 +68,15 @@ export class GameResultListComponent implements OnInit, OnChanges {
 
 
 
-    showDetail( cardNo: number ) {
-        const selectedData = this.transform( this.GameResultList.find( x => x.no == cardNo ) );
-        console.log( selectedData );
-    }
+    // showDetail( cardNo: number ) {
+    //     const selectedData = this.transform( this.GameResultListFiltered.find( x => x.no == cardNo ) );
+    //     console.log( selectedData );
+    // }
 
 
-    transform( cardProperty: GameResult ): any {
-        return cardProperty;
-    }
+    // transform( cardProperty: GameResult ): any {
+    //     return cardProperty;
+    // }
 }
 
 
