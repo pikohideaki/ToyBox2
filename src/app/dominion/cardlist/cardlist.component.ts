@@ -35,20 +35,21 @@ export class CardlistComponent implements OnInit {
 
 
   columnSettings = [
-    { name: 'no'         , align: 'c', manip: 'none'             , button: false, headerTitle: 'No.' },
-    { name: 'name_jp'    , align: 'c', manip: 'incrementalSearch', button: true , headerTitle: '名前' },
-    { name: 'name_eng'   , align: 'c', manip: 'incrementalSearch', button: false, headerTitle: 'Name' },
-    { name: 'set_name'   , align: 'c', manip: 'filterBySelecter' , button: false, headerTitle: 'セット名' },
-    { name: 'category'   , align: 'c', manip: 'filterBySelecter' , button: false, headerTitle: '分類' },
-    { name: 'card_type'  , align: 'c', manip: 'autoComplete'     , button: false, headerTitle: '種別' },
-    { name: 'costStr'    , align: 'c', manip: 'none'             , button: false, headerTitle: 'コスト' },
-    { name: 'VP'         , align: 'c', manip: 'none'             , button: false, headerTitle: 'VP' },
-    { name: 'draw_card'  , align: 'c', manip: 'none'             , button: false, headerTitle: '+card' },
-    { name: 'action'     , align: 'c', manip: 'none'             , button: false, headerTitle: '+action' },
-    { name: 'buy'        , align: 'c', manip: 'none'             , button: false, headerTitle: '+buy' },
-    { name: 'coin'       , align: 'c', manip: 'none'             , button: false, headerTitle: '+coin' },
-    { name: 'VPtoken'    , align: 'c', manip: 'none'             , button: false, headerTitle: '+VPtoken' },
-    { name: 'implemented', align: 'c', manip: 'filterBySelecter' , button: false, headerTitle: 'ゲーム実装状況' },
+    { name: 'no'                  , align: 'c', manip: 'none'             , button: false, headerTitle: 'No.' },
+    { name: 'name_jp'             , align: 'c', manip: 'incrementalSearch', button: true , headerTitle: '名前' },
+    { name: 'name_eng'            , align: 'c', manip: 'incrementalSearch', button: false, headerTitle: 'Name' },
+    { name: 'set_name'            , align: 'c', manip: 'filterBySelecter' , button: false, headerTitle: 'セット名' },
+    { name: 'category'            , align: 'c', manip: 'filterBySelecter' , button: false, headerTitle: '分類' },
+    { name: 'card_type'           , align: 'c', manip: 'autoComplete'     , button: false, headerTitle: '種別' },
+    { name: 'costStr'             , align: 'c', manip: 'none'             , button: false, headerTitle: 'コスト' },
+    { name: 'VP'                  , align: 'c', manip: 'none'             , button: false, headerTitle: 'VP' },
+    { name: 'draw_card'           , align: 'c', manip: 'none'             , button: false, headerTitle: '+card' },
+    { name: 'action'              , align: 'c', manip: 'none'             , button: false, headerTitle: '+action' },
+    { name: 'buy'                 , align: 'c', manip: 'none'             , button: false, headerTitle: '+buy' },
+    { name: 'coin'                , align: 'c', manip: 'none'             , button: false, headerTitle: '+coin' },
+    { name: 'VPtoken'             , align: 'c', manip: 'none'             , button: false, headerTitle: '+VPtoken' },
+    { name: 'implemented'         , align: 'c', manip: 'filterBySelecter' , button: false, headerTitle: 'ゲーム実装状況' },
+    { name: 'randomizer_candidate', align: 'c', manip: 'filterBySelecter' , button: false, headerTitle: 'ランダマイザー対象' },
   ];
 
 

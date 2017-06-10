@@ -89,14 +89,16 @@ export class RandomizerComponent implements OnInit {
 
     randomizer() {
         // reset
-        this.SelectedCards.KingdomCards10  = [];
-        this.SelectedCards.Prosperity      = false;
-        this.SelectedCards.DarkAges        = false;
-        this.SelectedCards.BaneCard        = [];
-        this.SelectedCards.EventCards      = [];
-        this.SelectedCards.LandmarkCards   = [];
-        this.SelectedCards.Obelisk         = [];
-        this.SelectedCards.BlackMarketPile = [];
+        this.SelectedCards = {
+            KingdomCards10  : [],
+            Prosperity      : false,
+            DarkAges        : false,
+            BaneCard        : [],
+            EventCards      : [],
+            LandmarkCards   : [],
+            Obelisk         : [],
+            BlackMarketPile : [],
+        }
 
         // 選択されている拡張セットに含まれているカードすべてをシャッフルし，indexとペアにしたリスト
         let CardsInSelectedSets_Shuffled: { index: number, data: CardProperty }[]

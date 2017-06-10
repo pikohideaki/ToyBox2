@@ -73,6 +73,7 @@ export class CardProperty {
             recommended_combination : this.recommended_combination ,
             memo                    : this.memo                    ,
             implemented             : ( this.implemented ?  '実装済み' : '未実装' ),
+            randomizer_candidate    : ( this.randomizer_candidate ?  '〇' : '×' ),
         };
     }
 

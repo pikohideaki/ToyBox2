@@ -30,11 +30,12 @@ import { GameResultListComponent         } from './dominion/game-result/game-res
 import { PlayersComponent                } from './dominion/players/players.component';
 import { CardlistComponent               } from './dominion/cardlist/cardlist.component';
 import { CardPropertyDialogComponent     } from './dominion/card-property-dialog/card-property-dialog.component';
-import { CardImageComponent              } from './dominion/card-image/card-image.component';
+import { DominionCardImageComponent      } from './dominion/dominion-card-image/dominion-card-image.component';
 import { AddGameResultComponent          } from './dominion/randomizer/add-game-result/add-game-result.component';
 import { SubmitGameResultDialogComponent } from './dominion/submit-game-result-dialog/submit-game-result-dialog.component';
 import { GameResultOfPlayerComponent     } from './dominion/game-result/game-result-of-player/game-result-of-player.component';
 import { ScoringService                  } from './dominion/http-scoring.service';
+import { RandomizerCardImageComponent } from './dominion/randomizer/randomizer-card-image/randomizer-card-image.component';
 
 
 @NgModule({
@@ -52,12 +53,13 @@ import { ScoringService                  } from './dominion/http-scoring.service
         ItemsPerPageComponent,
         ResetButtonComponent,
         CardPropertyDialogComponent,
-        CardImageComponent,
+        DominionCardImageComponent ,
         AddGameResultComponent,
         SubmitGameResultDialogComponent,
         MyWaitingSpinnerComponent,
         GameResultComponent,
         GameResultOfPlayerComponent,
+        RandomizerCardImageComponent,
     ],
     imports: [
         BrowserModule,

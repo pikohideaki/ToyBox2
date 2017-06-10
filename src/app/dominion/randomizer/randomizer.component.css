@@ -12,8 +12,12 @@
     margin: 10px;
 }
 
-.randomizerOptions,
-.supplyTable {
+#randomizerOptions,
+#supplyTable {
     float: left;
     margin: 20px;
+}
+
+.clear {
+    clear: left;
 }

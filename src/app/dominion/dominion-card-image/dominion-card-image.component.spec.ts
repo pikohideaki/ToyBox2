@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CardImageComponent } from './card-image.component';
+import { DominionCardImageComponent } from './dominion-card-image.component';
 
 describe('CardImageComponent', () => {
-  let component: CardImageComponent;
-  let fixture: ComponentFixture<CardImageComponent>;
+  let component: DominionCardImageComponent;
+  let fixture: ComponentFixture<DominionCardImageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CardImageComponent ]
+      declarations: [ DominionCardImageComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CardImageComponent);
+    fixture = TestBed.createComponent(DominionCardImageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

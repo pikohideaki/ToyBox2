@@ -1,0 +1,67 @@
+
+<div class="CardArea" id="KingdomCards10" *ngIf="SelectedCardsForView.KingdomCards10.length > 0">
+    <ng-container *ngFor="let card of SelectedCardsForView.KingdomCards10" >
+        <dominion-card-image
+            [class.checked]="card.checked"
+            [card]='CardPropertyList[card.index]' faceUp='true' width='160'>
+        </dominion-card-image>
+    </ng-container>
+</div>
+
+
+<!--
+<div class="CardArea" id="Prosperity"  *ngIf="SelectedCardsForView.Prosperity">
+    <dominion-card-image
+        [class.checked]="Platinum.checked"
+        card='Platinum.data' faceUp='true' width='160'>
+    </dominion-card-image>
+    <dominion-card-image
+        [class.checked]="Colony.checked"
+        card='Colony.data' faceUp='true' width='160'>
+    </dominion-card-image>
+</div>
+-->
+
+
+<div class="CardArea" id="BaneCard__Obelisk" *ngIf="SelectedCardsForView.BaneCard.length + SelectedCardsForView.Obelisk.length > 0">
+    <ng-container *ngFor="let card of SelectedCardsForView.BaneCard" >
+        <dominion-card-image
+            [class.checked]="card.checked"
+            [card]='CardPropertyList[card.index]' faceUp='true' width='160'>
+        </dominion-card-image>
+    </ng-container>
+
+    <ng-container *ngFor="let card of SelectedCardsForView.Obelisk" >
+        <dominion-card-image
+            [class.checked]="card.checked"
+            [card]='CardPropertyList[card.index]' faceUp='true' width='160'>
+        </dominion-card-image>
+    </ng-container>
+</div>
+
+
+<div class="CardArea" id="EventCards__LandmarkCards">
+    <ng-container *ngFor="let card of SelectedCardsForView.EventCards" >
+        <dominion-card-image
+            [class.checked]="card.checked"
+            [card]='CardPropertyList[card.index]' faceUp='true' height='160'>
+        </dominion-card-image>
+    </ng-container>
+
+    <ng-container *ngFor="let card of SelectedCardsForView.LandmarkCards" >
+        <dominion-card-image
+            [class.checked]="card.checked"
+            [card]='CardPropertyList[card.index]' faceUp='true' height='160'>
+        </dominion-card-image>
+    </ng-container>
+</div>
+
+
+<div class="CardArea" id="BlackMarketPile">
+    <ng-container *ngFor="let card of SelectedCardsForView.BlackMarketPile" >
+        <dominion-card-image
+            [class.checked]="card.checked"
+            [card]='CardPropertyList[card.index]' faceUp='true' width='160'>
+        </dominion-card-image>
+    </ng-container>
+</div>
