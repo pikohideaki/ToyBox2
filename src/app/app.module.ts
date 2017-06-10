@@ -36,6 +36,7 @@ import { SubmitGameResultDialogComponent } from './dominion/submit-game-result-d
 import { GameResultOfPlayerComponent     } from './dominion/game-result/game-result-of-player/game-result-of-player.component';
 import { ScoringService                  } from './dominion/http-scoring.service';
 import { RandomizerCardImageComponent } from './dominion/randomizer/randomizer-card-image/randomizer-card-image.component';
+import { AppListComponent } from './app-list/app-list.component';
 
 
 @NgModule({
@@ -60,6 +61,7 @@ import { RandomizerCardImageComponent } from './dominion/randomizer/randomizer-c
         GameResultComponent,
         GameResultOfPlayerComponent,
         RandomizerCardImageComponent,
+        AppListComponent,
     ],
     imports: [
         BrowserModule,

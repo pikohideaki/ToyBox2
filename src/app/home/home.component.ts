@@ -8,13 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-    Apps: {address: string, title: string, subtitle: string}[] = [
+    Apps: {address: string, inService: boolean, title: string, subtitle: string}[] = [
         {
             address: "/dominion",
+            inService : true,
             title: "Dominion Apps",
             subtitle: "サプライ生成＆ゲーム結果追加，成績表，プレイヤー一覧，カード一覧表，ルールブック",
         },
-    ]
+    ];
 
   constructor() { }
 

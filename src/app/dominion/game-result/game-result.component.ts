@@ -23,7 +23,7 @@ export class GameResultComponent implements OnInit {
     dateBegin: Date;
     dateEnd  : Date;
 
-    private GetGameResultListUrl = `${this.HOST_NAME}/api/GameResultList.json`;
+    GetGameResultListUrl = `${this.HOST_NAME}/api/GameResultList.json`;
     // private GetGameResultListUrl = `${this.HOST_NAME}/api/GetJsonData.php?targetFileName=GameResultList.json&jsonPrettyPrint=true`;
     // private GetGameResultListUrl = `${this.HOST_NAME}/api/GetJsonData.php?targetFileName=GameResultList.json`;
 

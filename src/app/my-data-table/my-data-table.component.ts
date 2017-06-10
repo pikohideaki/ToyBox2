@@ -59,13 +59,12 @@ export class MyDataTableComponent implements OnInit, OnChanges  {
 
     ngOnChanges( changes: SimpleChanges ) {
         if ( changes.data != undefined ) {  // at http-get done
-            this.updateView();
-
             this.columnSettings.forEach( e => {
                 e.asyncOptions = this.stateCtrl.valueChanges
                             .startWith(null)
                             .map( inputString => this.filterAsyncOptions( e.name, inputString) );
             });
+            this.updateView();
         }
     }
 

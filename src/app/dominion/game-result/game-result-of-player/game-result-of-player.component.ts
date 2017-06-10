@@ -49,13 +49,14 @@ export class GameResultOfPlayerComponent implements OnInit, OnChanges {
 
     calcGameResultOfPlayers() {
         // get all player names
-        let playerNames = new Set();
+        let playerNamesFiltered = new Set();
         this.GameResultListFiltered.forEach( gr => gr.players.forEach( player => {
-            playerNames.add( player.name );
+            playerNamesFiltered.add( player.name );
         }));
 
         // initialize
-        playerNames.forEach( name => {
+        this.GameResultOfEachPlayer = [];
+        playerNamesFiltered.forEach( name => {
             this.GameResultOfEachPlayer[name] = {
                 count        : 0,
                 countRank    : [0,0,0,0,0,0,0],
@@ -76,7 +77,7 @@ export class GameResultOfPlayerComponent implements OnInit, OnChanges {
             playerResult.scoreAverage = playerResult.scoreSum / playerResult.count;
         });
 
-        // sort
+        // round and sort
         this.GameResultOfEachPlayerForView = [];  // reset
         this.mylib.objectForEach( this.GameResultOfEachPlayer, (playerResult, playerName) => {
             this.GameResultOfEachPlayerForView.push( {

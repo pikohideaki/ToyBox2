@@ -97,7 +97,6 @@ export class RandomizerCardImageComponent implements OnInit, OnChanges {
             this.SelectedCardsForView.BlackMarketPile
             = this.SelectedCards.BlackMarketPile
                 .map( e => { return { index: e, checked: false } } );
-console.log(this.SelectedCardsForView)
         }
     }
 }

@@ -27,6 +27,8 @@ export class DominionCardImageComponent implements OnInit {
   @Input() fileSize: string;
   @Input() width: number;
   @Input() height: number;
+  @Input() isButton: boolean;
+
 
   wideCardTypes = [ 'イベント', 'ランドマーク' ];
 
