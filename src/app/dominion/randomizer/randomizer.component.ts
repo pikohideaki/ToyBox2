@@ -48,6 +48,9 @@ export class RandomizerComponent implements OnInit {
         BlackMarketPile : [],
     };
 
+    randomizerButtonDisabled: boolean = false;
+
+
     constructor(
         private mylib: MyLibraryService,
         private httpDominionSetNameListService: DominionSetNameListHttpService,
@@ -82,8 +85,13 @@ export class RandomizerComponent implements OnInit {
 
     randomizerClicked() {
         if ( this.DominionSetNameList.every( DominionSet => !DominionSet.selected ) ) return;
+        this.randomizerButtonDisabled = true;
         this.randomizer();
         this.mylib.localStorage_set('DominionSetNameList', this.DominionSetNameList );
+    }
+
+    unlockClicked() {
+        this.randomizerButtonDisabled = false;
     }
 
 

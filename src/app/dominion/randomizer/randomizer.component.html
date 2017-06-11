@@ -9,6 +9,19 @@
 
         <div *ngIf="httpGetDone">
 
+            <!--<div id="gameGroups">
+                <div id="gameGroupsList">
+                    <div *ngFor="gameGroups">
+                        <button md-raised-button color='primary'
+                                
+                                (click)='group1Clicked()'>
+                            group1
+                        </button>
+                    </div>
+                </div>
+            </div>-->
+
+
             <div id="randomizerOptions">
                 <div>
                     <md-slide-toggle [(ngModel)]="AllSetsSelected"  (change)="selectAllToggle( $event )">
@@ -22,8 +35,15 @@
                 </div>
 
                 <div class="marginedElement">
-                    <button md-raised-button color='primary' (click)='randomizerClicked()'>
+                    <button md-raised-button color='primary'
+                            (click)='randomizerClicked()'
+                            [disabled]="randomizerButtonDisabled">
                         Randomizer
+                    </button>
+                    <button md-raised-button color='primary'
+                            *ngIf="randomizerButtonDisabled"
+                            (click)='unlockClicked()'>
+                        Unlock
                     </button>
                 </div>
             </div>
