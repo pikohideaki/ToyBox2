@@ -11,6 +11,12 @@ import { MaterialModule,
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';  // md-tab
 import 'hammerjs';
 
+// firebase
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { environment } from '../environments/environment';
+
 
 import { AppComponent                    } from './app.component';
 import { MyLibraryService                } from './my-library.service';
@@ -37,6 +43,7 @@ import { GameResultOfPlayerComponent     } from './dominion/game-result/game-res
 import { ScoringService                  } from './dominion/http-scoring.service';
 import { RandomizerCardImageComponent } from './dominion/randomizer/randomizer-card-image/randomizer-card-image.component';
 import { AppListComponent } from './app-list/app-list.component';
+import { LocalGameGroupsComponent } from './dominion/randomizer/local-game-groups/local-game-groups.component';
 
 
 @NgModule({
@@ -62,6 +69,7 @@ import { AppListComponent } from './app-list/app-list.component';
         GameResultOfPlayerComponent,
         RandomizerCardImageComponent,
         AppListComponent,
+        LocalGameGroupsComponent,
     ],
     imports: [
         BrowserModule,
@@ -74,6 +82,9 @@ import { AppListComponent } from './app-list/app-list.component';
         MdDatepickerModule,
         MdNativeDateModule,
         // StickyModule,
+        AngularFireModule.initializeApp(environment.firebase), // imports firebase/app needed for everything
+        // AngularFireDatabaseModule, // imports firebase/database, only needed for database features
+        // AngularFireAuthModule, // imports firebase/auth, only needed for auth features
         RouterModule.forRoot( [
             {
                 path: '',

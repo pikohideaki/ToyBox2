@@ -1,6 +1,10 @@
 
 <!--使用する拡張セットにチェック-->
 
+<h3>Add or join a group</h3>
+<local-game-groups *ngIf="httpGetDone"></local-game-groups>
+<hr>
+
 
 <md-tab-group>
 
@@ -9,17 +13,6 @@
 
         <div *ngIf="httpGetDone">
 
-            <!--<div id="gameGroups">
-                <div id="gameGroupsList">
-                    <div *ngFor="gameGroups">
-                        <button md-raised-button color='primary'
-                                
-                                (click)='group1Clicked()'>
-                            group1
-                        </button>
-                    </div>
-                </div>
-            </div>-->
 
 
             <div id="randomizerOptions">

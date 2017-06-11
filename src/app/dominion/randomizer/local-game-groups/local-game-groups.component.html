@@ -1,0 +1,23 @@
+
+<!--add group-->
+<form #newGroupForm="ngForm" (ngSubmit)="addNewGroup()">
+    <md-input-container>
+        <input mdInput name="newGroupName" [value]="newGroupName" placeholder="Group Name" required>
+    </md-input-container>
+    <md-input-container>
+        <input mdInput name="newGroupPassword" placeholder="Group Password" required>
+    </md-input-container>
+    <button type="submit" md-mini-fab color="primary"
+            [disabled]="!newGroupForm.form.valid">
+        <md-icon>add</md-icon>
+    </button>
+</form>
+
+
+<span id="gameGroupsList">
+    <button md-raised-button color='primary'
+            *ngFor="let group of gameGroups"
+            (click)='group1Clicked()'>
+        {{group.name}}
+    </button>
+</span>
