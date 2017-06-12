@@ -76,7 +76,6 @@ import { LocalGameGroupsComponent } from './dominion/randomizer/local-game-group
         FormsModule,
         ReactiveFormsModule,
         BrowserAnimationsModule,
-        FormsModule,
         HttpModule,
         MaterialModule,
         MdDatepickerModule,
